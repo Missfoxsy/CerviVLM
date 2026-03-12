@@ -1,0 +1,73 @@
+# VLM-FO1 宫颈细胞 Pathology Early Fusion 阶段A（融合预热）配置
+
+model:
+  base_model: "resources/VLM-FO1_Qwen2.5-VL-3B-v01"
+
+data:
+  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/stage/stageA_train.json"
+  test_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/stage/stageA_val.json"
+  image_size: 896
+  max_regions: 100
+  path_feature_root: "/home/nas3/biod/shiyu/data/data_vl_20260115/path_features"
+
+training:
+  output_dir: "outputs/cervical_PAfull_A_fusion"
+  phase: "feature_fusion_warmup"
+  num_epochs: 1
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 0.0001
+  warmup_steps: 50
+  save_steps: 500
+  eval_steps: 500
+  logging_steps: 10
+  save_total_limit: 5
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+  ddp_timeout: 7200
+
+  # 仅训练融合路径
+  trainable_modules:
+    - "path_encoder"
+    - "mm_projector_path"
+    - "mm_projector_aux"
+
+  optimizer:
+    type: "adamw_torch"
+    weight_decay: 0.01
+  lr_scheduler:
+    type: "cosine"
+    warmup_ratio: 0.15
+
+lora:
+  enabled: false
+  r: 8
+  alpha: 16
+  dropout: 0.05
+  target_modules: null
+
+freeze:
+  vision_tower: true
+  language_model: true
+  language_model_layers: []
+
+hardware:
+  device: "cuda"
+  mixed_precision: "bf16"
+  dataloader_num_workers: 1
+  dataloader_pin_memory: true
+
+misc:
+  seed: 42
+  max_grad_norm: 1.0
+  report_to: "wandb"
+  run_name: "cervical_cell_stageA_feature_fusion_warmup"
+
+wandb:
+  project: "vlm-fo1-cervical"
+  entity: null
+  name: null
+  tags: ["cervical", "vlm-fo1", "stageA", "early-fusion", "warmup"]
+  notes: "StageA feature fusion warmup: train path_encoder + mm_projector_path + mm_projector_aux"
+

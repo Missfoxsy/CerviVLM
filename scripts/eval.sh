@@ -1,0 +1,1 @@
+python scripts/eval_cervical.py

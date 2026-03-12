@@ -1,0 +1,87 @@
+# VLM-FO1 宫颈细胞 Pathology Token 阶段B（LoRA 微调阶段）配置文件
+
+# 模型配置
+model:
+  base_model: "resources/VLM-FO1_Qwen2.5-VL-3B-v01"
+
+# 数据配置（与阶段A一致）
+data:
+  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/final/stage2_train.json"
+  test_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/final/stage2_val.json"
+  image_size: 896
+  max_regions: 100
+  path_feature_root: "/home/nas3/biod/shiyu/data/data_vl_20260115/path_features"
+
+# 训练配置（阶段B：Perception Instruction + LoRA）
+training:
+  output_dir: "outputs/cervical_PAfull_B"
+  num_epochs: 3                 # 阶段B：LoRA 微调，沿用你原来的 3 epoch 设置
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 0.00002        # 阶段B：LoRA + projector，使用较小 lr，避免破坏已有能力
+  warmup_steps: 50
+  save_steps: 500
+  eval_steps: 500
+  logging_steps: 10
+  save_total_limit: 10
+  load_best_model_at_end: true
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+  # 训练阶段：
+  # - full：启用 LoRA，并允许 visual/path projector 等模块参与训练
+  phase: "full"
+  
+  optimizer:
+    type: "adamw_torch"
+    weight_decay: 0.01
+  
+  lr_scheduler:
+    type: "cosine"
+    warmup_ratio: 0.15
+  # 阶段B辅助损失（在基础LM loss上叠加）
+  # - region_loss_weight: 定位任务(<regionX>) token强化损失权重
+  # - cls_loss_weight: 分类任务(类别名) token强化损失权重
+  aux_loss:
+    log_every_steps: 50
+    region_loss_weight: 0.2
+    cls_loss_weight: 0.2
+    # 可选：按 task_id 细分权重（字符串键，优先级高于全局权重）
+    # task_id: 0/1 定位，3/4 分类
+    # region_loss_weight_by_task:
+    #   "0": 0.2
+    #   "1": 0.3
+    # cls_loss_weight_by_task:
+    #   "3": 0.2
+    #   "4": 0.3
+
+# LoRA配置（阶段B 启用 LoRA）
+lora:
+  enabled: true
+  r: 8
+  alpha: 16
+  dropout: 0.05
+  target_modules: null
+
+freeze:
+  vision_tower: true           # 默认仍冻结视觉主干，如需 end-to-end 再改为 false
+  language_model_layers: []
+
+hardware:
+  device: "cuda"
+  mixed_precision: "bf16"
+  dataloader_num_workers: 1
+  dataloader_pin_memory: true
+
+misc:
+  seed: 42
+  max_grad_norm: 1.0
+  report_to: "wandb"
+  run_name: "cervical_cell_stage2B_lora_full"
+  
+wandb:
+  project: "vlm-fo1-cervical"
+  entity: null
+  name: null
+  tags: ["cervical", "vlm-fo1", "stage2B", "pathology-token", "lora"]
+  notes: "Stage2-B: LoRA 全流程微调，加载阶段A checkpoint 作为初始化"
+
