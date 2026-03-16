@@ -807,13 +807,13 @@ def main():
     parser.add_argument(
         '--base_model',
         type=str,
-        default='resources/VLM-FO1_Qwen2.5-VL-3B-v01',
+        default='outputs/cervical_PAfull_A_fusion',
         help='Path to base model'
     )
     parser.add_argument(
         '--checkpoint',
         type=str,
-        default='outputs/cervical_PAfull_B',
+        default='outputs/cervical_PAfull_B_fusion',
         help='Path to checkpoint (LoRA weights or full model)'
     )
     parser.add_argument(
@@ -826,7 +826,7 @@ def main():
     parser.add_argument(
         '--output_dir',
         type=str,
-        default='eval_result/PAfull_B',
+        default='eval_result/PAfull_B_fusion',
         help='Output directory for evaluation results'
     )
     parser.add_argument(

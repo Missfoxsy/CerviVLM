@@ -38,16 +38,6 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
         self.lm_head = nn.Linear(config.hidden_size, config.vocab_size, bias=False)
         self.rope_deltas = None  # cache rope_deltas here
 
-        # ------------------------------------------------------------------
-        # Pathology feature early fusion (single-token per ROI)
-        # - 保持每个 ROI 仍对应一个 region token，避免双 token 打乱 <regionX> 语义对齐
-        # - path_encoder: raw pathology stats -> region hidden
-        # - mm_projector_path: fuse([visual_region_feat, path_region_feat]) -> fused_region_feat
-        # ------------------------------------------------------------------
-        self.path_encoder = None          # raw_path_dim -> mm_region_hidden_size (with LN)
-        self.mm_projector_path = None     # concat(2*mm_region_hidden_size) -> mm_region_hidden_size
-        self.path_type_embed = None       # 保留兼容旧checkpoint，不再用于双token类型注入
-
         self.post_init()
 
     # Encode input images into feature representations
@@ -81,7 +71,8 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
         
         return image_features, image_grid_thws, multi_level_features
     
-    # Encode region regions (bounding boxes) into features, optionally using auxiliary vision tower
+    # Encode regions (bounding boxes) into features, optionally using auxiliary vision tower
+    # NOTE: path_features 参数保留在签名中以兼容旧调用，但当前实现已不再使用病理特征，仅依赖视觉特征。
     def encode_regions(self, images, bbox_list, vt_multi_level_features=None, vt_images_size=None, path_features=None):
         aux_image_features_list = self.get_model().get_vision_tower_aux()(images)
         region_features = []
@@ -114,59 +105,8 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                     aux_boxes=[boxes],
                     vt_boxes=[vt_boxes]
                 ).squeeze(0).to(multilevel_aux_visual_feats[0].dtype)
-
-                # 早期融合：在 region feature 层融合 pathology，再映射为单个 visual token
-                fused_region_feat = extracted_region_feat
-                if path_features is not None and batch_idx < len(path_features) and path_features[batch_idx] is not None:
-                    pf = path_features[batch_idx]
-                    if pf.ndim == 1:
-                        pf = pf.unsqueeze(0)
-                    # 对齐 ROI 数量：不足则补零，过多则截断
-                    if pf.shape[0] != extracted_region_feat.shape[0]:
-                        if pf.shape[0] < extracted_region_feat.shape[0]:
-                            pad_len = extracted_region_feat.shape[0] - pf.shape[0]
-                            pf = torch.cat([
-                                pf,
-                                torch.zeros(
-                                    pad_len,
-                                    pf.shape[-1],
-                                    device=pf.device,
-                                    dtype=pf.dtype,
-                                ),
-                            ], dim=0)
-                        else:
-                            pf = pf[:extracted_region_feat.shape[0]]
-
-                    pf = pf.to(device=extracted_region_feat.device, dtype=extracted_region_feat.dtype)
-
-                    region_dim = extracted_region_feat.shape[-1]
-
-                    # 懒初始化 path_encoder / mm_projector_path（融合器）
-                    if self.path_encoder is None:
-                        in_dim = pf.shape[-1]
-                        self.path_encoder = nn.Sequential(
-                            nn.Linear(in_dim, region_dim),
-                            nn.GELU(),
-                            nn.LayerNorm(region_dim),
-                            nn.Linear(region_dim, region_dim),
-                        ).to(device=extracted_region_feat.device)
-                    if self.mm_projector_path is None:
-                        self.mm_projector_path = nn.Sequential(
-                            nn.Linear(region_dim * 2, region_dim),
-                            nn.GELU(),
-                            nn.LayerNorm(region_dim),
-                        ).to(device=extracted_region_feat.device)
-
-                    # 以融合层权重 dtype 作为计算基准，避免 bf16/float 混合导致 backward dtype 冲突
-                    fusion_dtype = self.path_encoder[0].weight.dtype
-                    pf = pf.to(device=extracted_region_feat.device, dtype=fusion_dtype)
-                    vis_for_fusion = extracted_region_feat.to(dtype=fusion_dtype)
-                    path_hidden = self.path_encoder(pf)
-                    fused_region_feat = self.mm_projector_path(
-                        torch.cat([vis_for_fusion, path_hidden], dim=-1)
-                    ).to(dtype=extracted_region_feat.dtype)
-
-                visual_tokens = self.get_model().mm_projector_aux(fused_region_feat)  # [R, H_llm]
+                # 仅使用视觉区域特征，不再融合病理特征
+                visual_tokens = self.get_model().mm_projector_aux(extracted_region_feat)  # [R, H_llm]
                 region_features.append(visual_tokens.unsqueeze(1))  # [R, 1, H_llm]
         else:
             # Extract region features only from auxiliary vision tower
@@ -184,55 +124,8 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                     multi_level_aux_features,
                     [boxes],
                 ).squeeze(0).to(multi_level_aux_features[0].dtype)
-
-                fused_region_feat = extracted_region_feat
-                if path_features is not None and batch_idx < len(path_features) and path_features[batch_idx] is not None:
-                    pf = path_features[batch_idx]
-                    if pf.ndim == 1:
-                        pf = pf.unsqueeze(0)
-                    if pf.shape[0] != extracted_region_feat.shape[0]:
-                        if pf.shape[0] < extracted_region_feat.shape[0]:
-                            pad_len = extracted_region_feat.shape[0] - pf.shape[0]
-                            pf = torch.cat([
-                                pf,
-                                torch.zeros(
-                                    pad_len,
-                                    pf.shape[-1],
-                                    device=pf.device,
-                                    dtype=pf.dtype,
-                                ),
-                            ], dim=0)
-                        else:
-                            pf = pf[:extracted_region_feat.shape[0]]
-
-                    pf = pf.to(device=extracted_region_feat.device, dtype=extracted_region_feat.dtype)
-
-                    region_dim = extracted_region_feat.shape[-1]
-
-                    if self.path_encoder is None:
-                        in_dim = pf.shape[-1]
-                        self.path_encoder = nn.Sequential(
-                            nn.Linear(in_dim, region_dim),
-                            nn.GELU(),
-                            nn.LayerNorm(region_dim),
-                            nn.Linear(region_dim, region_dim),
-                        ).to(device=extracted_region_feat.device)
-                    if self.mm_projector_path is None:
-                        self.mm_projector_path = nn.Sequential(
-                            nn.Linear(region_dim * 2, region_dim),
-                            nn.GELU(),
-                            nn.LayerNorm(region_dim),
-                        ).to(device=extracted_region_feat.device)
-
-                    fusion_dtype = self.path_encoder[0].weight.dtype
-                    pf = pf.to(device=extracted_region_feat.device, dtype=fusion_dtype)
-                    vis_for_fusion = extracted_region_feat.to(dtype=fusion_dtype)
-                    path_hidden = self.path_encoder(pf)
-                    fused_region_feat = self.mm_projector_path(
-                        torch.cat([vis_for_fusion, path_hidden], dim=-1)
-                    ).to(dtype=extracted_region_feat.dtype)
-
-                visual_tokens = self.get_model().mm_projector_aux(fused_region_feat)  # [R, H_llm]
+                # 仅使用视觉区域特征，不再融合病理特征
+                visual_tokens = self.get_model().mm_projector_aux(extracted_region_feat)  # [R, H_llm]
                 region_features.append(visual_tokens.unsqueeze(1))  # [R, 1, H_llm]
 
         return region_features

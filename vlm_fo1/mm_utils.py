@@ -550,71 +550,6 @@ def make_message_context(tokenizer, message, chat_format="chatml"):
                     context_tokens = tokenizer_image_token(inp, tokenizer, image_token_index=IMAGE_TOKEN_INDEX)
         return inp, context_tokens, image_urls, bbox_list
 
-def _load_path_features_for_image(path_feature_root: str, image_path: str, bbox_list):
-    """
-    Load precomputed pathology features for an image and align them to the given ROI bboxes.
-
-    Expected cache file format (produced by scripts/build_path_features.py):
-      {image_basename}.pt with keys:
-        - bboxes: Tensor[M, 4]
-        - features: Tensor[M, D_raw]
-
-    Matching strategy:
-      For each ROI bbox in bbox_list, pick cached feature with max IoU; if max IoU <= 0, return zeros.
-    """
-    if path_feature_root is None:
-        return None
-    if image_path is None:
-        return None
-    if bbox_list is None or len(bbox_list) == 0:
-        return None
-    image_name = os.path.splitext(os.path.basename(image_path))[0]
-    feat_path = os.path.join(path_feature_root, image_name + ".pt")
-    if not os.path.exists(feat_path):
-        return None
-    try:
-        try:
-            cache = torch.load(feat_path, map_location="cpu", weights_only=True)
-        except TypeError:
-            cache = torch.load(feat_path, map_location="cpu")
-    except Exception:
-        return None
-    cached_boxes = cache.get("bboxes", None)
-    cached_feats = cache.get("features", None)
-    if cached_boxes is None or cached_feats is None:
-        return None
-    if not isinstance(cached_boxes, torch.Tensor) or not isinstance(cached_feats, torch.Tensor):
-        return None
-    if cached_boxes.ndim != 2 or cached_boxes.shape[1] != 4:
-        return None
-    if cached_boxes.shape[0] != cached_feats.shape[0]:
-        return None
-
-    sample_boxes = torch.tensor(bbox_list, dtype=torch.float32)
-    path_feats = []
-    for i in range(sample_boxes.shape[0]):
-        box = sample_boxes[i]
-        x1 = torch.max(box[0], cached_boxes[:, 0])
-        y1 = torch.max(box[1], cached_boxes[:, 1])
-        x2 = torch.min(box[2], cached_boxes[:, 2])
-        y2 = torch.min(box[3], cached_boxes[:, 3])
-        inter_w = (x2 - x1).clamp(min=0)
-        inter_h = (y2 - y1).clamp(min=0)
-        inter = inter_w * inter_h
-        area_box = (box[2] - box[0]).clamp(min=0) * (box[3] - box[1]).clamp(min=0)
-        area_cached = (cached_boxes[:, 2] - cached_boxes[:, 0]).clamp(min=0) * (
-            (cached_boxes[:, 3] - cached_boxes[:, 1]).clamp(min=0)
-        )
-        union = area_box + area_cached - inter
-        iou = inter / union.clamp(min=1e-6)
-        max_iou, max_idx = torch.max(iou, dim=0)
-        if float(max_iou) <= 0.0:
-            path_feats.append(torch.zeros_like(cached_feats[0]))
-        else:
-            path_feats.append(cached_feats[max_idx])
-    return torch.stack(path_feats, dim=0)
-
-
 def prepare_inputs(
     model_name,
     model,
@@ -683,7 +618,6 @@ def prepare_inputs(
     primary_images_tensor = None
     auxiliary_images_tensor = None
     primary_image_grid_thws = None
-    path_features = None
     if image_urls:
         # Load images, resize them, and update bbox_list downstream
         images = [load_image(i) for i in image_urls]
@@ -714,11 +648,7 @@ def prepare_inputs(
         else:
             auxiliary_images_tensor = None
 
-        # Pathology features (optional): use original bbox coords to match cached HoVer-Net stats
-        if path_feature_root is not None and bbox_list_original is not None and len(image_urls) > 0:
-            pf = _load_path_features_for_image(path_feature_root, image_urls[0], bbox_list_original)
-            if pf is not None:
-                path_features = [pf.to(device)]
+        # 不再加载病理特征；path_feature_root 参数仅为兼容旧接口，实际被忽略
 
     # Preprocess primary images for main vision model branch
     primary_images = []
@@ -756,7 +686,6 @@ def prepare_inputs(
         images_aux=auxiliary_images_tensor,
         image_grid_thws=primary_image_grid_thws,
         bbox_list=bbox_list,
-        path_features=path_features,
         do_sample=do_sample,
         temperature=temperature,
         max_new_tokens=max_tokens,
@@ -764,7 +693,7 @@ def prepare_inputs(
         top_p=top_p,
         use_cache=True,
         stopping_criteria=[stopping_criteria],
-        pad_token_id=tokenizer.pad_token_id
+        pad_token_id=tokenizer.pad_token_id,
     )
     return generation_kwargs
 

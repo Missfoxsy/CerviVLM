@@ -140,13 +140,7 @@ class CervicalDataCollator:
                     bbox_lists.append(torch.tensor([], dtype=torch.float32))
             batch['bbox_list'] = bbox_lists
         
-        # 病理特征（按样本存 list[Tensor]，与 bbox_list 对齐）
-        # 不能只看首样本，避免首样本为 None 时整批丢失病理特征。
-        if any(('path_features' in f and f['path_features'] is not None) for f in features):
-            path_features_batch = []
-            for f in features:
-                path_features_batch.append(f.get('path_features', None))
-            batch['path_features'] = path_features_batch
+        # 不再使用病理特征，path_features 字段从数据管线中移除
 
         # task_id / 助手答案文本（用于阶段B辅助损失）
         batch['task_ids'] = [f.get('task_id', -1) for f in features]
@@ -374,8 +368,6 @@ class CervicalTrainer(Trainer):
             model_inputs['images_aux'] = inputs.pop('images_aux')
         if 'bbox_list' in inputs:
             model_inputs['bbox_list'] = inputs.pop('bbox_list')
-        if 'path_features' in inputs:
-            model_inputs['path_features'] = inputs.pop('path_features')
         task_ids = inputs.pop('task_ids', None)
         assistant_texts = inputs.pop('assistant_texts', None)
         
@@ -940,45 +932,6 @@ def main():
     data_collator = CervicalDataCollator(tokenizer=tokenizer, device=device)
     run_startup_sanity_check(train_dataset, data_collator)
 
-    # ------------------------------------------------------------------
-    # Pathology 融合模块（path_encoder/mm_projector_path）是懒初始化。
-    # 为确保其参数在 Trainer/optimizer 构建前可见，这里在需要时先做一次 warmup forward。
-    # ------------------------------------------------------------------
-    need_path_warmup = (path_feature_root is not None) and (phase in ("paffe_align", "feature_fusion_warmup", "full"))
-    if need_path_warmup:
-        try:
-            warm_sample = train_dataset[0] if not isinstance(train_dataset, torch.utils.data.Subset) else train_dataset.dataset[train_dataset.indices[0]]
-            warm_batch = data_collator([warm_sample])
-            warm_inputs = {
-                "input_ids": warm_batch["input_ids"].to(device),
-                "attention_mask": warm_batch["attention_mask"].to(device),
-                "labels": warm_batch["labels"].to(device),
-                "images": warm_batch["images"].to(device),
-                "image_grid_thws": warm_batch["image_grid_thws"],
-            }
-            if "images_aux" in warm_batch and warm_batch["images_aux"] is not None:
-                warm_inputs["images_aux"] = warm_batch["images_aux"].to(device)
-            if "bbox_list" in warm_batch and warm_batch["bbox_list"] is not None:
-                warm_inputs["bbox_list"] = [
-                    b.to(device) if b is not None else None
-                    for b in warm_batch["bbox_list"]
-                ]
-            if "path_features" in warm_batch and warm_batch["path_features"] is not None:
-                warm_inputs["path_features"] = [
-                    p.to(device) if p is not None else None
-                    for p in warm_batch["path_features"]
-                ]
-
-            model.eval()
-            with torch.no_grad():
-                _ = model(**warm_inputs)
-            model.train()
-            print("Pathology warmup forward done (path_encoder/mm_projector_path initialized).")
-        except Exception as e:
-            print(f"Warning: Pathology warmup forward failed: {type(e).__name__}: {e}")
-            import traceback
-            traceback.print_exc()
-    
     # 训练配置
     output_dir = training_config['output_dir']
     
