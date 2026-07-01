@@ -28,6 +28,9 @@ class OmChatMetaModel:
                 use_simpleFPN_for_vt=getattr(config, "mm_use_simpleFPN_for_vt", False),
                 aux_vision_tower_spatial_scale=0.25,
                 aux_vision_tower_region_feature_dims=[256, 512, 1024, 2048],
+                use_hierarchical_fusion=getattr(config, "mm_use_hierarchical_fusion", False),
+                hierarchical_num_heads=getattr(config, "mm_hierarchical_num_heads", 8),
+                hierarchical_fusion_mode=getattr(config, "mm_hierarchical_fusion_mode", "legacy"),
             )
         if getattr(config, "mm_vision_tower_aux", None) is not None:
             self.mm_projector_aux = build_vision_projector_aux(config)

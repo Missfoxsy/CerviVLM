@@ -153,6 +153,19 @@ class SimpleFP(nn.Module):
                 layers = []
             elif scale == 0.5:
                 layers = [nn.MaxPool2d(kernel_size=2, stride=2)]
+            elif scale == 0.25:
+                layers = [nn.MaxPool2d(kernel_size=4, stride=4)]
+            elif scale == 8.0:
+                layers = [
+                    nn.ConvTranspose2d(dim, dim // 2, kernel_size=2, stride=2),
+                    get_norm(norm, dim // 2),
+                    nn.GELU(),
+                    nn.ConvTranspose2d(dim // 2, dim // 4, kernel_size=2, stride=2),
+                    get_norm(norm, dim // 4),
+                    nn.GELU(),
+                    nn.ConvTranspose2d(dim // 4, dim // 8, kernel_size=2, stride=2),
+                ]
+                out_dim = dim // 8
             else:
                 raise NotImplementedError(f"scale_factor={scale} is not supported yet.")
 

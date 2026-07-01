@@ -1,0 +1,190 @@
+{
+  "task_distribution": {
+    "type0": 1552,
+    "type1": 1522,
+    "type2": 1522,
+    "type4": 1522,
+    "type5": 1522,
+    "type3": 1522
+  },
+  "type0_precision": 0.9130154639175257,
+  "type0_recall": 0.9130154639175257,
+  "type0_f1": 0.9130154639175257,
+  "type0_mean_iou": 0.7778188379458583,
+  "type0_map": 0.6528994845360825,
+  "type0_tp": 1417,
+  "type0_fp": 135,
+  "type0_fn": 135,
+  "type1_precision": 0.8745072273324573,
+  "type1_recall": 0.8745072273324573,
+  "type1_f1": 0.8745072273324573,
+  "type1_mean_iou": 0.7460323236884424,
+  "type1_map": 0.6266097240473062,
+  "type1_tp": 1331,
+  "type1_fp": 191,
+  "type1_fn": 191,
+  "type2_mean_bleu": 0.7833547336710944,
+  "type2_mean_rouge_l": 0.6774586488121311,
+  "type2_mean_rouge_1": 0.7139989153786788,
+  "type2_mean_rouge_2": 0.5831925411426068,
+  "type4_accuracy": 0.7417871222076216,
+  "type4_correct": 1129,
+  "type4_total": 1522,
+  "type4_macro_precision": 0.7403136082207493,
+  "type4_macro_recall": 0.7163249581354132,
+  "type4_macro_f1": 0.7239503765537134,
+  "type4_per_class": {
+    "上皮成团": {
+      "precision": 0.8653465346534653,
+      "recall": 0.8991769547325102,
+      "f1": 0.8819374369323915,
+      "support": 486,
+      "tp": 437,
+      "fp": 68,
+      "fn": 49
+    },
+    "宫颈鳞状上皮中层": {
+      "precision": 0.6494845360824743,
+      "recall": 0.7191780821917808,
+      "f1": 0.6825568797399784,
+      "support": 438,
+      "tp": 315,
+      "fp": 170,
+      "fn": 123
+    },
+    "宫颈鳞状上皮底层": {
+      "precision": 0.6715542521994134,
+      "recall": 0.6755162241887905,
+      "f1": 0.6735294117647058,
+      "support": 339,
+      "tp": 229,
+      "fp": 112,
+      "fn": 110
+    },
+    "宫颈鳞状上皮表层": {
+      "precision": 0.774869109947644,
+      "recall": 0.5714285714285714,
+      "f1": 0.6577777777777778,
+      "support": 259,
+      "tp": 148,
+      "fp": 43,
+      "fn": 111
+    }
+  },
+  "type3_accuracy": 0.5611038107752957,
+  "type3_correct": 854,
+  "type3_total": 1522,
+  "type3_macro_precision": 0.5358335082831954,
+  "type3_macro_recall": 0.4972597664665946,
+  "type3_macro_f1": 0.4817410680091985,
+  "type3_per_class": {
+    "ASCUS": {
+      "precision": 0.3382352941176471,
+      "recall": 0.46,
+      "f1": 0.3898305084745763,
+      "support": 250,
+      "tp": 115,
+      "fp": 225,
+      "fn": 135
+    },
+    "ASC_H": {
+      "precision": 0.5564924114671164,
+      "recall": 0.8270676691729323,
+      "f1": 0.6653225806451614,
+      "support": 399,
+      "tp": 330,
+      "fp": 263,
+      "fn": 69
+    },
+    "EpitheliumNormal": {
+      "precision": 0.8579710144927536,
+      "recall": 0.7648578811369509,
+      "f1": 0.8087431693989071,
+      "support": 387,
+      "tp": 296,
+      "fp": 49,
+      "fn": 91
+    },
+    "HSIL": {
+      "precision": 0.4634146341463415,
+      "recall": 0.08878504672897196,
+      "f1": 0.14901960784313725,
+      "support": 214,
+      "tp": 19,
+      "fp": 22,
+      "fn": 195
+    },
+    "LSIL": {
+      "precision": 0.4630541871921182,
+      "recall": 0.34558823529411764,
+      "f1": 0.3957894736842105,
+      "support": 272,
+      "tp": 94,
+      "fp": 109,
+      "fn": 178
+    }
+  },
+  "type5_accuracy": 0.442838370565046,
+  "type5_correct": 674,
+  "type5_total": 1522,
+  "type5_macro_precision": 0.36436691789916914,
+  "type5_macro_recall": 0.3709247113024431,
+  "type5_macro_f1": 0.3322661738517058,
+  "type5_per_class": {
+    "ASCUS": {
+      "precision": 0.4,
+      "recall": 0.096,
+      "f1": 0.15483870967741936,
+      "support": 250,
+      "tp": 24,
+      "fp": 36,
+      "fn": 226
+    },
+    "ASC_H": {
+      "precision": 0.4816414686825054,
+      "recall": 0.5588972431077694,
+      "f1": 0.5174013921113689,
+      "support": 399,
+      "tp": 223,
+      "fp": 240,
+      "fn": 176
+    },
+    "EpitheliumNormal": {
+      "precision": 0.5110456553755522,
+      "recall": 0.896640826873385,
+      "f1": 0.6510318949343339,
+      "support": 387,
+      "tp": 347,
+      "fp": 332,
+      "fn": 40
+    },
+    "HSIL": {
+      "precision": 0.14285714285714285,
+      "recall": 0.04205607476635514,
+      "f1": 0.06498194945848375,
+      "support": 214,
+      "tp": 9,
+      "fp": 54,
+      "fn": 205
+    },
+    "LSIL": {
+      "precision": 0.2862903225806452,
+      "recall": 0.2610294117647059,
+      "f1": 0.2730769230769231,
+      "support": 272,
+      "tp": 71,
+      "fp": 177,
+      "fn": 201
+    }
+  },
+  "hierarchical_gate_stats": {
+    "all": {
+      "count": 0,
+      "mean": [],
+      "std": []
+    },
+    "by_task_type": {},
+    "by_cell_type": {},
+    "note": "gate statistics are aggregated on ROI-level gate vectors directly (less compression than sample-first mean)."
+  }
+}

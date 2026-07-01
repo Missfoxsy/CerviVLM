@@ -1,0 +1,83 @@
+# StageB 消融：跳过 Stage1，直接从 VLM-FO1 预训练基座训练 CoT 注入
+# 与 configs/train_config_stageB_lora.yaml 对齐，仅改 base / load_stageA_lora / output / 日志名
+
+model:
+  base_model: "resources/VLM-FO1_Qwen2.5-VL-3B-v01"
+  load_stageA_lora: false
+  use_hierarchical_fusion: true
+  hierarchical_num_heads: 8
+  hierarchical_fusion_mode: "task_adaptive"
+
+data:
+  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_train.json"
+  # val_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json"
+  image_size: 896
+  max_regions: 100
+  path_feature_root: null
+  language: "zh"
+
+training:
+  phase: "cot_injection"
+  output_dir: "outputs/stage2_no_stage1_ablation"
+
+  num_epochs: 1
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 0.00005
+  warmup_ratio: 0.1
+
+  save_steps: 1000
+  # eval_steps: 1000
+  logging_steps: 10
+  save_total_limit: 5
+
+  weight_decay: 0.1
+  label_smoothing: 0.05
+
+  load_best_model_at_end: false
+  # metric_for_best_model: "eval_loss"
+  # greater_is_better: false
+  # early_stopping_patience: 3
+
+  trainable_modules:
+    - "lora_layers"
+    - "model.object_vp_extractor.hierarchical_fusion"
+  gate_lr_ratio: 0.2
+
+lora:
+  enabled: true
+  r: 32
+  alpha: 64
+  dropout: 0.05
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+
+freeze:
+  vision_tower: true
+  vision_projector: true
+  region_projector: true
+  llm_mlp: true
+  llm_attention: false
+
+hardware:
+  device: "cuda"
+  mixed_precision: "bf16"
+  gradient_checkpointing: true
+  dataloader_num_workers: 4
+  dataloader_pin_memory: true
+
+misc:
+  seed: 42
+  max_grad_norm: 1.0
+  report_to: "wandb"
+  run_name: "stageB_cot_no_stage1_ablation"
+
+wandb:
+  project: "vlm-fo1-cervical"
+  entity: null
+  name: null
+  tags: ["stageB", "cot", "lora", "ablation", "no_stage1"]
+  notes: "Ablation: skip Stage1, train Stage2 CoT from pretrained VLM-FO1 base only."

@@ -1,0 +1,88 @@
+# Stage1 VT-FPN 层数消融 — 公共模板
+#
+# 保留 legacy 层级注意力（level_encoders + 跨层 MultiheadAttention + final_fusion）
+# 禁用门控（不使用 task_adaptive / gated 的 gate_network / level_selector 加权）
+#
+# FPN 策略：
+#   1/2/4 层：从预训练 4 层 SimpleFP 选取子集
+#   6 层：扩展 SimpleFP 至 [8,4,2,1,0.5,0.25]，迁移原 4 层权重
+#
+# 可运行配置：
+#   configs/train_config_stage1_fpn_ablation_{1,2,4,6}.yaml
+# 一键对比：bash scripts/run_stage1_fpn_ablation.sh
+# 训练期间不跑 val（no_val: true）；指标由脚本在训练结束后 eval
+
+model:
+  base_model: "resources/VLM-FO1_Qwen2.5-VL-3B-v01"
+  pretrained_region: true
+  use_hierarchical_fusion: true
+  hierarchical_fusion_mode: "legacy"
+  hierarchical_num_heads: 8
+  fpn_num_levels: 4
+
+data:
+  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_train.json"
+  val_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_val.json"
+  image_size: 896
+  max_regions: 100
+  language: "zh"
+
+training:
+  phase: "domain_adaptation"
+  output_dir: "outputs/stage1_fpn_ablation_4layer_legacyAttn"
+
+  num_epochs: 1
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 0.0001
+  warmup_steps: 300
+
+  save_steps: 1000
+  logging_steps: 10
+  save_total_limit: 5
+  no_val: true
+  load_best_model_at_end: false
+
+  optimizer:
+    type: "adamw_torch"
+    weight_decay: 0.05
+
+  lr_scheduler:
+    type: "cosine"
+    warmup_ratio: 0.05
+
+  trainable_modules:
+    - "lora_layers"
+    - "mm_projector"
+    - "mm_projector_aux"
+    - "hierarchical_fusion"
+
+lora:
+  enabled: true
+  r: 32
+  alpha: 64
+  dropout: 0.1
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+freeze:
+  vision_tower: true
+  language_model_layers: []
+
+hardware:
+  device: "cuda"
+  mixed_precision: "bf16"
+  dataloader_num_workers: 4
+  dataloader_pin_memory: true
+
+misc:
+  seed: 42
+  max_grad_norm: 1.0
+  report_to: "tensorboard"
+  run_name: "stage1_fpn_ablation_4layer_legacyAttn"

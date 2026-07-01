@@ -1,4 +1,5 @@
 from typing import List, Optional, Tuple, Union
+import warnings
 
 import torch
 import torch.nn as nn
@@ -73,7 +74,20 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
     
     # Encode regions (bounding boxes) into features, optionally using auxiliary vision tower
     # NOTE: path_features 参数保留在签名中以兼容旧调用，但当前实现已不再使用病理特征，仅依赖视觉特征。
-    def encode_regions(self, images, bbox_list, vt_multi_level_features=None, vt_images_size=None, path_features=None):
+    def encode_regions(self, images, bbox_list, vt_multi_level_features=None, vt_images_size=None, path_features=None, task_ids=None):
+        def _task_type_from_id(tid):
+            """Map numeric task_id to type0..type5; invalid/missing -> type1（均衡默认，供 task_adaptive 使用）。"""
+            try:
+                if hasattr(tid, "item"):
+                    tid = int(tid.item())
+                else:
+                    tid = int(tid)
+            except Exception:
+                return "type1"
+            if 0 <= tid <= 5:
+                return f"type{tid}"
+            return "type1"
+
         aux_image_features_list = self.get_model().get_vision_tower_aux()(images)
         region_features = []
         if getattr(self.config, "mm_use_vision_tower_region_feature", False):
@@ -99,11 +113,13 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                 scale_width = original_width / current_image_width
                 vt_boxes = boxes * torch.tensor([scale_width, scale_height, scale_width, scale_height], device=boxes.device)
 
+                task_type = _task_type_from_id(task_ids[batch_idx]) if task_ids is not None and batch_idx < len(task_ids) else "type1"
                 extracted_region_feat = self.get_model().object_vp_extractor(
                     aux_multi_level_features=multilevel_aux_visual_feats,
                     vt_multi_level_features=multilevel_visual_feats,
                     aux_boxes=[boxes],
-                    vt_boxes=[vt_boxes]
+                    vt_boxes=[vt_boxes],
+                    task_type=task_type,
                 ).squeeze(0).to(multilevel_aux_visual_feats[0].dtype)
                 # 仅使用视觉区域特征，不再融合病理特征
                 visual_tokens = self.get_model().mm_projector_aux(extracted_region_feat)  # [R, H_llm]
@@ -120,9 +136,11 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                
                 multi_level_aux_features = multilevel_visual_feats
                 boxes = boxes.to(torch.float32).to(multi_level_aux_features[0].device)
+                task_type = _task_type_from_id(task_ids[batch_idx]) if task_ids is not None and batch_idx < len(task_ids) else "type1"
                 extracted_region_feat = self.get_model().object_vp_extractor(
                     multi_level_aux_features,
                     [boxes],
+                    task_type=task_type,
                 ).squeeze(0).to(multi_level_aux_features[0].dtype)
                 # 仅使用视觉区域特征，不再融合病理特征
                 visual_tokens = self.get_model().mm_projector_aux(extracted_region_feat)  # [R, H_llm]
@@ -136,9 +154,10 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
 
     # Convert sequence of input_ids/labels/images/boxes to multimodal embedding and associated masks/ids for transformer input.
     def prepare_inputs_labels_for_qwen2_5_vl_multimodal(
-        self, input_ids, position_ids, attention_mask, past_key_values, labels, images, images_aux=None, bbox_list=None, image_grid_thws=None, path_features=None
+        self, input_ids, position_ids, attention_mask, past_key_values, labels, images, images_aux=None, bbox_list=None, image_grid_thws=None, path_features=None, task_ids=None
     ):
         # ========================== Above this line, input parsing and batching =============================
+        cache_position = None
         vision_tower = self.get_vision_tower()
         video_tower = self.get_video_tower()
         vision_tower_aux = self.get_vision_tower_aux()
@@ -196,6 +215,7 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                         vt_multi_level_features_minibatch,
                         vt_images_size_minibatch,
                         path_features=path_features,
+                        task_ids=task_ids,
                     )  # [mini_b, l, c]
             else:
                 region_features = None
@@ -254,7 +274,11 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                 image_nums_in_batch.append(num_images)
                 # If there are no image markers, just get text features
                 if num_images == 0:
-                    cur_image_features = image_features[cur_image_idx]
+                    if cur_image_idx >= len(image_features) and image_features:
+                        cur_image_idx = len(image_features) - 1
+                    cur_image_features = image_features[cur_image_idx] if image_features else None
+                    if cur_image_features is None:
+                        cur_image_features = torch.zeros(0, self.get_model().embed_tokens.embedding_dim, device=self.device, dtype=torch.bfloat16)
                     cur_input_embeds_1 = self.get_model().embed_tokens(cur_input_ids)
                     cur_input_embeds = torch.cat([cur_input_embeds_1, cur_image_features[0:0]], dim=0)
                     new_input_embeds.append(cur_input_embeds)
@@ -284,6 +308,11 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                     cur_new_labels.append(cur_labels_noim[i])
                     cur_new_input_ids.append(cur_input_ids_noim[i])
                     if i < num_images:
+                        if cur_image_idx >= len(image_features):
+                            if not image_features:
+                                raise ValueError("image_features is empty but input has image token(s). Check that prompt does not contain literal '<image>' in user text.")
+                            cur_image_idx = len(image_features) - 1
+                            warnings.warn("image_features index out of range, reusing last image feature (prompt may contain extra '<image>' in text).")
                         cur_image_features = image_features[cur_image_idx].to(self.device)
                         cur_image_idx += 1
                         cur_new_input_embeds.append(cur_image_features)
@@ -313,8 +342,16 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
 
                 # If no markers, just do text embedding for this item
                 if num_images == 0 and num_regions == 0:
-                    cur_image_features = image_features[cur_image_idx]
-                    cur_region_features = region_features[cur_region_idx]
+                    if cur_image_idx >= len(image_features) and image_features:
+                        cur_image_idx = len(image_features) - 1
+                    cur_image_features = image_features[cur_image_idx] if image_features else None
+                    if cur_image_features is None:
+                        cur_image_features = torch.zeros(0, self.get_model().embed_tokens.embedding_dim, device=self.device, dtype=torch.bfloat16)
+                    cur_region_features = None
+                    if region_features and batch_idx < len(region_features) and len(region_features[batch_idx]) > cur_region_idx:
+                        cur_region_features = region_features[batch_idx][cur_region_idx]
+                    if cur_region_features is None:
+                        cur_region_features = torch.zeros(0, self.get_model().embed_tokens.embedding_dim, device=self.device, dtype=torch.bfloat16)
                     cur_input_embeds_1 = self.get_model().embed_tokens(cur_input_ids)
                     cur_input_embeds = torch.cat([cur_input_embeds_1, cur_image_features[0:0], cur_region_features[0:0]], dim=0)
                     new_input_embeds.append(cur_input_embeds)
@@ -359,6 +396,11 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                     cur_new_input_ids.append(cur_input_ids_segments[i])
                     # If next is image, insert feature representation
                     if all_special_indices[i+1] in image_indices:
+                        if cur_image_idx >= len(image_features):
+                            if not image_features:
+                                raise ValueError("image_features is empty but input has image token(s). Check that prompt does not contain literal '<image>' in user text.")
+                            cur_image_idx = len(image_features) - 1
+                            warnings.warn("image_features index out of range, reusing last image feature (prompt may contain extra '<image>' in text).")
                         cur_image_features = image_features[cur_image_idx].to(self.device)
                         cur_image_idx += 1
                         cur_new_input_embeds.append(cur_image_features)
@@ -499,6 +541,7 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
         bbox_list: Optional[torch.FloatTensor] = None,
         image_grid_thws: Optional[torch.FloatTensor] = None,
         path_features: Optional[torch.FloatTensor] = None,
+        task_ids: Optional[torch.LongTensor] = None,
     ) -> Union[Tuple, Qwen2_5_VLCausalLMOutputWithPast]:
         
         if inputs_embeds is None:
@@ -522,6 +565,7 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
                 bbox_list,
                 image_grid_thws,
                 path_features,
+                task_ids,
             )
         
         if rope_deltas is not None:
@@ -565,6 +609,7 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
         bbox_list: Optional[torch.FloatTensor] = None,
         image_grid_thws: Optional[torch.FloatTensor] = None,
         path_features: Optional[torch.FloatTensor] = None,
+        task_ids: Optional[torch.LongTensor] = None,
         **kwargs,
     ):
         # Wrap parent logic so extra multimodal kwargs are preserved
@@ -583,10 +628,15 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
             images_aux=images_aux,
             bbox_list=bbox_list,
             image_grid_thws=image_grid_thws,
-        )   
-        # Ensure pathology features are kept across generation steps (if provided)
+        )
+        # Multimodal kwargs must be forwarded explicitly; generate() only passes
+        # keys returned here into forward().
         if path_features is not None:
             model_inputs["path_features"] = path_features
+        if task_ids is None and kwargs.get("task_ids") is not None:
+            task_ids = kwargs["task_ids"]
+        if task_ids is not None:
+            model_inputs["task_ids"] = task_ids
         return model_inputs
     
 # Register our config and model with HuggingFace transformers registry

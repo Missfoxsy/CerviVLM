@@ -1,0 +1,22 @@
+{
+  "source_metrics": "eval_result/stage2_layerGated/metrics.json",
+  "type3": {
+    "class_order": [
+      "ASCUS",
+      "ASC_H",
+      "EpitheliumNormal",
+      "HSIL",
+      "LSIL"
+    ],
+    "svg": "eval_result/stage2_layerGated/plots/stage2_layerGated_type3_per_class.svg"
+  },
+  "type4": {
+    "class_order": [
+      "上皮成团",
+      "宫颈鳞状上皮中层",
+      "宫颈鳞状上皮底层",
+      "宫颈鳞状上皮表层"
+    ],
+    "svg": "eval_result/stage2_layerGated/plots/stage2_layerGated_type4_per_class.svg"
+  }
+}

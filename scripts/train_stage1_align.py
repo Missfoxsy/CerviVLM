@@ -16,18 +16,29 @@ VLM-FO1 宫颈细胞 Stage-1 对齐训练脚本（不使用 path_feature）
 import os
 import sys
 import argparse
-from collections import Counter
-
 import torch
 from transformers import TrainingArguments, Trainer, set_seed
+from transformers.trainer_utils import get_last_checkpoint
 
 # 添加项目根目录到路径
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dataset.cervical_dataset import CervicalDataset
 from vlm_fo1.model.builder import load_pretrained_model
-from scripts.train_cervical_stage2 import setup_lora, load_config, _enable_trainable_modules
+from scripts.train_cervical_stage2 import (
+    setup_lora,
+    load_config,
+    _enable_trainable_modules,
+    HIERARCHICAL_FUSION_PEFT_MODULE,
+)
 from vlm_fo1.constants import IGNORE_INDEX
+from vlm_fo1.model.multimodal_visual_prompt_encoder.hybrid_finegrained_region_encoder import HierarchicalFeatureFusion
+from scripts.vt_fpn_utils import (
+    apply_vt_fpn_ablation,
+    peft_modules_to_save_for_fpn,
+    resolve_fpn_num_levels,
+    save_fpn_ablation_meta,
+)
 
 
 class CervicalDataCollatorStage1:
@@ -138,17 +149,11 @@ class CervicalTrainerStage1(Trainer):
             model_inputs["images_aux"] = inputs.pop("images_aux")
         if "bbox_list" in inputs:
             model_inputs["bbox_list"] = inputs.pop("bbox_list")
+        if task_ids is not None:
+            model_inputs["task_ids"] = task_ids
 
         outputs = model(**model_inputs)
         loss = outputs.loss if hasattr(outputs, "loss") else outputs[0]
-
-        # 可选：每 N step 打印一次 task 分布，方便确认三种任务是否都在训练
-        if self.state.global_step % 100 == 0 and task_ids is not None:
-            try:
-                counter = Counter(int(t) for t in task_ids)
-                print(f"[Stage1 TaskDist][step={self.state.global_step}] {dict(counter)}")
-            except Exception:
-                pass
 
         return (loss, outputs) if return_outputs else loss
 
@@ -163,7 +168,100 @@ def parse_args():
         default="configs/train_config_stage1_lora.yaml",
         help="Stage-1 训练配置文件路径",
     )
+    parser.add_argument(
+        "--resume",
+        action="store_true",
+        help="若 output_dir 下存在 checkpoint-*，则从最新检查点继续训练（optimizer/步数等由 Trainer 恢复）",
+    )
+    parser.add_argument(
+        "--fpn_num_levels",
+        type=int,
+        default=None,
+        help="覆盖 yaml 中 model.fpn_num_levels（1/2/4/6）",
+    )
+    parser.add_argument(
+        "--no_val",
+        action="store_true",
+        help="训练期间不跑验证集（训练结束后由 eval_stage1_align.py 单独评估）",
+    )
+    parser.add_argument(
+        "--val",
+        action="store_true",
+        help="训练期间按 eval_steps 跑验证（覆盖 yaml 中 no_val: true）",
+    )
     return parser.parse_args()
+
+
+def _enable_hierarchical_fusion_if_needed(model, model_config: dict):
+    enabled = bool(model_config.get("use_hierarchical_fusion", False))
+    heads = int(model_config.get("hierarchical_num_heads", 8))
+    fusion_mode = str(model_config.get("hierarchical_fusion_mode", "legacy")).strip().lower()
+    if fusion_mode not in ("legacy", "task_adaptive", "gated"):
+        fusion_mode = "legacy"
+    if not enabled:
+        return
+
+    core = model.get_model() if hasattr(model, "get_model") else model
+    extractor = getattr(core, "object_vp_extractor", None)
+    if extractor is None:
+        print("Warning: object_vp_extractor not found, skip hierarchical fusion enable.")
+        return
+    if not getattr(extractor, "use_simpleFPN_for_vt", False):
+        print("Warning: hierarchical fusion currently expects mm_use_simpleFPN_for_vt=true. Skip.")
+        return
+
+    num_levels = int(getattr(extractor, "fpn_num_levels", 4))
+    extractor.use_hierarchical_fusion = True
+    extractor.hierarchical_num_heads = heads
+    extractor.hierarchical_fusion_mode = fusion_mode
+
+    existing = getattr(extractor, "hierarchical_fusion", None)
+    need_rebuild = (
+        existing is None
+        or getattr(existing, "num_levels", 4) != num_levels
+        or getattr(existing, "fusion_mode", fusion_mode) != fusion_mode
+    )
+    if need_rebuild:
+        extractor.hierarchical_fusion = HierarchicalFeatureFusion(
+            feature_dim=512,
+            out_dim=2048,
+            num_heads=heads,
+            fusion_mode=fusion_mode,
+            num_levels=num_levels,
+        )
+    elif hasattr(extractor.hierarchical_fusion, "fusion_mode"):
+        extractor.hierarchical_fusion.fusion_mode = fusion_mode
+    ref_param = next(model.parameters())
+    extractor.hierarchical_fusion.to(device=ref_param.device, dtype=ref_param.dtype)
+    print(
+        f"[Stage1] Hierarchical fusion enabled "
+        f"(heads={heads}, mode={fusion_mode}, num_levels={num_levels})."
+    )
+
+
+def _print_hierarchical_gate_trainability(model):
+    """Startup diagnostics: verify hierarchical gate parameters are trainable."""
+    gate_named = []
+    gate_trainable = 0
+    gate_total = 0
+    for name, param in model.named_parameters():
+        if "hierarchical_fusion.gate_network" in name:
+            gate_named.append((name, bool(param.requires_grad), param.numel()))
+            gate_total += param.numel()
+            if param.requires_grad:
+                gate_trainable += param.numel()
+
+    if gate_total == 0:
+        print("[Stage1 GateDiag] No gate_network parameters found (check hierarchical fusion mount).")
+        return
+
+    print(
+        f"[Stage1 GateDiag] gate_network trainable params: "
+        f"{gate_trainable:,}/{gate_total:,} ({(100.0 * gate_trainable / gate_total):.2f}%)"
+    )
+    for name, req_grad, numel in gate_named:
+        flag = "T" if req_grad else "F"
+        print(f"[Stage1 GateDiag] [{flag}] {name} ({numel:,})")
 
 
 def main():
@@ -171,6 +269,8 @@ def main():
     config = load_config(args.config)
 
     model_config = config.get("model", {})
+    if args.fpn_num_levels is not None:
+        model_config["fpn_num_levels"] = int(args.fpn_num_levels)
     data_config = config.get("data", {})
     training_config = config.get("training", {})
     lora_config = config.get("lora", {})
@@ -183,6 +283,7 @@ def main():
     val_json = data_config["val_json"]
     image_size = data_config.get("image_size", 896)
     max_regions = data_config.get("max_regions", 100)
+    language = data_config.get("language", "zh")
 
     output_dir = training_config["output_dir"]
     num_epochs = training_config.get("num_epochs", 5)
@@ -193,6 +294,18 @@ def main():
     save_steps = training_config.get("save_steps", 500)
     eval_steps = training_config.get("eval_steps", 500)
     logging_steps = training_config.get("logging_steps", 10)
+    load_best_at_end = training_config.get("load_best_model_at_end", True)
+    no_val = bool(training_config.get("no_val", False)) or args.no_val
+    if args.val:
+        no_val = False
+    if no_val:
+        load_best_at_end = False
+    if load_best_at_end and not no_val and eval_steps > 0 and save_steps % eval_steps != 0:
+        raise ValueError(
+            "load_best_model_at_end=True 时，HF Trainer 要求 save_steps 为 eval_steps 的整数倍；"
+            f"当前 save_steps={save_steps}, eval_steps={eval_steps}。"
+            "请修改 training.save_steps / eval_steps，或设 load_best_model_at_end: false。"
+        )
     save_total_limit = training_config.get("save_total_limit", 5)
 
     optimizer_cfg = training_config.get("optimizer", {})
@@ -217,13 +330,32 @@ def main():
     print(f"Config:       {args.config}")
     print(f"Base model:   {base_model}")
     print(f"Train JSON:   {train_json}")
-    print(f"Val JSON:     {val_json}")
+    print(f"Val JSON:     {val_json if not no_val else '(训练期间跳过，结束后单独 eval)'}")
     print(f"Output dir:   {output_dir}")
+    print(f"No val train: {no_val}")
     print("============================================================")
 
     tokenizer, model, image_processors = load_pretrained_model(
         base_model, load_8bit=False, load_4bit=False, device=device
     )
+
+    fpn_num_levels = resolve_fpn_num_levels(model_config)
+    use_hf = bool(model_config.get("use_hierarchical_fusion", False))
+    fusion_mode = str(model_config.get("hierarchical_fusion_mode", "legacy")).strip().lower()
+    if use_hf and fusion_mode in ("task_adaptive", "gated"):
+        print(
+            f"Warning: FPN 消融要求禁用门控；已将 hierarchical_fusion_mode 从 {fusion_mode} 改为 legacy。"
+        )
+        model_config["hierarchical_fusion_mode"] = "legacy"
+
+    fpn_meta = apply_vt_fpn_ablation(
+        model,
+        fpn_num_levels=fpn_num_levels,
+        use_hierarchical_fusion=use_hf,
+    )
+    save_fpn_ablation_meta(output_dir, fpn_meta)
+
+    _enable_hierarchical_fusion_if_needed(model, model_config)
 
     # 冻结视觉编码器
     if freeze_config.get("vision_tower", True):
@@ -232,10 +364,22 @@ def main():
             if "vision_tower" in name or "get_vision_tower" in name:
                 param.requires_grad = False
 
-    # 应用 LoRA 到 LLM
+    # 应用 LoRA 到 LLM（可选：将 hierarchical_fusion 纳入 PEFT modules_to_save，以便写入 adapter）
+    modules_to_save = None
+    save_list = []
+    if lora_config.get("enabled", False) and bool(model_config.get("use_hierarchical_fusion")):
+        core = model.get_model() if hasattr(model, "get_model") else model
+        _ex = getattr(core, "object_vp_extractor", None)
+        if _ex is not None and getattr(_ex, "hierarchical_fusion", None) is not None:
+            save_list.append(HIERARCHICAL_FUSION_PEFT_MODULE)
+    save_list.extend(peft_modules_to_save_for_fpn(model, model_config))
+    if save_list:
+        modules_to_save = save_list
+        print(f"[Stage1] PEFT modules_to_save (full weights in adapter): {modules_to_save}")
+
     if lora_config.get("enabled", False):
         print("Applying LoRA to language model...")
-        model = setup_lora(model, lora_config)
+        model = setup_lora(model, lora_config, modules_to_save=modules_to_save)
 
     # 构建数据集
     train_dataset = CervicalDataset(
@@ -248,21 +392,28 @@ def main():
         is_train=True,
         verbose=False,
         path_feature_root=None,  # 显式禁用 path_feature
+        language=language,
     )
-    val_dataset = CervicalDataset(
-        json_path=val_json,
-        tokenizer=tokenizer,
-        image_processors=image_processors,
-        model_name=base_model,
-        max_regions=max_regions,
-        image_size=image_size,
-        is_train=False,
-        verbose=False,
-        path_feature_root=None,
-    )
+    val_dataset = None
+    if not no_val:
+        val_dataset = CervicalDataset(
+            json_path=val_json,
+            tokenizer=tokenizer,
+            image_processors=image_processors,
+            model_name=base_model,
+            max_regions=max_regions,
+            image_size=image_size,
+            is_train=False,
+            verbose=False,
+            path_feature_root=None,
+            language=language,
+        )
 
     print(f"Train dataset size: {len(train_dataset)}")
-    print(f"Val dataset size:   {len(val_dataset)}")
+    if val_dataset is not None:
+        print(f"Val dataset size:   {len(val_dataset)}")
+    else:
+        print("Val dataset:        (disabled during training)")
 
     data_collator = CervicalDataCollatorStage1(tokenizer=tokenizer)
 
@@ -285,10 +436,10 @@ def main():
         learning_rate=learning_rate,
         warmup_steps=warmup_steps,
         save_steps=save_steps,
-        eval_steps=eval_steps,
+        eval_steps=eval_steps if val_dataset is not None else None,
         logging_steps=logging_steps,
         save_total_limit=save_total_limit,
-        load_best_model_at_end=training_config.get("load_best_model_at_end", True),
+        load_best_model_at_end=load_best_at_end and val_dataset is not None,
         metric_for_best_model=training_config.get("metric_for_best_model", "eval_loss"),
         greater_is_better=training_config.get("greater_is_better", False),
         bf16=bf16,
@@ -300,7 +451,7 @@ def main():
         report_to=report_to,
         run_name=run_name,
         max_grad_norm=max_grad_norm,
-        evaluation_strategy="steps",
+        evaluation_strategy="no" if val_dataset is None else "steps",
         save_strategy="steps",
         logging_dir=os.path.join(output_dir, "logs"),
         remove_unused_columns=False,
@@ -313,6 +464,7 @@ def main():
     )
     enabled, _ = _enable_trainable_modules(model, trainable_modules)
     print(f"Enabled trainable parameters in Stage-1: {enabled:,}")
+    _print_hierarchical_gate_trainability(model)
 
     trainer = CervicalTrainerStage1(
         model=model,
@@ -324,8 +476,16 @@ def main():
         tokenizer=tokenizer,
     )
 
+    resume_from = None
+    if args.resume:
+        resume_from = get_last_checkpoint(output_dir)
+        if resume_from:
+            print(f"[Stage1] Resume from checkpoint: {resume_from}")
+        else:
+            print(f"[Stage1] --resume 已指定但 {output_dir} 下无 checkpoint-*，将从头训练。")
+
     print("\n===== 开始 Stage-1 训练 =====")
-    train_result = trainer.train()
+    train_result = trainer.train(resume_from_checkpoint=resume_from)
     trainer.save_model()
     trainer.save_state()
     print("===== Stage-1 训练完成，模型已保存 =====")

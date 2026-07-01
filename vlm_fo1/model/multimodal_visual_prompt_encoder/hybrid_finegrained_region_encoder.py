@@ -1,11 +1,340 @@
+import os
 import torch
 import torch.nn as nn
-from typing import List, Union
+from typing import List, Tuple, Union
 import torch.nn.functional as F
 from torchvision.ops import roi_align
 import math
 
 from vlm_fo1.model.multimodal_visual_prompt_encoder.simple_fpn import SimpleFP
+
+
+class AdaptiveGatingNetwork(nn.Module):
+    """
+    自适应门控：Sigmoid 独立门控 + 下界裁剪 + 行归一化（Σ=1），替代 Softmax。
+    与逐层相乘后再 concat 的融合形式配合，保持混合特征总尺度稳定。
+    """
+
+    def __init__(
+        self,
+        input_dim: int,
+        hidden_dim: int = 512,
+        num_levels: int = 4,
+        dropout: float = 0.1,
+        init_bias: float = 2.0,
+        floor: float = 0.1,
+    ):
+        super().__init__()
+        self.num_levels = num_levels
+        self.floor = floor
+        self.gate_net = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Dropout(dropout),
+            nn.Linear(hidden_dim, num_levels),
+        )
+        # sigmoid(2.0)≈0.88，初始偏向“开启”，再经 floor 与归一化
+        nn.init.constant_(self.gate_net[-1].bias, init_bias)
+
+    def forward(self, x: torch.Tensor) -> Tuple[torch.Tensor, torch.Tensor]:
+        logits = self.gate_net(x)
+        gates_raw = torch.sigmoid(logits)
+        span = 1.0 - self.floor
+        gates_clipped = self.floor + span * gates_raw
+        gate_sum = gates_clipped.sum(dim=1, keepdim=True) + 1e-8
+        gates = gates_clipped / gate_sum
+        return gates, gates_raw
+
+
+class HierarchicalFeatureFusion(nn.Module):
+    """
+    Layer-wise hierarchical fusion for ROI features（由粗到细）。
+
+    legacy：逐层 encoder + 跨层 MultiheadAttention + concat → Linear（无门控）。
+    task_adaptive / gated：在 legacy 特征上叠加任务/样本门控（消融实验应使用 legacy）。
+    """
+
+    def __init__(
+        self,
+        feature_dim: int,
+        out_dim: int,
+        num_heads: int = 8,
+        fusion_mode: str = "legacy",
+        num_levels: int = 4,
+    ):
+        super().__init__()
+        self.feature_dim = feature_dim
+        self.out_dim = out_dim
+        self.num_levels = int(num_levels)
+
+        self.fusion_mode = fusion_mode  # legacy | task_adaptive | gated
+        self.level_encoders = nn.ModuleList([
+            nn.Linear(feature_dim, feature_dim) for _ in range(self.num_levels)
+        ])
+        self.level_attentions = nn.ModuleList([
+            nn.MultiheadAttention(
+                embed_dim=feature_dim,
+                num_heads=num_heads,
+                batch_first=True,
+            ) for _ in range(max(0, self.num_levels - 1))
+        ])
+        self.final_fusion = nn.Linear(self.num_levels * feature_dim, out_dim)
+        self.level_selector = nn.Sequential(
+            nn.Linear(self.num_levels * feature_dim, 128),
+            nn.ReLU(),
+            nn.Linear(128, self.num_levels),
+        )
+        # Task-conditioned bias for per-task gating (type0..type5).
+        # Initialize with mild, separable priors:
+        # - task0/4: coarse-mid preference
+        # - task2/3/5: finer-level preference
+        # - task1: balanced
+        task_bias_prior = torch.tensor(
+            [
+                [0.20, 0.10, -0.05, -0.15],  # task0: coarse/mid
+                [0.00, 0.00, 0.00, 0.00],    # task1: balanced
+                [-0.15, -0.05, 0.10, 0.20],  # task2: fine
+                [-0.15, -0.05, 0.10, 0.20],  # task3: fine
+                [0.20, 0.10, -0.05, -0.15],  # task4: coarse/mid
+                [-0.15, -0.05, 0.10, 0.20],  # task5: fine
+            ],
+            dtype=torch.float32,
+        )
+        self.task_level_bias = nn.Parameter(task_bias_prior)
+        # task_adaptive gates: use sigmoid + floor + normalize (instead of softmax) to allow more independent scaling.
+        # Lower temp and lower floor usually produce sharper inter-level differences.
+        self.task_adaptive_gate_temp = 0.8
+        self.task_adaptive_gate_floor = 0.02
+        self.task_adaptive_task_bias_scale = 2.0
+        # Sample-adaptive hierarchical gates (Scheme B): Sigmoid + floor + row-norm（非 Softmax）
+        gate_in_dim = self.num_levels * feature_dim
+        self.gate_network = AdaptiveGatingNetwork(
+            input_dim=gate_in_dim,
+            hidden_dim=512,
+            num_levels=self.num_levels,
+            dropout=0.1,
+        )
+
+        # Optional debug cache (last forward); can be read by probing scripts.
+        self.last_level_features = None
+        self.last_level_attn = None
+        self.last_gates = None
+        self.last_gates_raw = None
+
+    @staticmethod
+    def _normalize_sigmoid_gates(gate_logits: torch.Tensor, floor: float, temp: float) -> Tuple[torch.Tensor, torch.Tensor]:
+        temp = max(float(temp), 1e-3)
+        floor = float(max(0.0, min(0.9, floor)))
+        gates_raw = torch.sigmoid(gate_logits / temp)
+        span = 1.0 - floor
+        gates_clipped = floor + span * gates_raw
+        gates = gates_clipped / (gates_clipped.sum(dim=-1, keepdim=True) + 1e-8)
+        return gates, gates_raw
+
+    @staticmethod
+    def _parse_task_id(task_type) -> int:
+        """Map task tag to row index 0..5 for task_adaptive bias. Always returns a valid index.
+
+        Accepts ``type0``..``type5`` and legacy aliases ``localization`` / ``classification`` / ``reasoning``.
+        Unknown or invalid values fall back to ``1`` (与 task1 均衡先验一致).
+        """
+        if not isinstance(task_type, str):
+            return 1
+        t = task_type.strip().lower()
+        if t.startswith("type"):
+            try:
+                v = int(t.replace("type", "", 1))
+                return v if 0 <= v <= 5 else 1
+            except Exception:
+                return 1
+        legacy = {"localization": 0, "classification": 2, "reasoning": 1}
+        return legacy.get(t, 1)
+
+    @staticmethod
+    def _build_hierarchy_levels(roi_feats_per_level: List[torch.Tensor], num_levels: int) -> List[torch.Tensor]:
+        """对齐到 num_levels：层数足够时取前 num_levels；不足则重复最后一层补齐。"""
+        target = int(num_levels)
+        n = len(roi_feats_per_level)
+        if n == 0:
+            raise ValueError("roi_feats_per_level is empty")
+        if n >= target:
+            return [roi_feats_per_level[i] for i in range(target)]
+        out = list(roi_feats_per_level)
+        while len(out) < target:
+            out.append(out[-1])
+        return out
+
+    def forward(self, roi_feats_per_level: List[torch.Tensor], task_type: str = "type1") -> torch.Tensor:
+        levels = self._build_hierarchy_levels(roi_feats_per_level, self.num_levels)
+        level_features = []
+        attn_maps = []
+        prev = None
+        target_dtype = self.level_encoders[0].weight.dtype
+
+        for i, feat in enumerate(levels):
+            if feat.dtype != target_dtype:
+                feat = feat.to(target_dtype)
+            # [N, D] -> [1, N, D]
+            cur = self.level_encoders[i](feat).unsqueeze(0)
+            if prev is not None:
+                # 保留按 head 的权重 [B, H, Nq, Nk]，便于可视化；与 average=True 时前向计算一致。
+                try:
+                    cur, attn = self.level_attentions[i - 1](
+                        query=cur,
+                        key=prev,
+                        value=prev,
+                        need_weights=True,
+                        average_attn_weights=False,
+                    )
+                except TypeError:
+                    cur, attn = self.level_attentions[i - 1](query=cur, key=prev, value=prev)
+                attn_maps.append(attn)
+            prev = cur
+            level_features.append(cur.squeeze(0))
+
+        self.last_level_features = [lf.detach() for lf in level_features]
+        self.last_level_attn = [a.detach() for a in attn_maps]
+
+        stacked = torch.cat(level_features, dim=-1)  # [N, 4D]
+        if self.fusion_mode == "task_adaptive":
+            task_id = self._parse_task_id(task_type)
+            # Shared selector + task-specific additive bias => explicit per-task gates.
+            gate_logits = self.level_selector(stacked)
+            gate_logits = gate_logits + self.task_adaptive_task_bias_scale * self.task_level_bias[task_id : task_id + 1]
+            gates, gates_raw = self._normalize_sigmoid_gates(
+                gate_logits,
+                floor=self.task_adaptive_gate_floor,
+                temp=self.task_adaptive_gate_temp,
+            )  # [N, 4], row-sum=1
+            gated_concat = torch.cat(
+                [level_features[i] * gates[:, i : i + 1] for i in range(self.num_levels)], dim=-1
+            )
+            # Task-adaptive path now uses unified dimensionality:
+            # task_id only modulates gates; fusion head is shared to avoid branch capacity imbalance.
+            fused = self.final_fusion(gated_concat)
+            self.last_gates = gates.detach()
+            self.last_gates_raw = gates_raw.detach()
+        elif self.fusion_mode == "gated":
+            gates, gates_raw = self.gate_network(stacked)  # [N, 4], Σ row = 1
+            gated_features = [
+                level_features[i] * gates[:, i : i + 1] for i in range(self.num_levels)
+            ]
+            gated_concat = torch.cat(gated_features, dim=-1)  # [N, 4D]
+            fused = self.final_fusion(gated_concat)           # [N, out_dim]
+            self.last_gates = gates.detach()
+            self.last_gates_raw = gates_raw.detach()
+        else:
+            fused = self.final_fusion(stacked)           # [N, out_dim]
+            self.last_gates = None
+            self.last_gates_raw = None
+        return fused
+
+
+def visualize_hierarchical_attention(hierarchical_fusion: HierarchicalFeatureFusion, save_path: str = "attn_vis.png"):
+    """
+    Visualize cached cross-level attention maps from HierarchicalFeatureFusion.
+
+    Note:
+      - Call this AFTER a forward() pass where hierarchical fusion is enabled.
+      - last_level_attn entries: [B, N, N]（旧）或 [B, H, N, N]（按 head，推荐）。
+      - 当 ROI 数 N=1 时，每层注意力矩阵为 1×1，softmax 在单 key 上恒为 1.0，三张图会数值相同；
+        此时应结合下方门控（last_gates）或换多样本（多 region）解读。
+    """
+    if hierarchical_fusion is None or not hasattr(hierarchical_fusion, "last_level_attn"):
+        print("No hierarchical_fusion attention cache found.")
+        return
+    if not hierarchical_fusion.last_level_attn:
+        print("No attention maps cached. Run forward() first.")
+        return
+
+    try:
+        import matplotlib.pyplot as plt
+        import matplotlib.gridspec as gridspec
+        import seaborn as sns
+    except Exception as e:
+        print(f"Failed to import matplotlib/seaborn for attention visualization: {e}")
+        return
+
+    attn_list = hierarchical_fusion.last_level_attn
+    n_levels = len(attn_list)
+    gates = getattr(hierarchical_fusion, "last_gates", None)
+    show_gate_row = gates is not None and gates.numel() > 0
+
+    n_rows = 2 if show_gate_row else 1
+    fig = plt.figure(figsize=(max(5.5 * n_levels, 10), 7 if show_gate_row else 5))
+    gs = gridspec.GridSpec(n_rows, n_levels, height_ratios=[2.2, 1.0] if show_gate_row else [1.0], hspace=0.4, wspace=0.35)
+
+    degenerate_warn = False
+    for i, attn in enumerate(attn_list):
+        ax = fig.add_subplot(gs[0, i])
+        t = attn
+        head_std_msg = ""
+        if t.dim() == 4:
+            # [B, H, Nq, Nk]：主图用 head 平均；标题附带跨 head 差异提示
+            t0 = t[0].float()
+            attn_2d = t0.mean(dim=0).detach().cpu().numpy()
+            if t0.shape[0] > 1:
+                hs = t0.reshape(t0.shape[0], -1).std(dim=1).mean().item()
+                head_std_msg = f" | mean head-std={hs:.4f}"
+        elif t.dim() == 3:
+            attn_2d = t[0].detach().float().cpu().numpy()
+        else:
+            print(f"Skip attn level {i}: unexpected rank {t.dim()}")
+            continue
+
+        nq, nk = int(attn_2d.shape[0]), int(attn_2d.shape[1])
+        show_annot = max(nq, nk) <= 10
+        degenerate = nq * nk <= 1 or (float(attn_2d.max()) - float(attn_2d.min()) < 1e-6 and nq * nk <= 4)
+        if degenerate:
+            degenerate_warn = True
+
+        fmt = ".4f" if nq * nk <= 4 else ".2f"
+        sns.heatmap(
+            attn_2d,
+            cmap="inferno",
+            ax=ax,
+            vmin=0.0,
+            vmax=1.0,
+            square=True,
+            cbar=True,
+            cbar_kws={"shrink": 0.75},
+            annot=show_annot,
+            fmt=fmt,
+        )
+        ax.set_title(f"L{i + 1}→L{i + 2}  ({nq}×{nk}){head_std_msg}")
+        ax.set_xlabel("key: prev-level ROI")
+        ax.set_ylabel("query: cur-level ROI")
+
+    if show_gate_row:
+        axb = fig.add_subplot(gs[1, :])
+        g = gates.detach().float().cpu().numpy()
+        if g.ndim == 2 and g.shape[1] >= 4:
+            mean_g = g.mean(axis=0)[:4]
+            axb.bar(["L0", "L1", "L2", "L3"], mean_g, color="steelblue")
+            axb.set_ylabel("gate (mean over ROIs)")
+            axb.set_title("Level fusion gates (task_adaptive / gated)")
+            axb.set_ylim(0.0, max(1.0, float(mean_g.max()) * 1.15))
+        else:
+            axb.text(0.5, 0.5, f"gates shape {getattr(g, 'shape', None)}", ha="center", va="center")
+
+    if degenerate_warn:
+        fig.suptitle(
+            "Note: N=1 ROI → each cross-level attn is 1×1 softmax (=1.0); maps look identical. "
+            "Use gate bars below or a sample with more regions.",
+            fontsize=10,
+            y=1.02,
+        )
+        print(
+            "[visualize_hierarchical_attention] 单 ROI（或极小矩阵）：层级注意力热力图数值退化，"
+            "已叠加门控条形图（若有）；多 region 样本上热力图更有区分度。"
+        )
+
+    out_dir = os.path.dirname(save_path)
+    if out_dir:
+        os.makedirs(out_dir, exist_ok=True)
+    plt.savefig(save_path, dpi=150, bbox_inches="tight")
+    plt.close()
+    print(f"Attention visualization saved to {save_path}")
 
 
 def generate_2d_position_embedding(height, width, dim, device):
@@ -145,6 +474,9 @@ class HFREModule(nn.Module):
         # Auxiliary vision tower related
         aux_vision_tower_region_feature_dims: List[int] = [256, 512, 1024, 2048],
         aux_vision_tower_spatial_scale: float = None,    # Scale for aux VT
+        use_hierarchical_fusion: bool = False,           # Enable layer-wise hierarchical fusion
+        hierarchical_num_heads: int = 8,                 # Num heads for cross-level attention
+        hierarchical_fusion_mode: str = "legacy",        # legacy | task_adaptive | gated
     ):
         super(HFREModule, self).__init__()
         self.roi_output_size = roi_output_size
@@ -163,6 +495,9 @@ class HFREModule(nn.Module):
 
         self.aux_vision_tower_region_feature_dims = aux_vision_tower_region_feature_dims
         self.aux_vision_tower_spatial_scale = aux_vision_tower_spatial_scale
+        self.use_hierarchical_fusion = use_hierarchical_fusion
+        self.hierarchical_num_heads = hierarchical_num_heads
+        self.hierarchical_fusion_mode = hierarchical_fusion_mode
 
         # Print configuration for debugging
         # print(f"output_size: {self.roi_output_size} use_vision_tower_region_feature: {self.use_vision_tower_region_feature} vision_tower_region_feature_dim: {self.vision_tower_region_feature_dim} "
@@ -171,8 +506,21 @@ class HFREModule(nn.Module):
         #       f"apply_region_layer_norm: {self.apply_region_layer_norm}")
         
         # Optional: FPN for the vision tower input if enabled
+        self.fpn_num_levels = 4
+        self.fpn_level_indices = [0, 1, 2, 3]
+        self.vt_fpn_strides = [3.5, 7.0, 14.0, 28.0]
+        self.vt_fpn_out_dim = 2048
+
         if self.use_simpleFPN_for_vt:
             self.simple_fpn = SimpleFP(out_channels=512, norm="LN", square_pad=0, dim=1280, stride=14)
+            if self.use_hierarchical_fusion:
+                # With SimpleFPN, each level ROI feature is [N, 512], and legacy VT output is [N, 2048]
+                self.hierarchical_fusion = HierarchicalFeatureFusion(
+                    feature_dim=512,
+                    out_dim=2048,
+                    num_heads=self.hierarchical_num_heads,
+                    fusion_mode=self.hierarchical_fusion_mode,
+                )
 
         # LayerNorm for auxiliary and VT region features, if enabled
         if self.apply_region_layer_norm:
@@ -227,7 +575,7 @@ class HFREModule(nn.Module):
             enhanced_features.append(feature)
         return enhanced_features
 
-    def extract_vt_region_feature(self, multi_level_features, boxes: Union[torch.Tensor, List[torch.Tensor]]) -> torch.Tensor:
+    def extract_vt_region_feature(self, multi_level_features, boxes: Union[torch.Tensor, List[torch.Tensor]], task_type: str = "type1") -> torch.Tensor:
         """Extract vision-tower region features via ROIAlign over FPN features, with spatial scaling.
 
         Args:
@@ -238,23 +586,32 @@ class HFREModule(nn.Module):
             Tensor: [1, N, C=tower_channels]
         """
         if self.use_simpleFPN_for_vt:
-            # If using FPN for vision tower: apply FPN and select fixed spatial scales (hardcoded stride)
             multi_level_features = self.simple_fpn(multi_level_features)
+            level_indices = getattr(self, "fpn_level_indices", list(range(len(multi_level_features))))
+            vt_strides = getattr(self, "vt_fpn_strides", [3.5, 7.0, 14.0, 28.0])
             roi_features_per_level = []
-            # Hardcoded feature strides for each FPN stage; tweak if arch changes
-            feature_strides = [3.5, 7, 14, 28]  
-            for level_idx, level_feature in enumerate(multi_level_features):
-                current_spatial_scale = 1.0 / feature_strides[level_idx]
+            for rel_idx, src_idx in enumerate(level_indices):
+                if src_idx >= len(multi_level_features):
+                    continue
+                level_feature = multi_level_features[src_idx]
+                stride = vt_strides[rel_idx] if rel_idx < len(vt_strides) else vt_strides[-1]
+                current_spatial_scale = 1.0 / float(stride)
                 level_roi_feat = roi_align(
                     level_feature.float(),
                     boxes,
                     output_size=self.roi_output_size,
-                    spatial_scale=current_spatial_scale
+                    spatial_scale=current_spatial_scale,
                 )
-                # Pool across H,W to get region feature per ROI
                 level_roi_feat = level_roi_feat.mean(dim=(2, 3))
                 roi_features_per_level.append(level_roi_feat)
-            out_box_feat = torch.cat(roi_features_per_level, dim=1).unsqueeze(0)
+            if self.use_hierarchical_fusion and hasattr(self, "hierarchical_fusion"):
+                out_box_feat = self.hierarchical_fusion(roi_features_per_level, task_type=task_type).unsqueeze(0)
+            else:
+                cat_feat = torch.cat(roi_features_per_level, dim=1)
+                proj = getattr(self, "vt_level_fusion_proj", None)
+                if proj is not None:
+                    cat_feat = proj(cat_feat)
+                out_box_feat = cat_feat.unsqueeze(0)
         else:
             # If not using FPN: concatenate all feature levels on channel axis and ROI-align once
             concat_multi_level_feature = []
@@ -278,6 +635,7 @@ class HFREModule(nn.Module):
         aux_boxes: Union[torch.Tensor, List[torch.Tensor]],
         vt_multi_level_features = None,
         vt_boxes: Union[torch.Tensor, List[torch.Tensor]] = None,
+        task_type: str = "type1",
     ) -> torch.Tensor:
         """Main forward. Extracts ROI region features with possible hybrid VT/aux, applies position embedding and combines as configured.
 
@@ -292,7 +650,7 @@ class HFREModule(nn.Module):
         """
         if self.use_vt_region_feature_only:
             # Only use VT region features (skip aux completely)
-            out_box_feat = self.extract_vt_region_feature(vt_multi_level_features, vt_boxes)
+            out_box_feat = self.extract_vt_region_feature(vt_multi_level_features, vt_boxes, task_type=task_type)
 
             if self.apply_position_embedding:
                 # Add position embedding to VT region feature
@@ -367,7 +725,7 @@ class HFREModule(nn.Module):
         
         if self.use_vision_tower_region_feature:
             # If also using vision-tower features
-            out_box_vt_feat = self.extract_vt_region_feature(vt_multi_level_features, vt_boxes)
+            out_box_vt_feat = self.extract_vt_region_feature(vt_multi_level_features, vt_boxes, task_type=task_type)
             if self.apply_region_layer_norm:
                 out_box_vt_feat = self.vt_region_norm.float()(out_box_vt_feat)
             if self.region_feature_combination in ['mean', 'mean_aux_pos']:

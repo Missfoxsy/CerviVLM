@@ -1,10 +1,13 @@
 hover_net/
 *.log
-dataset/
+logs/
 demo/
 eval_result/
 evaluation/
-hover_net/
 outputs/
-resources/
+resources/hoverNet/
+resources/sam3/
 wandb/
+EAGLE/
+configs/
+resources/

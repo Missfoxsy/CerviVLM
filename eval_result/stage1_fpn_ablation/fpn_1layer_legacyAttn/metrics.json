@@ -1,0 +1,37 @@
+{
+  "task_distribution": {
+    "type0": 1652,
+    "type1": 1622,
+    "type2": 1622
+  },
+  "type0_precision": 0.9200968523002422,
+  "type0_recall": 0.9200968523002422,
+  "type0_f1": 0.9200968523002422,
+  "type0_mean_iou": 0.7849009201733118,
+  "type0_map": 0.660411622276029,
+  "type0_tp": 1520,
+  "type0_fp": 132,
+  "type0_fn": 132,
+  "type1_precision": 0.8853267570900123,
+  "type1_recall": 0.8853267570900123,
+  "type1_f1": 0.8853267570900123,
+  "type1_mean_iou": 0.7562901931036783,
+  "type1_map": 0.63711467324291,
+  "type1_tp": 1436,
+  "type1_fp": 186,
+  "type1_fn": 186,
+  "type2_mean_bleu": 0.684235886069608,
+  "type2_mean_rouge_l": 0.0,
+  "type2_mean_rouge_1": 0.0,
+  "type2_mean_rouge_2": 0.0,
+  "hierarchical_gate_stats": {
+    "all": {
+      "count": 0,
+      "mean": [],
+      "std": []
+    },
+    "by_task_type": {},
+    "by_cell_type": {},
+    "note": "gate statistics are aggregated on ROI-level gate vectors directly (less compression than sample-first mean)."
+  }
+}

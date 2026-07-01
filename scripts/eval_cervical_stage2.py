@@ -852,6 +852,13 @@ def main():
         default=10,
         help='Print first N type4 samples with detailed predictions/GT for debugging (deprecated, kept for compatibility)'
     )
+    parser.add_argument(
+        '--language',
+        type=str,
+        default='zh',
+        choices=['zh', 'en'],
+        help='Constraint text language, same as training',
+    )
     
     args = parser.parse_args()
     
@@ -880,6 +887,7 @@ def main():
         verbose=False,
         # 评估阶段同样传入病理特征目录，使数据加载逻辑与训练保持一致
         path_feature_root=args.path_feature_root,
+        language=args.language,
     )
     
     print(f"测试集大小: {len(test_dataset)}")

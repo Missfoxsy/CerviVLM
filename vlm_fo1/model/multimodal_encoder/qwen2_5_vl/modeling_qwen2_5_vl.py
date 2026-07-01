@@ -830,6 +830,21 @@ class Qwen2_5_VLFlashAttention2(Qwen2_5_VLAttention):
         cache_position: Optional[torch.LongTensor] = None,
         position_embeddings: Optional[Tuple[torch.Tensor, torch.Tensor]] = None,  # necessary, but kept here for BC
     ):
+        if output_attentions:
+            # Keep FlashAttention as default path, but when callers explicitly
+            # request attention maps, fall back to eager attention so that
+            # attn_weights can be materialized.
+            return super().forward(
+                hidden_states=hidden_states,
+                attention_mask=attention_mask,
+                position_ids=position_ids,
+                past_key_value=past_key_value,
+                output_attentions=output_attentions,
+                use_cache=use_cache,
+                cache_position=cache_position,
+                position_embeddings=position_embeddings,
+            )
+
         bsz, q_len, _ = hidden_states.size()
 
         query_states = self.q_proj(hidden_states)
@@ -907,8 +922,10 @@ class Qwen2_5_VLFlashAttention2(Qwen2_5_VLAttention):
         attn_output = attn_output.reshape(bsz, q_len, self.hidden_size).contiguous()
         attn_output = self.o_proj(attn_output)
 
-        if not output_attentions:
-            attn_weights = None
+        # FlashAttention kernel does not expose attention weights here.
+        # Always return None to keep output contract stable and avoid
+        # UnboundLocalError when output_attentions=True.
+        attn_weights = None
 
         return attn_output, attn_weights, past_key_value
 

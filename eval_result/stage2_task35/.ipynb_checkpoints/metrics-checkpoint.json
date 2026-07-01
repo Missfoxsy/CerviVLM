@@ -1,0 +1,84 @@
+{
+  "task_distribution": {
+    "type5": 1000
+  },
+  "type0_precision": 0.0,
+  "type0_recall": 0.0,
+  "type0_f1": 0.0,
+  "type0_mean_iou": 0.0,
+  "type0_map": 0.0,
+  "type0_tp": 0,
+  "type0_fp": 0,
+  "type0_fn": 0,
+  "type1_precision": 0.0,
+  "type1_recall": 0.0,
+  "type1_f1": 0.0,
+  "type1_mean_iou": 0.0,
+  "type1_map": 0.0,
+  "type1_tp": 0,
+  "type1_fp": 0,
+  "type1_fn": 0,
+  "type5_accuracy": 0.629,
+  "type5_correct": 629,
+  "type5_total": 1000,
+  "type5_macro_precision": 0.648640082458907,
+  "type5_macro_recall": 0.5549110544701947,
+  "type5_macro_f1": 0.5232825852006266,
+  "type5_per_class": {
+    "ASCUS": {
+      "precision": 0.45726495726495725,
+      "recall": 0.6445783132530121,
+      "f1": 0.535,
+      "support": 166,
+      "tp": 107,
+      "fp": 127,
+      "fn": 59
+    },
+    "ASC_H": {
+      "precision": 0.533498759305211,
+      "recall": 0.8531746031746031,
+      "f1": 0.6564885496183206,
+      "support": 252,
+      "tp": 215,
+      "fp": 188,
+      "fn": 37
+    },
+    "EpitheliumNormal": {
+      "precision": 0.9163636363636364,
+      "recall": 0.9581749049429658,
+      "f1": 0.9368029739776953,
+      "support": 263,
+      "tp": 252,
+      "fp": 23,
+      "fn": 11
+    },
+    "HSIL": {
+      "precision": 0.7333333333333333,
+      "recall": 0.08333333333333333,
+      "f1": 0.1496598639455782,
+      "support": 132,
+      "tp": 11,
+      "fp": 4,
+      "fn": 121
+    },
+    "LSIL": {
+      "precision": 0.6027397260273972,
+      "recall": 0.23529411764705882,
+      "f1": 0.3384615384615384,
+      "support": 187,
+      "tp": 44,
+      "fp": 29,
+      "fn": 143
+    }
+  },
+  "hierarchical_gate_stats": {
+    "all": {
+      "count": 0,
+      "mean": [],
+      "std": []
+    },
+    "by_task_type": {},
+    "by_cell_type": {},
+    "note": "gate statistics are aggregated on ROI-level gate vectors directly (less compression than sample-first mean)."
+  }
+}

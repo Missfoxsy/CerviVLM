@@ -1,0 +1,2342 @@
+[
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_001",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/001.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_002",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/002.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_003",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/003.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_004",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/004.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_005",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/005.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_006",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/006.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_007",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/007.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_008",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/008.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_009",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/009.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_010",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/010.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_011",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/011.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_012",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/012.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_013",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/013.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_014",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/014.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_015",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/015.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_016",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/016.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_017",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/017.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_018",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/018.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_019",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/019.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_020",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/020.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_021",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/021.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_022",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/022.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_023",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/023.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_024",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/024.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_025",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/025.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_026",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/026.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_027",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/027.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_028",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/028.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_029",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/029.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_030",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/030.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_031",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/031.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_032",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/032.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_033",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/033.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_034",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/034.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_035",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/035.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_036",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/036.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_037",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/037.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_038",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/038.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_039",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/039.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_040",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/040.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_041",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/041.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_042",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/042.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_043",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/043.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_044",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/044.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_045",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/045.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_046",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/046.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_047",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/047.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_048",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/048.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_049",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/049.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_050",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/050.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_051",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/051.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_052",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/052.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_053",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/053.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_054",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/054.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_055",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/055.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_056",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/056.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_057",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/057.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_058",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/058.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_059",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/059.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_060",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/060.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_061",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/061.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_062",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/062.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_063",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/063.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_064",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/064.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_065",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/065.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_066",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/066.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_067",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/067.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_068",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/068.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_069",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/069.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_070",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/070.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_071",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/071.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_072",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/072.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_073",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/073.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_074",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/074.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_075",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/075.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_076",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/076.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_077",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/077.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_078",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/078.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_079",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/079.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_080",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/080.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_081",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/081.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_082",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/082.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_083",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/083.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_084",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/084.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_085",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/085.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_086",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/086.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_087",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/087.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_088",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/088.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_089",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/089.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_090",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/090.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_091",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/091.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_092",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/092.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_093",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/093.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_094",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/094.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_095",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/095.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_096",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/096.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_097",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/097.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_098",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/098.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_099",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/099.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_100",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/100.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_101",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/101.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_102",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/102.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_103",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/103.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_104",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/104.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_105",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/105.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_106",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/106.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_107",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/107.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_108",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/108.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_109",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/109.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_110",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/110.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_111",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/111.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_112",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/112.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_113",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/113.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_114",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/114.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_115",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/115.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_116",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/116.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_117",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/117.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_118",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/118.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_119",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/119.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_120",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/120.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_121",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/121.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_122",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/122.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_123",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/123.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_124",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/124.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_125",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/125.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Superficial_Intermediate_im_Superficial_Intermediate_126",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Superficial-Intermediate/im_Superficial-Intermediate/126.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮表层或中层",
+    "ground_truth_raw": "宫颈鳞状上皮表层或中层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_001",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/001.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_002",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/002.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_003",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/003.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_004",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/004.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_005",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/005.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_006",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/006.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_007",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/007.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_008",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/008.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_009",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/009.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_010",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/010.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_011",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/011.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_012",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/012.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_013",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/013.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_014",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/014.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_015",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/015.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_016",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/016.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_017",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/017.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_018",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/018.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_019",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/019.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_020",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/020.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_021",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/021.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_022",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/022.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_023",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/023.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_024",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/024.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_025",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/025.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_026",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/026.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_027",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/027.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_028",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/028.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_029",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/029.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_030",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/030.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_031",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/031.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_032",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/032.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_033",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/033.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_034",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/034.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_035",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/035.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_036",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/036.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_037",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/037.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_038",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/038.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_039",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/039.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_040",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/040.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_041",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/041.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_042",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/042.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_043",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/043.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_044",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/044.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_045",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/045.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_046",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/046.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_047",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/047.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_048",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/048.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_049",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/049.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_050",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/050.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_051",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/051.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_052",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/052.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_053",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/053.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_054",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/054.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_055",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/055.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_056",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/056.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_057",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/057.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_058",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/058.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_059",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/059.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_060",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/060.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_061",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/061.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_062",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/062.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_063",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/063.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_064",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/064.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_065",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/065.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_066",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/066.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮表层或中层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮表层或中层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": false
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_067",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/067.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_068",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/068.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_069",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/069.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_070",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/070.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_071",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/071.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_072",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/072.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_073",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/073.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_074",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/074.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_075",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/075.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_076",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/076.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_077",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/077.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_078",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/078.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_079",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/079.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_080",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/080.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_081",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/081.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_082",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/082.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_083",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/083.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_084",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/084.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_085",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/085.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_086",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/086.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_087",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/087.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_088",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/088.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_089",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/089.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_090",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/090.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_091",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/091.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_092",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/092.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_093",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/093.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_094",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/094.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_095",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/095.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_096",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/096.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_097",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/097.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_098",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/098.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_099",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/099.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_100",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/100.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_101",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/101.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_102",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/102.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_103",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/103.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_104",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/104.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_105",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/105.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_106",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/106.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_107",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/107.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  },
+  {
+    "id": "sipakmed_im_Parabasal_im_Parabasal_108",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/im_Parabasal/im_Parabasal/108.bmp",
+    "user_text": "图中的细胞来源是什么？回答：宫颈鳞状上皮表层或中层 宫颈鳞状上皮底层\n请从问题给出的候选类别中选择，并且只输出一个类别名称，不要输出解释、标点或其他内容。",
+    "prediction_raw": "宫颈鳞状上皮底层<|im_end|>",
+    "pred_class": "宫颈鳞状上皮底层",
+    "gt_class": "宫颈鳞状上皮底层",
+    "ground_truth_raw": "宫颈鳞状上皮底层",
+    "correct": true
+  }
+]

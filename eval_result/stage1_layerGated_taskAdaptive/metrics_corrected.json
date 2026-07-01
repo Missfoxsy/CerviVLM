@@ -1,0 +1,27 @@
+{
+  "task_distribution": {
+    "type0": 1652,
+    "type1": 1622,
+    "type2": 1622
+  },
+  "type0_precision": 0.9219128329297821,
+  "type0_recall": 0.9219128329297821,
+  "type0_f1": 0.9219128329297821,
+  "type0_mean_iou": 0.7861661196537594,
+  "type0_map": 0.6611985472154963,
+  "type0_tp": 1523,
+  "type0_fp": 129,
+  "type0_fn": 129,
+  "type1_precision": 0.8847102342786684,
+  "type1_recall": 0.8847102342786684,
+  "type1_f1": 0.8847102342786684,
+  "type1_mean_iou": 0.7553607333386849,
+  "type1_map": 0.6366214549938347,
+  "type1_tp": 1435,
+  "type1_fp": 187,
+  "type1_fn": 187,
+  "type2_mean_bleu": 0.6963028686460352,
+  "type2_mean_rouge_l": 0.0,
+  "type2_mean_rouge_1": 0.0,
+  "type2_mean_rouge_2": 0.0
+}

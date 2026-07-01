@@ -105,6 +105,13 @@ def parse_args() -> argparse.Namespace:
         help="Pathology feature cache directory (*.pt)",
     )
     parser.add_argument(
+        "--language",
+        type=str,
+        default="zh",
+        choices=["zh", "en"],
+        help="Constraint text language, same as training",
+    )
+    parser.add_argument(
         "--max_samples",
         type=int,
         default=0,
@@ -467,6 +474,7 @@ def main():
         is_train=False,
         verbose=False,
         path_feature_root=args.path_feature_root,
+        language=args.language,
     )
     print(f"验证集大小: {len(dataset)}")
 

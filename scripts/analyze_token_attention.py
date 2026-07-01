@@ -164,6 +164,7 @@ def load_model_and_data(args):
         is_train=False,
         verbose=False,
         path_feature_root=data_cfg.get("path_feature_root", None),
+        language=data_cfg.get("language", "zh"),
     )
 
     loader = DataLoader(

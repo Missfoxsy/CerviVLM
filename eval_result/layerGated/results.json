@@ -1,0 +1,66 @@
+[
+  {
+    "id": "identity_2451",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/img/LYZ24003926_B200B00DC13.jpg",
+    "task_type": "type1",
+    "user_text": "找出图中核增大的阳性细胞",
+    "prediction": "无<|im_end|>",
+    "ground_truth": "<ground>核增大的阳性细胞</ground><objects><region0></objects>",
+    "tp": 0,
+    "fp": 0,
+    "fn": 1,
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1": 0.0,
+    "mean_iou": 0.0,
+    "map": 0.0,
+    "pred_indices": [],
+    "gt_indices": [
+      0
+    ]
+  },
+  {
+    "id": "identity_3208",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/img/EHG0438017_B200300AC8_0_-81.jpg",
+    "task_type": "type1",
+    "user_text": "找出图中核深染、核增大、核浆比高的阳性细胞",
+    "prediction": "<ground>核深染，核增大，核浆比高的细胞</ground><objects><region0></objects><|im_end|>",
+    "ground_truth": "<ground>核深染、核增大、核浆比高的阳性细胞</ground><objects><region0></objects>",
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "mean_iou": 1.0,
+    "map": 1.0,
+    "pred_indices": [
+      0
+    ],
+    "gt_indices": [
+      0
+    ]
+  },
+  {
+    "id": "identity_10455",
+    "image": "/home/nas3/biod/shiyu/data/data_vl_20260115/img/NT2401288_B201600EC7.jpg",
+    "task_type": "type1",
+    "user_text": "找出图中核深染、核增大、核不规则的阳性细胞",
+    "prediction": "<ground>核深染，核增大，核不规则的细胞</ground><objects><region0></objects><|im_end|>",
+    "ground_truth": "<ground>核深染、核增大、核不规则的阳性细胞</ground><objects><region0></objects>",
+    "tp": 1,
+    "fp": 0,
+    "fn": 0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0,
+    "mean_iou": 1.0,
+    "map": 1.0,
+    "pred_indices": [
+      0
+    ],
+    "gt_indices": [
+      0
+    ]
+  }
+]

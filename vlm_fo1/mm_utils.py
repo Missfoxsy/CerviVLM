@@ -563,6 +563,8 @@ def prepare_inputs(
     do_sample=False,
     image_size=None,
     path_feature_root=None,
+    task_ids=None,
+    verbose=True,
 ):
     """
     Fully prepares keyword arguments for model.generate (and compatible API) from messages and model specs.
@@ -578,6 +580,7 @@ def prepare_inputs(
         messages (list): Multi-message input list (chat history).
         device (str): Target (usually 'cuda' or 'cpu').
         max_tokens, top_p, temperature, do_sample: Standard generation kwargs.
+        task_ids: Optional task-id list/tensor for task-adaptive region fusion.
 
     Returns:
         dict: ready-to-use argument dict for model.generate().
@@ -623,6 +626,11 @@ def prepare_inputs(
         images = [load_image(i) for i in image_urls]
         # Keep original bboxes for pathology feature matching (HoVer-Net is on original coords)
         bbox_list_original = bbox_list[:] if bbox_list and len(bbox_list) > 0 else None
+        if bbox_list is None:
+            bbox_list = []
+        # resize_shortest_edge_images_and_bboxes 要求 bbox 与 images 按图成组；无框时不能传 []，须为每图 [[]]
+        if len(images) > 0 and len(bbox_list) == 0:
+            bbox_list = [[] for _ in images]
         if image_size is not None:
             images, bbox_list = resize_shortest_edge_images_and_bboxes(images, bbox_list, candidate_sizes=[image_size], max_size=2048)
         else:
@@ -678,7 +686,8 @@ def prepare_inputs(
     else:
         do_sample = True
 
-    print("question:================\n", prompt, "\n=================")
+    if verbose:
+        print("question:================\n", prompt, "\n=================")
     # print("input ids:========", input_ids, "========")
     generation_kwargs = dict(
         inputs=input_ids,
@@ -695,5 +704,10 @@ def prepare_inputs(
         stopping_criteria=[stopping_criteria],
         pad_token_id=tokenizer.pad_token_id,
     )
+    if task_ids is not None:
+        if isinstance(task_ids, torch.Tensor):
+            generation_kwargs["task_ids"] = task_ids.to(device=device, dtype=torch.long)
+        else:
+            generation_kwargs["task_ids"] = torch.tensor(task_ids, dtype=torch.long, device=device)
     return generation_kwargs
 

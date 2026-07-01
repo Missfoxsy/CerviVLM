@@ -4,6 +4,16 @@ from vlm_fo1.model import *
 from safetensors.torch import load_file
 import os
 
+from vlm_fo1.model.attn_utils import resolve_attn_implementation
+
+
+def _is_vlm_fo1_bundle_dir(model_path: str) -> bool:
+    """仅根据路径最后一级目录名判断是否按 VLM-FO1 发布包加载（避免仓库位于 .../VLM-FO1/ 下误匹配）。"""
+    if not model_path:
+        return False
+    leaf = os.path.basename(os.path.normpath(model_path)).lower()
+    return "vlm-fo1" in leaf
+
 
 def load_pretrained_model(model_path, load_8bit=False, load_4bit=False, device="cuda"):
     """
@@ -19,6 +29,10 @@ def load_pretrained_model(model_path, load_8bit=False, load_4bit=False, device="
     Returns:
         tuple: (tokenizer, model, image_processor)
     """
+    # "cuda" 不会走下面 Qwen 的 CPU 先加载分支，易导致显存峰值过高；统一成 cuda:0（尊重 CUDA_VISIBLE_DEVICES）
+    if isinstance(device, str) and device == "cuda":
+        device = "cuda:0"
+
     # 在分布式训练中，不使用device_map，直接指定device
     # device_map会导致所有进程在同一GPU上加载模型
     # 如果device是"cuda:0"这样的格式，说明是分布式训练，不使用device_map
@@ -44,11 +58,12 @@ def load_pretrained_model(model_path, load_8bit=False, load_4bit=False, device="
     primary_image_processor = None
     aux_image_processor = None
     
-    if 'vlm-fo1' in model_path.lower():
+    if _is_vlm_fo1_bundle_dir(model_path):
         # Load tokenizer (slow tokenizer enforced)
         tokenizer = AutoTokenizer.from_pretrained(model_path, use_fast=False)
         # If this is the Qwen2.5-VL variant, load with additional kwargs
         if 'qwen2.5-vl' in model_path.lower() or 'qwen2_5_vl' in model_path.lower():
+            _attn_impl = resolve_attn_implementation()
             # 在分布式训练中，不使用device_map，模型会加载到CPU，然后手动移动到指定GPU
             if isinstance(device, str) and device.startswith('cuda:'):
                 # 先加载到CPU，避免OOM
@@ -56,23 +71,23 @@ def load_pretrained_model(model_path, load_8bit=False, load_4bit=False, device="
                     model_path,
                     low_cpu_mem_usage=True,
                     output_loading_info=True,
-                    attn_implementation="flash_attention_2",
+                    attn_implementation=_attn_impl,
                     torch_dtype=torch.bfloat16,
                 )
                 # 然后移动到指定GPU
                 model = model.to(device)
             else:
                 model, loading_info = OmChatQwen25VLForCausalLM.from_pretrained(
-                model_path,
-                low_cpu_mem_usage=True,
-                output_loading_info=True,
-                attn_implementation="flash_attention_2",
-                **kwargs
+                    model_path,
+                    low_cpu_mem_usage=True,
+                    output_loading_info=True,
+                    attn_implementation=_attn_impl,
+                    **kwargs
                 )
                 # print(f'OmChatQwen25VLForCausalLM loading_info: {loading_info}')
         # (For other variants of vlm-fo1, model loading detail may need additional condition.)
 
-    if 'vlm-fo1' in model_path.lower() and model is not None:
+    if _is_vlm_fo1_bundle_dir(model_path) and model is not None:
         # --- Vision Tower Loading ---
         # Load the main vision tower weights from model_path if it is not yet loaded
         primary_vision_tower = model.get_vision_tower()

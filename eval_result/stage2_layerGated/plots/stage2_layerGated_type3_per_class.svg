@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="664" height="735" viewBox="0 0 664 735">
+<rect x="0" y="0" width="100%" height="100%" fill="white"/>
+<text x="80" y="34" font-size="20" font-family="DejaVu Sans, Arial" fill="#111827">cell type (type3)</text>
+<text x="80" y="60" font-size="13" font-family="DejaVu Sans, Arial" fill="#374151">Acc=0.6919  Macro(P/R/F1)=0.6661/0.6543/0.6577</text>
+<rect x="374" y="20" width="10" height="10" fill="#2F5D9B"/><text x="390" y="30" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">Precision</text>
+<rect x="466" y="20" width="10" height="10" fill="#2E8B57"/><text x="482" y="30" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">Recall</text>
+<rect x="534" y="20" width="10" height="10" fill="#B34747"/><text x="550" y="30" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">F1</text>
+<line x1="80" y1="615.0" x2="634" y2="615.0" stroke="#00000020" stroke-width="1"/>
+<text x="70" y="619.0" text-anchor="end" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">0.00</text>
+<line x1="80" y1="485.0" x2="634" y2="485.0" stroke="#00000020" stroke-width="1"/>
+<text x="70" y="489.0" text-anchor="end" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">0.25</text>
+<line x1="80" y1="355.0" x2="634" y2="355.0" stroke="#00000020" stroke-width="1"/>
+<text x="70" y="359.0" text-anchor="end" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">0.50</text>
+<line x1="80" y1="225.0" x2="634" y2="225.0" stroke="#00000020" stroke-width="1"/>
+<text x="70" y="229.0" text-anchor="end" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">0.75</text>
+<line x1="80" y1="95.0" x2="634" y2="95.0" stroke="#00000020" stroke-width="1"/>
+<text x="70" y="99.0" text-anchor="end" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">1.00</text>
+<text x="357.0" y="685" text-anchor="middle" font-size="12" font-family="DejaVu Sans, Arial" fill="#374151">Per-class metrics</text>
+<rect x="92.0" y="337.79411764705884" width="18" height="277.20588235294116" fill="#2F5D9B"/>
+<text x="101.0" y="331.79411764705884" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.5331</text>
+<rect x="116.0" y="313.40000000000003" width="18" height="301.59999999999997" fill="#2E8B57"/>
+<text x="125.0" y="307.40000000000003" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.5800</text>
+<rect x="140.0" y="326.11111111111114" width="18" height="288.88888888888886" fill="#B34747"/>
+<text x="149.0" y="320.11111111111114" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.5556</text>
+<text x="125.0" y="643" text-anchor="middle" font-size="12" font-family="DejaVu Sans, Arial" fill="#111827">ASCUS</text>
+<text x="125.0" y="661" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#374151">n=250</text>
+<rect x="208.0" y="282.6169265033408" width="18" height="332.3830734966592" fill="#2F5D9B"/>
+<text x="217.0" y="276.6169265033408" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.6392</text>
+<rect x="232.0" y="240.96491228070175" width="18" height="374.03508771929825" fill="#2E8B57"/>
+<text x="241.0" y="234.96491228070175" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.7193</text>
+<rect x="256.0" y="263.0188679245283" width="18" height="351.9811320754717" fill="#B34747"/>
+<text x="265.0" y="257.0188679245283" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.6769</text>
+<text x="241.0" y="643" text-anchor="middle" font-size="12" font-family="DejaVu Sans, Arial" fill="#111827">ASC_H</text>
+<text x="241.0" y="661" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#374151">n=399</text>
+<rect x="324.0" y="105.9473684210526" width="18" height="509.0526315789474" fill="#2F5D9B"/>
+<text x="333.0" y="99.9473684210526" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.9789</text>
+<rect x="348.0" y="115.1550387596899" width="18" height="499.8449612403101" fill="#2E8B57"/>
+<text x="357.0" y="109.1550387596899" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.9612</text>
+<rect x="372.0" y="110.59322033898304" width="18" height="504.40677966101697" fill="#B34747"/>
+<text x="381.0" y="104.59322033898304" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.9700</text>
+<text x="357.0" y="643" text-anchor="middle" font-size="12" font-family="DejaVu Sans, Arial" fill="#111827">EpitheliumNormal</text>
+<text x="357.0" y="661" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#374151">n=387</text>
+<rect x="440.0" y="312.4545454545455" width="18" height="302.5454545454545" fill="#2F5D9B"/>
+<text x="449.0" y="306.4545454545455" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.5818</text>
+<rect x="464.0" y="381.7289719626168" width="18" height="233.2710280373832" fill="#2E8B57"/>
+<text x="473.0" y="375.7289719626168" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.4486</text>
+<rect x="488.0" y="351.5699208443272" width="18" height="263.4300791556728" fill="#B34747"/>
+<text x="497.0" y="345.5699208443272" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.5066</text>
+<text x="473.0" y="643" text-anchor="middle" font-size="12" font-family="DejaVu Sans, Arial" fill="#111827">HSIL</text>
+<text x="473.0" y="661" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#374151">n=214</text>
+<rect x="556.0" y="304.21875" width="18" height="310.78125" fill="#2F5D9B"/>
+<text x="565.0" y="298.21875" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.5977</text>
+<rect x="580.0" y="322.5" width="18" height="292.5" fill="#2E8B57"/>
+<text x="589.0" y="316.5" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.5625</text>
+<rect x="604.0" y="313.6363636363636" width="18" height="301.3636363636364" fill="#B34747"/>
+<text x="613.0" y="307.6363636363636" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#111827">0.5795</text>
+<text x="589.0" y="643" text-anchor="middle" font-size="12" font-family="DejaVu Sans, Arial" fill="#111827">LSIL</text>
+<text x="589.0" y="661" text-anchor="middle" font-size="11" font-family="DejaVu Sans, Arial" fill="#374151">n=272</text>
+</svg>

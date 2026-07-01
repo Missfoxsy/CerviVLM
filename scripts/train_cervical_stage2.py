@@ -9,6 +9,7 @@ VLM-FO1 宫颈细胞定位第二阶段微调训练脚本
 import os
 import sys
 import yaml
+from typing import List, Optional
 import argparse
 import re
 from collections import Counter
@@ -490,13 +491,22 @@ def load_stage1_model(base_model_path, stage1_model_path, device="cuda"):
     return tokenizer, model, image_processors
 
 
-def setup_lora(model, lora_config):
+# OmChatQwen25VLForCausalLM 根模块下：inner `model` 为 OmChatQwen25VLModel，其含 object_vp_extractor.hierarchical_fusion
+HIERARCHICAL_FUSION_PEFT_MODULE = "model.object_vp_extractor.hierarchical_fusion"
+
+
+def setup_lora(
+    model,
+    lora_config,
+    modules_to_save: Optional[List[str]] = None,
+):
     """
     设置LoRA配置并应用到模型
     
     Args:
         model: 模型对象
         lora_config: LoRA配置字典
+        modules_to_save: 与 LoRA 一并保存/加载的完整子模块名列表（如 HFRE 的 hierarchical_fusion），见 PEFT `modules_to_save`
         
     Returns:
         应用LoRA后的模型
@@ -511,9 +521,8 @@ def setup_lora(model, lora_config):
         target_modules = ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"]
     elif isinstance(target_modules, str):
         target_modules = [m.strip() for m in target_modules.split(",")]
-    
-    # 创建LoRA配置
-    peft_config = LoraConfig(
+
+    lora_kwargs = dict(
         task_type=TaskType.CAUSAL_LM,
         r=lora_config.get('r', 8),
         lora_alpha=lora_config.get('alpha', 16),
@@ -522,6 +531,10 @@ def setup_lora(model, lora_config):
         bias="none",
         inference_mode=False,
     )
+    if modules_to_save:
+        lora_kwargs["modules_to_save"] = modules_to_save
+
+    peft_config = LoraConfig(**lora_kwargs)
     
     # 应用LoRA到模型
     model = get_peft_model(model, peft_config)
@@ -550,9 +563,12 @@ def _enable_trainable_modules(model, trainable_modules):
     alias_to_target = {
         "fusion_layer": "mm_projector_path",
         "mm_projector": "mm_projector_aux",
+        "vt_level_fusion_proj": "object_vp_extractor.vt_level_fusion_proj",
     }
 
     def _match_param_name(param_name: str, target: str) -> bool:
+        if target == "lora_layers":
+            return ".lora_A." in f".{param_name}." or ".lora_B." in f".{param_name}."
         if param_name == target:
             return True
         if param_name.startswith(target + "."):
@@ -626,8 +642,8 @@ def run_startup_sanity_check(train_dataset, data_collator, max_samples=8):
 
         print(f"[StartupCheck] raw task分布(前{n}条): {dict(raw_counter)}, 缺失task字段={raw_task_id_missing}")
 
-        # 检查 __getitem__ + collator 后传给 Trainer 的字段
-        batch_n = min(2, len(train_dataset))
+        # 检查 __getitem__ + collator（batch=1，避免变长序列 stack 失败）
+        batch_n = 1
         probe_samples = [train_dataset[i] for i in range(batch_n)]
         probe_batch = data_collator(probe_samples)
 
@@ -878,6 +894,7 @@ def main():
     image_size = data_config.get('image_size')
     max_regions = data_config.get('max_regions', 100)
     path_feature_root = data_config.get('path_feature_root', None)
+    language = data_config.get('language', 'zh')
     
     # 创建训练数据集
     print(f"加载训练集: {train_json}")
@@ -891,6 +908,7 @@ def main():
         is_train=True,
         verbose=False,
         path_feature_root=path_feature_root,
+        language=language,
     )
     
     print(f"训练集大小: {len(train_dataset)}")
@@ -908,6 +926,7 @@ def main():
             is_train=False,
             verbose=False,
             path_feature_root=path_feature_root,
+            language=language,
         )
         print(f"测试集大小: {len(val_dataset)}")
     else:
