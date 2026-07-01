@@ -12,3 +12,7 @@ EAGLE/
 attentionMap/
 attention_infer/
 mllms_know/
+eagle_interpretation/
+eval_result/
+outputs/
+resources/
