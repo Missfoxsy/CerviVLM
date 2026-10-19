@@ -4,13 +4,11 @@
 # 关键：避免对照实验从 HAGE（task_adaptive）Stage1 初始化，
 #       否则 Average / Concat+Linear 会继承门控相关权重，对比不公平。
 #
-# 支持模式：
-#   mean           — Average
-#   concat         — Concat + Linear
-#   weighted       — 静态可学层级权重
-#   legacy         — 跨层 MHA + concat（无门控）
-#   softmax_gate   — Softmax Gate（与 task_adaptive 同结构，门控改为 Softmax）
-#   task_adaptive  — HAGE 主模型（Stage1 默认 outputs/stage1_layerGated_taskAdaptive）
+# 论文 Table II 中的融合方式：
+#   concat         — (b) 逐层 Linear 再拼接
+#   legacy         — (c) 跨层注意力，无门控
+#   softmax_gate   — (d) 跨层注意力 + Softmax 门控
+#   task_adaptive  — (e) 跨层注意力 + Sigmoid 门控（主模型）
 #
 # 用法：
 #   FUSION_MODE=concat CUDA_VISIBLE_DEVICES=3 bash scripts/run_matched_fusion_ablation.sh
@@ -67,7 +65,7 @@ case "${START_FROM}" in
 esac
 
 case "${FUSION_MODE}" in
-  mean|concat|weighted|legacy|softmax_gate)
+  concat|legacy|softmax_gate)
     STAGE1_CONFIG=${STAGE1_CONFIG:-"configs/train_config_stage1_lora_${FUSION_MODE}.yaml"}
     STAGE1_OUTPUT_DIR=${STAGE1_OUTPUT_DIR:-"outputs/stage1_fusion_${FUSION_MODE}"}
     STAGE2_CONFIG=${STAGE2_CONFIG:-"configs/train_config_stageB_lora_${FUSION_MODE}.yaml"}
@@ -85,7 +83,7 @@ case "${FUSION_MODE}" in
     SAVE_HIER_ATTN_DIR=${SAVE_HIER_ATTN_DIR:-"attentionMap/stage2_layerGated_taskAdaptive"}
     ;;
   *)
-    echo "Error: FUSION_MODE must be one of: mean, concat, weighted, legacy, softmax_gate, task_adaptive (got: ${FUSION_MODE})"
+    echo "Error: FUSION_MODE must be one of: concat, legacy, softmax_gate, task_adaptive (got: ${FUSION_MODE})"
     exit 1
     ;;
 esac

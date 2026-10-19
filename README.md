@@ -83,32 +83,53 @@ torchrun --nproc_per_node=1 scripts/train_stage2_cot.py \
 
 Stage2 的 `model.base_model` 必须指向对应融合方式的 Stage1 输出。不要用 task_adaptive 的 Stage1 去初始化 concat 或 softmax_gate。
 
+### 论文实验对应
+
+本仓库只保留论文里的实验，不包含未写入论文的融合方式或外部数据集。
+
+| 论文 | 设置 | 怎么跑 |
+|---|---|---|
+| 主结果 Table I，CerviVLM | 两阶段 + 跨层注意力 + Sigmoid 门控 | `scripts/run_two_stage_and_eval.sh` |
+| Table II (a) | 四层直接拼接，无注意力、无门控 | `use_hierarchical_fusion: false` |
+| Table II (b) | 逐层 Linear 再拼接 | `FUSION_MODE=concat bash scripts/run_matched_fusion_ablation.sh` |
+| Table II (c) | 只有跨层注意力 | `FUSION_MODE=legacy bash scripts/run_matched_fusion_ablation.sh` |
+| Table II (d) | 注意力 + Softmax 门控 | `FUSION_MODE=softmax_gate bash scripts/run_stage2_fusion_softmax_gate.sh` |
+| Table II (e) | 注意力 + Sigmoid 门控（主模型） | 与 Table I 相同 |
+| Table II (f) | 不做 Stage1 | `scripts/run_stage2_ablation_no_stage1.sh` |
+| Table II (g) | 只做 Stage1 | `scripts/eval_stage1_align.py` |
+| Fig. 4 | FPN 1/2/4/6 层 | `scripts/run_stage1_fpn_ablation.sh` |
+| PS3C、SIPaKMeD | 零样本分类 | `scripts/eval_ps3c_classification.py`、`scripts/eval_sipakmed_posneg.py` |
+
+Table I 里的 Qwen2.5-VL、LLaVA、InternVL、LLaVA-Med、MedPLIB、VLM-FO1，以及 Table III 的检测器，是外部基线，不在本仓库训练。
+
 ### 融合消融
 
-同一 `fusion_mode` 依次跑 Stage1、Stage2、评估：
+同一融合方式依次跑 Stage1、Stage2、评估。Stage2 必须从同一融合方式的 Stage1 初始化。
 
 ```bash
 FUSION_MODE=concat CUDA_VISIBLE_DEVICES=0 START_FROM=stage1 \
+  bash scripts/run_matched_fusion_ablation.sh
+
+FUSION_MODE=legacy CUDA_VISIBLE_DEVICES=0 START_FROM=stage1 \
   bash scripts/run_matched_fusion_ablation.sh
 
 FUSION_MODE=softmax_gate CUDA_VISIBLE_DEVICES=0 START_FROM=stage1 \
   bash scripts/run_stage2_fusion_softmax_gate.sh
 ```
 
-`FUSION_MODE`：`mean`、`concat`、`weighted`、`legacy`、`softmax_gate`、`task_adaptive`。
+`FUSION_MODE` 只用论文中的四种：`concat`、`legacy`、`softmax_gate`、`task_adaptive`。
 
-对应配置：
+| 模式 | 论文 | Stage1 | Stage2 |
+|---|---|---|---|
+| 关闭层级融合 | (a) 直接拼接 | 在 Stage1 配置里设 `use_hierarchical_fusion: false` | 同左 |
+| concat | (b) Lin+Cat | `configs/train_config_stage1_lora_concat.yaml` | `configs/train_config_stageB_lora_concat.yaml` |
+| legacy | (c) HA only | `configs/train_config_stage1_lora_legacy.yaml` | `configs/train_config_stageB_lora_legacy.yaml` |
+| softmax_gate | (d) | `configs/train_config_stage1_lora_softmax_gate.yaml` | `configs/train_config_stageB_lora_softmax_gate.yaml` |
+| task_adaptive | (e) | `configs/train_config_stage1_lora.yaml` | `configs/train_config_stageB_lora.yaml` |
 
-| 模式 | Stage1 | Stage2 |
-|---|---|---|
-| task_adaptive | `configs/train_config_stage1_lora.yaml` | `configs/train_config_stageB_lora.yaml` |
-| legacy | `configs/train_config_stage1_lora_legacy.yaml` | `configs/train_config_stageB_lora_legacy.yaml` |
-| concat | `configs/train_config_stage1_lora_concat.yaml` | `configs/train_config_stageB_lora_concat.yaml` |
-| softmax_gate | `configs/train_config_stage1_lora_softmax_gate.yaml` | `configs/train_config_stageB_lora_softmax_gate.yaml` |
-| mean | `configs/train_config_stage1_lora_mean.yaml` | `configs/train_config_stageB_lora_mean.yaml` |
-| weighted | `configs/train_config_stage1_lora_weighted.yaml` | `configs/train_config_stageB_lora_weighted.yaml` |
+不做 Stage1、只做 Stage2（Table II (f)）：`configs/train_config_stageB_lora_no_stage1.yaml`，脚本 `scripts/run_stage2_ablation_no_stage1.sh`。
 
-没有 Stage1、直接 Stage2：`configs/train_config_stageB_lora_no_stage1.yaml`，脚本 `scripts/run_stage2_ablation_no_stage1.sh`。
+FPN 深度（Fig. 4）使用 legacy 注意力、无门控，层数 1/2/4/6：`bash scripts/run_stage1_fpn_ablation.sh`。作图：`scripts/plot_stage1_fpn_ablation_loc.py`。病变分级的逐类 F1（Fig. 5）用 `scripts/plot_per_class_bar_type34.py`。
 
 ## 评估
 
@@ -213,14 +234,11 @@ HF_HUB_OFFLINE=1 python scripts/compute_task2_sbert_en.py \
 
 | 模式 | 做法 |
 |---|---|
-| 关闭融合（表中 a） | `use_hierarchical_fusion: false`。四层 512 维直接拼接成 2048。维度已经对齐时不再接 Linear |
-| `concat` | 每层各自 `Linear(512→512)`，拼接后再 `Linear(2048→2048)`。无注意力、无门控 |
-| `mean` | 四层等权平均后再投影 |
-| `weighted` | 一套全局静态层级权重（Softmax），与样本和任务无关 |
-| `legacy` | 逐层编码后，相邻层做 Multi-Head Attention（当前层 query，上一层 key/value），拼接再 Linear。无门控 |
-| `task_adaptive` | 与 legacy 相同的注意力，再乘层级门控。Sigmoid、下限、行归一化 |
-| `softmax_gate` | 与 task_adaptive 同一结构，门控改为 Softmax |
-| `gated` | 注意力之后用 `AdaptiveGatingNetwork`（无任务偏置） |
+| 关闭融合，Table II (a) | `use_hierarchical_fusion: false`。四层 512 维直接拼接成 2048。维度已经对齐时不再接 Linear |
+| `concat`，Table II (b) | 每层各自 `Linear(512→512)`，拼接后再 `Linear(2048→2048)`。无注意力、无门控 |
+| `legacy`，Table II (c) | 逐层编码后，相邻层做 Multi-Head Attention（当前层 query，上一层 key/value），拼接再 Linear。无门控 |
+| `softmax_gate`，Table II (d) | 与 task_adaptive 同一结构，门控改为 Softmax |
+| `task_adaptive`，Table II (e) | 与 legacy 相同的注意力，再乘层级门控。Sigmoid、下限、行归一化 |
 
 `task_adaptive` / `softmax_gate` 的门控常数写在代码里，不在 yaml 中：
 
