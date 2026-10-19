@@ -564,18 +564,34 @@ class Qwen2_5_VisionTransformerPretrainedModel(Qwen2_5_VLPreTrainedModel):
 
 
 class Qwen2_5_VLRotaryEmbedding(nn.Module):
+    @staticmethod
+    def compute_default_rope_parameters(config: Qwen2_5_VLConfig, device=None, **kwargs):
+        """Default RoPE inv_freq (transformers>=5 removed ``ROPE_INIT_FUNCTIONS['default']``)."""
+        rope = getattr(config, "rope_parameters", None) or getattr(config, "rope_scaling", None) or {}
+        base = rope.get("rope_theta", getattr(config, "rope_theta", 1000000.0))
+        dim = getattr(config, "head_dim", None) or config.hidden_size // config.num_attention_heads
+        inv_freq = 1.0 / (
+            base ** (torch.arange(0, dim, 2, dtype=torch.float, device=device) / dim)
+        )
+        return inv_freq, 1.0
+
     def __init__(self, config: Qwen2_5_VLConfig, device=None):
         super().__init__()
         # BC: "rope_type" was originally "type"
-        if hasattr(config, "rope_scaling") and config.rope_scaling is not None:
-            self.rope_type = config.rope_scaling.get("rope_type", config.rope_scaling.get("type"))
+        rope = getattr(config, "rope_parameters", None) or getattr(config, "rope_scaling", None)
+        if rope is not None:
+            self.rope_type = rope.get("rope_type", rope.get("type", "default"))
         else:
             self.rope_type = "default"
         self.max_seq_len_cached = config.max_position_embeddings
         self.original_max_seq_len = config.max_position_embeddings
 
         self.config = config
-        self.rope_init_fn = ROPE_INIT_FUNCTIONS[self.rope_type]
+        # transformers>=5: default RoPE is no longer registered in ROPE_INIT_FUNCTIONS
+        if self.rope_type == "default" or self.rope_type not in ROPE_INIT_FUNCTIONS:
+            self.rope_init_fn = self.compute_default_rope_parameters
+        else:
+            self.rope_init_fn = ROPE_INIT_FUNCTIONS[self.rope_type]
 
         inv_freq, self.attention_scaling = self.rope_init_fn(self.config, device)
         self.register_buffer("inv_freq", inv_freq, persistent=False)
@@ -1119,7 +1135,7 @@ class Qwen2_5_VLDecoderLayer(nn.Module):
 class Qwen2_5_VLModel(Qwen2_5_VLPreTrainedModel):
     def __init__(self, config: Qwen2_5_VLConfig):
         super().__init__(config)
-        self.padding_idx = config.pad_token_id
+        self.padding_idx = getattr(config, "pad_token_id", None)
         self.vocab_size = config.vocab_size
 
         self.embed_tokens = nn.Embedding(config.vocab_size, config.hidden_size, self.padding_idx)

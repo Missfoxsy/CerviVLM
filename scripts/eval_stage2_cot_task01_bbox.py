@@ -312,7 +312,7 @@ def parse_args():
         "--hierarchical_fusion_mode",
         type=str,
         default="legacy",
-        choices=["legacy", "task_adaptive", "gated"],
+        choices=["legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"],
         help="与 Stage1/Stage2 训练一致；加载含 modules_to_save 的 adapter 前需挂载同名 fusion 模块",
     )
     return parser.parse_args()

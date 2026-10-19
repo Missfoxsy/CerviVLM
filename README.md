@@ -1,256 +1,264 @@
-# VLM-FO1: Bridging the Gap Between High-Level Reasoning and Fine-Grained Perception
+# CerviVLM
 
-<p align="center">
- <a href="https://arxiv.org/pdf/2509.25916">
-    <img 
-        src="https://img.shields.io/badge/VLM_FO1-Paper-blue?logo=arxiv" 
-    />
-  </a> 
- <a href="https://huggingface.co/omlab/VLM-FO1_Qwen2.5-VL-3B-v01">
-    <img 
-        src="https://img.shields.io/badge/VLM_FO1-Model-orange?logo=huggingface" 
-    />
-  </a>
- <a href="https://huggingface.co/spaces/P3ngLiu/VLM-FO1-3B-Demo">
-    <img 
-        src="https://img.shields.io/badge/VLM_FO1-Demo-orange?logo=huggingface" 
-    />
-  </a>
-   <a href="https://huggingface.co/spaces/P3ngLiu/SAM3_VLM-FO1">
-    <img 
-        src="https://img.shields.io/badge/FO1+SAM3-Demo-orange?logo=huggingface" 
-    />
-  </a>
-</p>
+在 [VLM-FO1](https://arxiv.org/abs/2509.25916)（Qwen2.5-VL-3B）上做宫颈细胞两阶段 LoRA，并比较多层 ROI 特征的融合方式。本仓库只含训练、评估和模型代码。基座权重、图像和标注 JSON 需要单独准备，不包含在压缩包里。
 
-<p align="left">
-VLM-FO1 endows pre-trained VLMs with superior fine-grained perception without compromising their inherent high-level reasoning and general understanding capabilities. It operates as a plug-and-play module that can be integrated with any existing VLM, establishing an effective and flexible paradigm for building the next generation of perception-aware models.
-</p>
+上游 VLM-FO1 说明见 `docs/VLM-FO1_README.md`。
 
-VLM-FO1 excels at a wide range of fine-grained perception tasks, including Object Grounding, Region Generative
-Understanding, Visual Region Reasoning, and more.
+## 环境
 
-For more details, check out our **[paper](https://arxiv.org/abs/2509.25916)**
-
-
-## 📰 Update News
-
-- **2025-11-28** — We released a new [video tracking demo](#6-inference-with-sam3--vlm-fo1-video-tracking-gradio-demo) that combines **SAM3 video tracking** with **VLM-FO1**, enabling interactive object detection and tracking across video frames with complex natural language prompts.
-- **2025-11-21** — We released a new demo that integrates **[SAM3](https://github.com/facebookresearch/sam3)** with **VLM-FO1**, enabling stronger segmentation fidelity and more reliable detection under complex, compositional label prompts. Check this section [Inference with SAM3 + VLM-FO1 Gradio Demo](#5-inference-with-sam3--vlm-fo1-gradio-demo) about how to run it. Or try the [huggingface demo](https://huggingface.co/spaces/P3ngLiu/SAM3_VLM-FO1)
-
-
-
-<p align="center">
-  <img src="assets/overall_results.png" alt="VLM-FO1 Overall Results" style="max-width:100%;">
-</p>
-
-## ✨ Key Features
-
-🧩 **Plug-and-Play Modularity:** Our framework is designed as a set of enhancement modules that can be seamlessly integrated with any pre-trained VLM, preserving its original weights and capabilities.
-
-🧠 **Hybrid Region Encoder (HFRE):** We introduce a novel Dual-Vision Encoder architecture that fuses semantic-rich features with perception-enhanced features, creating powerful region tokens that capture both high-level meaning and fine-grained spatial detail.
-
-🎯 **State-of-the-Art Performance:** VLM-FO1 achieves SOTA results across a diverse suite of benchmarks.
-
-✅ **Preserves General Abilities:** Our two-stage training strategy ensures that fine-grained perception is gained without causing catastrophic forgetting of the base model's powerful general visual understanding abilities.
-
-<p align="center">
-  <img src="assets/structure.png" alt="VLM-FO1 Overall Results" style="max-width:100%;">
-</p>
-
-
-
-## 📝 ToDo
-- [X] Release Gradio demo
-
-## 🔗 Related works
-If you are interested in our research, we welcome you to explore our other wonderful projects.
-- 🔆 [Om AI Lab Blogs](https://om-ai-lab.github.io/index.html)
-- 🔆 [VLM-R1: A stable and generalizable R1-style Large Vision-Language Model](https://github.com/om-ai-lab/VLM-R1/tree/main)
-- 🔆 [OmAgent: Build Multimodal Language Agents with Ease](https://github.com/om-ai-lab/OmAgent)
-- 🔆 [OmDet-Turbo: Real-time and accurate open-vocabulary end-to-end object detection](https://github.com/om-ai-lab/OmDet)
-- 🔆 [ZoomEye: Enhancing Multimodal LLMs with Human-Like Zooming Capabilities through Tree-Based Image Exploration](https://github.com/om-ai-lab/ZoomEye)
-
-
-## 📋 Table of Contents
-
-- Installation
-- Quick Start
-  - Inference with Provided Bounding Boxes
-  - Inference with Object Detector
-  - Inference with Gradio Demo
-  - Inference with SAM3 + VLM-FO1 Gradio Demo
-  - Inference with SAM3 + VLM-FO1 Video Tracking Gradio Demo
-- Task Templates
-- Evaluation
-- Citation
-- Acknowledgements
-
-## 🛠️ Installation
-
-### Requirements
-
-- Python 3.10+
-- PyTorch (GPU recommended). Please install the CUDA-enabled build that matches your system.
-- Linux is the primary tested platform.
-
-### Setup
+已在 Linux + NVIDIA GPU 上用下面的版本跑通。请固定 `transformers==4.50.1`。升到 5.x 后，本仓库里的 Qwen2.5-VL 配置无法加载。
 
 ```bash
-git clone https://github.com/om-ai-lab/VLM-FO1.git
-cd VLM-FO1
+conda create -n cervivlm python=3.10 -y
+conda activate cervivlm
+pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
 pip install -r requirements.txt
+pip install peft safetensors sentencepiece protobuf tensorboard
+pip install nltk rouge-score
 ```
 
-If you use conda:
+`requirements.txt` 里的核心约束：
+
+| 包 | 版本 |
+|---|---|
+| python | 3.10 |
+| torch | 2.6.0 |
+| torchvision | 0.21.0 |
+| transformers | 4.50.1 |
+| timm | 1.0.9 |
+| accelerate | 1.4.0 |
+
+可选：`bitsandbytes`、`wandb`。不用 wandb 时，把配置里的 `misc.report_to` 改成 `tensorboard`。
+
+当前环境里 `flash_attn` 和 `torchaudio` 的 CUDA 扩展与 torch 不匹配。训练和评估入口会先导入 `utils/flash_attn_compat.py`，把这两个包藏起来，注意力走 SDPA。不需要为了跑通而重装 flash-attn。
+
+下载基座并放到：
+
+```text
+resources/VLM-FO1_Qwen2.5-VL-3B-v01
+```
+
+Hugging Face：`omlab/VLM-FO1_Qwen2.5-VL-3B-v01`。
+
+## 数据
+
+配置里的 JSON 路径是本机绝对路径，换机器时改 `configs/*.yaml` 里的 `data.train_json` / `data.val_json`。
+
+| 阶段 | 内容 | 默认文件 |
+|---|---|---|
+| Stage1 | 领域对齐：定位、带描述定位、区域描述 | `stage1_align_train.json` / `stage1_align_val.json` |
+| Stage2 | CoT 多任务（task 0–5） | `stage2_cot_train.json` / `stage2_cot_val.json` |
+| 评估 | task0/1 的原始框 | `origin_json`（验证集原始标注） |
+
+每条样本是一条对话。图像路径写在 JSON 里。`language` 为 `zh` 或 `en`，必须和训练时一致。
+
+## 训练
+
+主模型是 `hierarchical_fusion_mode: task_adaptive`（跨层注意力 + Sigmoid 门控）。
+
+从头跑两阶段并评估：
 
 ```bash
-conda create -n vlm-fo1 python=3.10 -y
-conda activate vlm-fo1
-pip install -r requirements.txt
+CUDA_VISIBLE_DEVICES=0 START_FROM=stage1 RESUME_TRAINING=0 \
+  bash scripts/run_two_stage_and_eval.sh
 ```
 
-## 🚀 Quick Start
+| 变量 | 作用 |
+|---|---|
+| `START_FROM` | `stage1` / `stage2` / `eval` |
+| `RESUME_TRAINING` | `1` 从 `output_dir` 里最新的 `checkpoint-*` 续训；`0` 从头训 |
+| `CUDA_VISIBLE_DEVICES` | 可见 GPU |
+| `NPROC_STAGE1` / `NPROC_STAGE2` | `torchrun` 进程数，不要超过可见 GPU 数 |
+| `STAGE1_CONFIG` / `STAGE2_CONFIG` | 配置文件 |
 
-### 1) Download Model Checkpoints
-
-Download the pre-trained VLM-FO1 checkpoints from Hugging Face and place them under `resources/`:
-
-- Pre-trained model: [Hugging Face link](https://huggingface.co/omlab/VLM-FO1_Qwen2.5-VL-3B-v01)
-- Suggested local path: `resources/VLM-FO1_Qwen2.5-VL-3B-v01/`
-
-### 2) Inference with Provided Bounding Boxes
-
-Use `inference.py` to run VLM-FO1 with provided bounding boxes. 
-
-Run:
+只训练、不走总脚本：
 
 ```bash
-python inference.py
+torchrun --nproc_per_node=1 scripts/train_stage1_align.py \
+  --config configs/train_config_stage1_lora.yaml
+
+torchrun --nproc_per_node=1 scripts/train_stage2_cot.py \
+  --config configs/train_config_stageB_lora.yaml
 ```
 
-The visualization with predicted boxes will be saved to `demo/vlm_fo1_result.jpg`.
+Stage2 的 `model.base_model` 必须指向对应融合方式的 Stage1 输出。不要用 task_adaptive 的 Stage1 去初始化 concat 或 softmax_gate。
 
-### 3) Inference with Object Detector
+### 融合消融
 
-#### Option A: Inference with UPN
-
-**Note:** Due to company policy, we are unable to release the object detector OPN referenced in our paper. Instead, we provide integration with UPN (from [ChatRex](https://github.com/IDEA-Research/ChatRex)), which offers similar functionality. You are also free to use any object detector of your choice by preparing bounding box proposals compatible with our pipeline.
-
-Before running, you need to install UPN's requirements and build the ops extension:
+同一 `fusion_mode` 依次跑 Stage1、Stage2、评估：
 
 ```bash
-cd detect_tools/upn
-pip install -r requirements.txt
-cd ops
-pip install -v -e .
+FUSION_MODE=concat CUDA_VISIBLE_DEVICES=0 START_FROM=stage1 \
+  bash scripts/run_matched_fusion_ablation.sh
+
+FUSION_MODE=softmax_gate CUDA_VISIBLE_DEVICES=0 START_FROM=stage1 \
+  bash scripts/run_stage2_fusion_softmax_gate.sh
 ```
 
-Then, download the UPN checkpoint from [this link](https://github.com/IDEA-Research/ChatRex/releases/download/upn-large/upn_large.pth) and place it in your `resources/` folder:
+`FUSION_MODE`：`mean`、`concat`、`weighted`、`legacy`、`softmax_gate`、`task_adaptive`。
 
-```
-wget https://github.com/IDEA-Research/ChatRex/releases/download/upn-large/upn_large.pth -P resources/
-```
+对应配置：
 
-Use `scripts/inference_with_upn.py` to run FO1 with UPN-generated proposals.
+| 模式 | Stage1 | Stage2 |
+|---|---|---|
+| task_adaptive | `configs/train_config_stage1_lora.yaml` | `configs/train_config_stageB_lora.yaml` |
+| legacy | `configs/train_config_stage1_lora_legacy.yaml` | `configs/train_config_stageB_lora_legacy.yaml` |
+| concat | `configs/train_config_stage1_lora_concat.yaml` | `configs/train_config_stageB_lora_concat.yaml` |
+| softmax_gate | `configs/train_config_stage1_lora_softmax_gate.yaml` | `configs/train_config_stageB_lora_softmax_gate.yaml` |
+| mean | `configs/train_config_stage1_lora_mean.yaml` | `configs/train_config_stageB_lora_mean.yaml` |
+| weighted | `configs/train_config_stage1_lora_weighted.yaml` | `configs/train_config_stageB_lora_weighted.yaml` |
 
-Run:
+没有 Stage1、直接 Stage2：`configs/train_config_stageB_lora_no_stage1.yaml`，脚本 `scripts/run_stage2_ablation_no_stage1.sh`。
+
+## 评估
 
 ```bash
-python scripts/inference_with_upn.py
+python scripts/eval_stage2_cot.py \
+  --base_model outputs/stage1_layerGated_taskAdaptive \
+  --checkpoint outputs/stage2_layerGated_taskAdaptive \
+  --test_json /path/to/stage2_cot_val.json \
+  --origin_json /path/to/origin_val.json \
+  --output_dir eval_result/stage2_layerGated_taskAdaptive \
+  --language zh \
+  --task_ids 0,1,2,3,4,5 \
+  --use_hierarchical_fusion \
+  --hierarchical_num_heads 8 \
+  --hierarchical_fusion_mode task_adaptive
 ```
 
-The script will:
+`--base_model` 是 Stage1 LoRA 目录，`--checkpoint` 是 Stage2 LoRA 目录。脚本先加载官方基座，合并 Stage1，再加载 Stage2。
 
-- Load UPN and produce fine-grained object proposals
-- Filter proposals by score
-- Pass top proposals to FO1 for reasoning
-- Save the visualization to `demo/vlm_fo1_result.jpg`
+Stage1 评估：`scripts/eval_stage1_align.py`。
 
-#### Option B: Inference with SAM3
+结果写到 `--output_dir`：
 
-We also provide integration with **[SAM3](https://github.com/facebookresearch/sam3)**, which offers high-quality open-vocabulary segmentation. This integration leverages SAM3 to generate object proposals based on text prompts, which are then refined and selected by VLM-FO1.
+| 文件 | 内容 |
+|---|---|
+| `results.json` | 每条样本的预测和分数 |
+| `metrics.json` | 汇总指标 |
+| `gate_stats.json` | 层级门控统计（有门控时） |
 
-1.  Follow the official [SAM3 setup guide](https://github.com/facebookresearch/sam3) to install `sam3` and request access to the checkpoints.
-2.  Download the SAM3 checkpoint (e.g., `sam3.pt`) and place it in `resources/sam3/`.
+### 指标
 
-Use `scripts/inference_with_sam3.py` to run FO1 with SAM3-generated proposals.
+| 任务 | 含义 | 指标 |
+|---|---|---|
+| type0 | 定位 | Precision / Recall / F1 / mean IoU / mAP。表中 Loc 用 type0 mAP×100 |
+| type1 | 带描述的定位 | 同上。表中 REC 用 type1 mAP×100 |
+| type2 | 区域描述 | BLEU、ROUGE-1/2/L，以及英文管线 SBERT |
+| type3 | 细胞类型 | Accuracy 与每类 P/R/F1。表中 Grade 用 Accuracy×100 |
+| type4 | 来源 / 成熟度 | 同上。表中 Maturation 用 Accuracy×100 |
+| type5 | 诊断依据 | 从诊断结论抽取类别后算分类指标。表中 Reason 用 Accuracy×100 |
 
-Run:
+Type2 SBERT 默认开启：中文预测和标注用规则译成英文，再与对齐的英文 GT 算余弦相似度。模型是 `sentence-transformers/paraphrase-multilingual-mpnet-base-v2`。关闭用 `--no-compute_task2_sbert`。英文 GT 默认 `eval_results/en_gt_ref_stage2_cot_val.json`（需自备，按样本 `id` 对齐）。已有 `results.json` 时也可以后补：
 
 ```bash
-python scripts/inference_with_sam3.py
+HF_HUB_OFFLINE=1 python scripts/compute_task2_sbert_en.py \
+  --input eval_result/<run>/results.json \
+  --name <run> \
+  --en-gt-ref eval_results/en_gt_ref_stage2_cot_val.json \
+  --device cuda
 ```
 
-The script will:
+脚本会把 SBERT 写回该目录的 `metrics.json`。
 
-- Load SAM3 and generate object proposals based on a text prompt (e.g., "the ball nearest to the bear")
-- Pass top proposals (bounding boxes) to FO1 for reasoning and filtering
-- Save the visualization to `demo/vlm_fo1_result_with_sam3.jpg`
+## 超参数
 
-### 4) Inference with Gradio Demo
-Run:
+未写出的字段沿用对应 yaml。两阶段都是 `num_epochs: 1`、`batch_size: 1`、`gradient_accumulation_steps: 8`（有效 batch 8）、`image_size: 896`、`max_regions: 100`、`seed: 42`、`max_grad_norm: 1.0`、`mixed_precision: bf16`。
 
-```bash
-python demo/gradio_demo.py
+### Stage1 领域适配
+
+配置：`configs/train_config_stage1_lora.yaml`。
+
+| 参数 | 值 | 说明 |
+|---|---|---|
+| `learning_rate` | 1e-4 | LoRA 与 projector |
+| `warmup_steps` | 300 | |
+| `lr_scheduler.type` | cosine | `warmup_ratio: 0.05` |
+| `optimizer.weight_decay` | 0.05 | AdamW |
+| `save_steps` / `eval_steps` | 1000 | `save_steps` 必须是 `eval_steps` 的整数倍 |
+| `logging_steps` | 10 | |
+| `save_total_limit` | 5 | |
+| `lora.r` / `alpha` / `dropout` | 32 / 64 / 0.1 | |
+| `lora.target_modules` | q,k,v,o,gate,up,down | Attention 和 MLP |
+| 可训练 | LoRA、`mm_projector`、`mm_projector_aux`、`hierarchical_fusion` | |
+| 冻结 | vision tower | |
+| `dataloader_num_workers` | 4 | |
+
+### Stage2 CoT
+
+配置：`configs/train_config_stageB_lora.yaml`。
+
+| 参数 | 值 | 说明 |
+|---|---|---|
+| `learning_rate` | 5e-5 | Attention LoRA |
+| `gate_lr_ratio` | 0.2 | `hierarchical_fusion` 的学习率 = `learning_rate * 0.2` |
+| `warmup_ratio` | 0.1 | |
+| `weight_decay` | 0.1 | |
+| `label_smoothing` | 0.05 | |
+| `lora.r` / `alpha` / `dropout` | 32 / 64 / 0.05 | |
+| `lora.target_modules` | q,k,v,o | 不训练 MLP，保留 Stage1 的领域适配 |
+| 可训练 | LoRA、`model.object_vp_extractor.hierarchical_fusion` | 融合模块用 PEFT `modules_to_save` 存全量权重 |
+| 冻结 | vision tower、vision projector、region projector、LLM MLP | |
+| `gradient_checkpointing` | true | |
+| `load_best_model_at_end` | true | 按 `eval_loss` |
+| `early_stopping_patience` | 3 | |
+
+`mix_stageA_data` 默认关闭。打开后按 `stageA_data_ratio`（配置里注释为 0.3）混入 Stage1 文本，用来减轻遗忘。
+
+### 融合模块
+
+实现：`vlm_fo1/model/multimodal_visual_prompt_encoder/hybrid_finegrained_region_encoder.py` 的 `HierarchicalFeatureFusion`。
+
+四层 FPN ROI 特征，每层先 ROIAlign 再空间平均，得到 `[N, 512]`。`hierarchical_num_heads: 8`。
+
+| 模式 | 做法 |
+|---|---|
+| 关闭融合（表中 a） | `use_hierarchical_fusion: false`。四层 512 维直接拼接成 2048。维度已经对齐时不再接 Linear |
+| `concat` | 每层各自 `Linear(512→512)`，拼接后再 `Linear(2048→2048)`。无注意力、无门控 |
+| `mean` | 四层等权平均后再投影 |
+| `weighted` | 一套全局静态层级权重（Softmax），与样本和任务无关 |
+| `legacy` | 逐层编码后，相邻层做 Multi-Head Attention（当前层 query，上一层 key/value），拼接再 Linear。无门控 |
+| `task_adaptive` | 与 legacy 相同的注意力，再乘层级门控。Sigmoid、下限、行归一化 |
+| `softmax_gate` | 与 task_adaptive 同一结构，门控改为 Softmax |
+| `gated` | 注意力之后用 `AdaptiveGatingNetwork`（无任务偏置） |
+
+`task_adaptive` / `softmax_gate` 的门控常数写在代码里，不在 yaml 中：
+
+| 常数 | 值 | 作用 |
+|---|---|---|
+| `task_adaptive_gate_temp` | 0.8 | 温度。logits 先除以温度 |
+| `task_adaptive_gate_floor` | 0.02 | 仅 Sigmoid 路径。门控下限，避免某一层变成 0 |
+| `task_adaptive_task_bias_scale` | 2.0 | 任务偏置的乘数 |
+| `task_level_bias` | 6×4 | task0/4 偏粗层，task2/3/5 偏细层，task1 均衡。可学习 |
+| `level_selector` | Linear(2048→128)→ReLU→Linear(128→4) | 由四层拼接特征预测门控 logits |
+
+Sigmoid 路径：`sigmoid(z/0.8)`，再线性抬到 `[0.02, 1]`，最后按层归一化使和为 1。Softmax 路径：`softmax(z/0.8)`，四层互相竞争。
+
+### 评估参数
+
+| 参数 | 默认 | 说明 |
+|---|---|---|
+| `--device` | cuda | |
+| `--language` | zh | 与训练一致 |
+| `--task_ids` | 0,1,2,3,4,5 | |
+| `--hierarchical_fusion_mode` | 与训练相同 | 评估时必须和 checkpoint 一致 |
+| `--save_every_n_samples` | 1000 | 中途写 `results.json` |
+| `--max_samples` | 0 | 0 表示全量 |
+| `--compute_task2_sbert` | true | `--no-compute_task2_sbert` 关闭 |
+| `--task2_sbert_model` | paraphrase-multilingual-mpnet-base-v2 | |
+| `--task2_en_gt_ref` | `eval_results/en_gt_ref_stage2_cot_val.json` | |
+| `--save_hierarchical_attn_per_task_max` | 10 | 每个任务随机导出的注意力图数量 |
+| `--save_hierarchical_attn_seed` | 42 | |
+
+## 目录
+
+```text
+configs/          训练 yaml
+dataset/          CervicalDataset 与任务约束文本
+scripts/          训练、评估、消融启动脚本
+utils/            flash_attn / torchaudio 兼容垫片等
+vlm_fo1/          模型、融合模块、数据整理
+resources/        基座权重（自行下载，不进压缩包）
+outputs/          LoRA 与 checkpoint（不进压缩包）
+eval_result/      评估输出（不进压缩包）
 ```
-
-### 5) Inference with SAM3 + VLM-FO1 Gradio Demo
-
-1. Follow the official [SAM3 setup guide](https://github.com/facebookresearch/sam3) to install sam3 and request access to the checkpoints from Hugging Face.
-2. Launch the joint demo:
-
-```bash
-python demo/gradio_demo_with_sam3.py
-```
-
-This script pipes SAM3’s text-conditioned segmentation into VLM-FO1’s complex label reasoning for more reliable detection and segmentation on compositional prompts.
-
-### 6) Inference with SAM3 + VLM-FO1 Video Tracking Gradio Demo
-
-Launch the video tracking demo:
-
-```bash
-python demo/gradio_demo_with_sam3_video_tracking.py
-```
-
-This demo extends the capabilities to video:
-1.  **Frame Selection**: Pick a keyframe from your video.
-2.  **Detection**: Use VLM-FO1 + SAM3 to identify objects with complex text prompts on the selected frame.
-3.  **Tracking**: Propagate the segmentation masks forward through the video using SAM3's tracker.
-
-
-## 📝 Task Templates
-
-We provide task templates to facilitate tasks beyond detection (e.g., counting, grounding, and other vision-language reasoning tasks). See `vlm_fo1/task_templates` for examples. You can adapt the prompts or message construction to your specific application.
-
-## Evaluation
-**Model performance when integrated with UPN is as follows:**
-| Model                          | COCO mAP | CountBench Accuracy | Pixmo-Count Accuracy |  HumanRef DF1/P/R |   LVIS SS/S-IoU | PACO SS/S-IoU | COCOText |
-|---------------------------------|----------|----------|----------|----------|------|------|------|       
-| VLM-FO1_Qwen2.5-VL-3B-v01 (FO1 + UPN) |   44.4   |       89.73%        |       85.07%         |    82.6/86.8/83.5|   92.5/87   |  88.1/77.9 |  57.1 |
-
-For benchmarking FO1 with UPN on your datasets, you can adapt the inference pipeline to export predictions and compare against ground-truth. We also include evaluation utilities under `evaluation/` for specific tasks.
-
-- CountBench/Pixmo-Count evaluation: `evaluation/eval_countbench.py`
-- COCO evaluation: `evaluation/eval_coco.py` (this script will output a prediction json file which you can use with the standard COCO evaluation tool to obtain scores)
-
-## 📄 Citation
-
-If you find VLM-FO1 useful in your research or applications, please cite our work:
-
-```bibtex
-@article{liu2025vlm,
-  title={VLM-FO1: Bridging the Gap Between High-Level Reasoning and Fine-Grained Perception in VLMs},
-  author={Liu, Peng and Shen, Haozhan and Fang, Chunxin and Sun, Zhicheng and Liao, Jiajia and Zhao, Tiancheng},
-  journal={arXiv preprint arXiv:2509.25916},
-  year={2025}
-}
-```
-
-## 🙏 Acknowledgements
-- Thanks to the Qwen Team for their powerful [Qwen2.5-VL](https://github.com/QwenLM/Qwen3-VL) model.
-- UPN detector is integrated from an external open-source project. Please refer to: [ChatRex](https://github.com/IDEA-Research/ChatRex)
-- Dataset images used above are from public benchmarks ([Pixmo-Count](https://huggingface.co/datasets/allenai/pixmo-count), [CountBenchQA](https://huggingface.co/datasets/vikhyatk/CountBenchQA)), credited to their respective authors.
-- Thanks to the numerous researchers and developers who have contributed to the datasets used in our training.
-

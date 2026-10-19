@@ -16,12 +16,14 @@ VLM-FO1 宫颈细胞 Stage-1 对齐训练脚本（不使用 path_feature）
 import os
 import sys
 import argparse
+
+# 添加项目根目录到路径（需在 transformers 之前加载 env compat）
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import utils.flash_attn_compat  # noqa: F401
+
 import torch
 from transformers import TrainingArguments, Trainer, set_seed
 from transformers.trainer_utils import get_last_checkpoint
-
-# 添加项目根目录到路径
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dataset.cervical_dataset import CervicalDataset
 from vlm_fo1.model.builder import load_pretrained_model
@@ -196,7 +198,7 @@ def _enable_hierarchical_fusion_if_needed(model, model_config: dict):
     enabled = bool(model_config.get("use_hierarchical_fusion", False))
     heads = int(model_config.get("hierarchical_num_heads", 8))
     fusion_mode = str(model_config.get("hierarchical_fusion_mode", "legacy")).strip().lower()
-    if fusion_mode not in ("legacy", "task_adaptive", "gated"):
+    if fusion_mode not in ("legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"):
         fusion_mode = "legacy"
     if not enabled:
         return
@@ -341,12 +343,8 @@ def main():
 
     fpn_num_levels = resolve_fpn_num_levels(model_config)
     use_hf = bool(model_config.get("use_hierarchical_fusion", False))
-    fusion_mode = str(model_config.get("hierarchical_fusion_mode", "legacy")).strip().lower()
-    if use_hf and fusion_mode in ("task_adaptive", "gated"):
-        print(
-            f"Warning: FPN 消融要求禁用门控；已将 hierarchical_fusion_mode 从 {fusion_mode} 改为 legacy。"
-        )
-        model_config["hierarchical_fusion_mode"] = "legacy"
+    # 注意：不要把 task_adaptive/gated 强改成 legacy。
+    # FPN 层数消融请直接使用 configs/train_config_stage1_fpn_ablation_*.yaml（已设 legacy）。
 
     fpn_meta = apply_vt_fpn_ablation(
         model,

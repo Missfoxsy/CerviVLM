@@ -93,7 +93,7 @@ def main():
         "--hierarchical_fusion_mode",
         type=str,
         default="legacy",
-        choices=["legacy", "task_adaptive", "gated"],
+        choices=["legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"],
         help="层级融合模式；FPN 消融请使用 legacy（保留注意力、无门控）",
     )
     parser.add_argument("--save_hierarchical_attn_dir", type=str, default=None)

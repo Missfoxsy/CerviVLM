@@ -572,7 +572,7 @@ def main():
         "--hierarchical_fusion_mode",
         type=str,
         default="task_adaptive",
-        choices=["legacy", "task_adaptive", "gated"],
+        choices=["legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"],
     )
     parser.add_argument(
         "--layers",

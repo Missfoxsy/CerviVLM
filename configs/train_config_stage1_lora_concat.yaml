@@ -1,0 +1,97 @@
+# Stage1 领域适配 — 融合对照 concat
+# Concat+Linear：无跨层注意力、拼接后线性融合
+# 与同名 Stage2 配置配对，避免从 HAGE Stage1 继承门控权重
+
+model:
+  base_model: "resources/VLM-FO1_Qwen2.5-VL-3B-v01"
+  # 预训练模型已有通用 region 能力，这里做领域适配而非从头学习
+  pretrained_region: true
+  # 方案一：Layer-wise Attention Fusion（HFRE增强）
+  use_hierarchical_fusion: true
+  hierarchical_num_heads: 8
+  hierarchical_fusion_mode: "concat"   # matched Stage1/Stage2 fusion ablation
+
+data:
+  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_train.json"
+  val_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_val.json"
+  image_size: 896
+  max_regions: 100
+  language: "zh"   # "zh" 中文约束 | "en" 英文约束
+
+  # （预留）数据增强配置，目前由 dataset/cervical_dataset.py 自身的 resize/过滤负责
+  # augmentation:
+  #   random_crop: 0.0
+  #   color_jitter: 0.0
+  #   horizontal_flip: 0.0
+
+training:
+  phase: "domain_adaptation"   # 领域适配，非从头训练
+  output_dir: "outputs/stage1_fusion_concat"
+
+  num_epochs: 1                # 小数据多 epoch，更充分适配
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 0.0001        # LoRA 可用稍大学习率
+  warmup_steps: 300
+
+  # load_best_model_at_end=true 时：save_steps 必须是 eval_steps 的整数倍（HF Trainer 校验）
+  save_steps: 1000
+  eval_steps: 1000
+  logging_steps: 10
+  save_total_limit: 5
+
+  # 正则化
+  optimizer:
+    type: "adamw_torch"
+    weight_decay: 0.05         # 更强正则化
+
+  lr_scheduler:
+    type: "cosine"
+    warmup_ratio: 0.05
+
+  # 早停相关（由外部回调或手工控制，这里仅记录）
+  early_stopping_patience: 2
+  metric_for_best_model: "eval_loss"
+  greater_is_better: false
+
+  # trainable_modules：LoRA + projector
+  trainable_modules:
+    - "lora_layers"        # LLM LoRA 层（由 lora.target_modules 控制）
+    - "mm_projector"       # Vision-Language Projector（全参数或子集）
+    - "mm_projector_aux"   # Region Projector（全参数或子集）
+    - "hierarchical_fusion"  # 启用 HFRE 门控/层级融合分支训练（含 gate_network）
+
+lora:
+  enabled: true
+  r: 32                      # 更大 rank 以适配领域知识
+  alpha: 64
+  dropout: 0.1               # 较高 dropout 防止过拟合
+
+  # LLM 部分 LoRA 目标模块
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+freeze:
+  # 冻结视觉编码器（ViT），保留其通用能力
+  vision_tower: true
+  # LLM 主体由 LoRA 进行适配，不做逐层冻结；这里预留字段以备需要细粒度冻结
+  language_model_layers: []
+
+hardware:
+  device: "cuda"
+  mixed_precision: "bf16"
+  dataloader_num_workers: 4
+  dataloader_pin_memory: true
+
+misc:
+  seed: 42
+  max_grad_norm: 1.0
+  report_to: "tensorboard"
+  run_name: "cervical_stage1_fusion_concat"
+

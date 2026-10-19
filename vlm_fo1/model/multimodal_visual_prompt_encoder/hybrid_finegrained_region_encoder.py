@@ -51,7 +51,12 @@ class HierarchicalFeatureFusion(nn.Module):
     Layer-wise hierarchical fusion for ROI features（由粗到细）。
 
     legacy：逐层 encoder + 跨层 MultiheadAttention + concat → Linear（无门控）。
-    task_adaptive / gated：在 legacy 特征上叠加任务/样本门控（消融实验应使用 legacy）。
+    task_adaptive / gated：在 legacy 特征上叠加任务/样本门控（Sigmoid+floor+行归一化）。
+    softmax_gate：与 task_adaptive 同结构（跨层 MHA + level_selector + task bias），
+                  仅将门控改为 Softmax(z)（表格 Softmax Gate 对照）。
+    mean：无跨层注意力，各层特征等权平均后再投影（Average 对照）。
+    concat：无跨层注意力，拼接多层特征后线性融合（Concat + Linear 对照）。
+    weighted：无跨层注意力，静态可学层级权重。
     """
 
     def __init__(
@@ -67,7 +72,8 @@ class HierarchicalFeatureFusion(nn.Module):
         self.out_dim = out_dim
         self.num_levels = int(num_levels)
 
-        self.fusion_mode = fusion_mode  # legacy | task_adaptive | gated
+        # legacy | task_adaptive | softmax_gate | gated | mean | concat | weighted
+        self.fusion_mode = fusion_mode
         self.level_encoders = nn.ModuleList([
             nn.Linear(feature_dim, feature_dim) for _ in range(self.num_levels)
         ])
@@ -114,6 +120,9 @@ class HierarchicalFeatureFusion(nn.Module):
             num_levels=self.num_levels,
             dropout=0.1,
         )
+
+        # weighted 模式：全局静态层级权重（softmax，无样本/任务条件）
+        self.static_level_logits = nn.Parameter(torch.zeros(self.num_levels))
 
         # Optional debug cache (last forward); can be read by probing scripts.
         self.last_level_features = None
@@ -166,10 +175,45 @@ class HierarchicalFeatureFusion(nn.Module):
 
     def forward(self, roi_feats_per_level: List[torch.Tensor], task_type: str = "type1") -> torch.Tensor:
         levels = self._build_hierarchy_levels(roi_feats_per_level, self.num_levels)
+        target_dtype = self.level_encoders[0].weight.dtype
+
+        # mean / concat / weighted：无跨层 MultiheadAttention 的短路径
+        if self.fusion_mode in ("mean", "concat", "weighted"):
+            encoded = []
+            for i, feat in enumerate(levels):
+                if feat.dtype != target_dtype:
+                    feat = feat.to(target_dtype)
+                encoded.append(self.level_encoders[i](feat))  # [N, D]
+
+            self.last_level_features = [e.detach() for e in encoded]
+            self.last_level_attn = []
+
+            if self.fusion_mode == "mean":
+                # Average：各层等权平均（再经 final_fusion 对齐到 out_dim）
+                avg = torch.stack(encoded, dim=0).mean(dim=0)  # [N, D]
+                pooled = avg.repeat(1, self.num_levels)  # [N, num_levels*D]
+                fused = self.final_fusion(pooled)
+                self.last_gates = None
+                self.last_gates_raw = None
+            elif self.fusion_mode == "concat":
+                # Concat + Linear：拼接多层特征后线性融合（无跨层注意力、无门控）
+                concat = torch.cat(encoded, dim=-1)  # [N, num_levels*D]
+                fused = self.final_fusion(concat)
+                self.last_gates = None
+                self.last_gates_raw = None
+            else:  # weighted
+                w = torch.softmax(self.static_level_logits.to(target_dtype), dim=0)  # [num_levels]
+                weighted = [encoded[i] * w[i] for i in range(self.num_levels)]
+                weighted_concat = torch.cat(weighted, dim=-1)  # [N, num_levels*D]
+                fused = self.final_fusion(weighted_concat)
+                self.last_gates = w.detach().unsqueeze(0).expand(encoded[0].shape[0], -1)
+                self.last_gates_raw = self.last_gates
+            return fused
+
+        # legacy / task_adaptive / softmax_gate / gated（含跨层注意力）
         level_features = []
         attn_maps = []
         prev = None
-        target_dtype = self.level_encoders[0].weight.dtype
 
         for i, feat in enumerate(levels):
             if feat.dtype != target_dtype:
@@ -214,6 +258,19 @@ class HierarchicalFeatureFusion(nn.Module):
             fused = self.final_fusion(gated_concat)
             self.last_gates = gates.detach()
             self.last_gates_raw = gates_raw.detach()
+        elif self.fusion_mode == "softmax_gate":
+            # Softmax Gate ablation: identical to task_adaptive except α = Softmax(z/temp).
+            task_id = self._parse_task_id(task_type)
+            gate_logits = self.level_selector(stacked)
+            gate_logits = gate_logits + self.task_adaptive_task_bias_scale * self.task_level_bias[task_id : task_id + 1]
+            temp = max(float(self.task_adaptive_gate_temp), 1e-3)
+            gates = torch.softmax(gate_logits / temp, dim=-1)  # [N, 4], Σ=1
+            gated_concat = torch.cat(
+                [level_features[i] * gates[:, i : i + 1] for i in range(self.num_levels)], dim=-1
+            )
+            fused = self.final_fusion(gated_concat)
+            self.last_gates = gates.detach()
+            self.last_gates_raw = gates.detach()
         elif self.fusion_mode == "gated":
             gates, gates_raw = self.gate_network(stacked)  # [N, 4], Σ row = 1
             gated_features = [
@@ -223,7 +280,7 @@ class HierarchicalFeatureFusion(nn.Module):
             fused = self.final_fusion(gated_concat)           # [N, out_dim]
             self.last_gates = gates.detach()
             self.last_gates_raw = gates_raw.detach()
-        else:
+        else:  # legacy
             fused = self.final_fusion(stacked)           # [N, out_dim]
             self.last_gates = None
             self.last_gates_raw = None

@@ -240,6 +240,8 @@ class Qwen2_5_VLConfig(PretrainedConfig):
         self.rope_theta = rope_theta
         self.attention_dropout = attention_dropout
         self.rope_scaling = rope_scaling
+        # transformers>=5 expects rope_parameters; keep both for local modeling + HF validation
+        self.rope_parameters = rope_scaling
 
         # Validate the correctness of rotary position embeddings parameters
         # BC: if there is a 'type' field, move it to 'rope_type'.
@@ -250,7 +252,13 @@ class Qwen2_5_VLConfig(PretrainedConfig):
             if self.rope_scaling["type"] == "mrope":
                 self.rope_scaling["type"] = "default"
             self.rope_scaling["rope_type"] = self.rope_scaling["type"]
+            self.rope_parameters = self.rope_scaling
         rope_config_validation(self, ignore_keys={"mrope_section"})
+
+        # Ensure pad_token_id exists even when absent from config.json (transformers>=5
+        # no longer synthesizes missing optional token-id attributes).
+        if "pad_token_id" not in kwargs:
+            kwargs["pad_token_id"] = None
 
         super().__init__(tie_word_embeddings=tie_word_embeddings, **kwargs)
 

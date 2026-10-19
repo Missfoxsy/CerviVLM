@@ -4,7 +4,14 @@ import warnings
 import torch
 import torch.nn as nn
 
-from transformers import Qwen2_5_VLConfig, AutoConfig, AutoModelForCausalLM
+from transformers import AutoConfig, AutoModelForCausalLM
+# Use the vendored flat Qwen2.5-VL config (matches on-disk config.json).
+# transformers>=5 ships a composite text_config/vision_config Qwen2_5_VLConfig that
+# drops top-level vocab_size/hidden_size and breaks local modeling.
+from vlm_fo1.model.multimodal_encoder.qwen2_5_vl.configuration_qwen2_5_vl import (
+    Qwen2_5_VLConfig,
+    Qwen2_5_VLVisionConfig,
+)
 from vlm_fo1.model.multimodal_encoder.qwen2_5_vl.modeling_qwen2_5_vl import Qwen2_5_VLModel, Qwen2_5_VLForConditionalGeneration, Qwen2_5_VLCausalLMOutputWithPast
 from vlm_fo1.model.multimodal_encoder.qwen2_5_vl_encoder import Qwen2_5_VlVisionTower
 from vlm_fo1.constants import IGNORE_INDEX, IMAGE_TOKEN_INDEX, DEFAULT_IMAGE_PATCH_TOKEN, DEFAULT_IM_START_TOKEN, DEFAULT_IM_END_TOKEN, DEFAULT_REGION_INDEX, QWEN2_5_VL_IMAGE_TOKEN, QWEN2_5_VL_IMAGE_TOKEN_INDEX
@@ -17,6 +24,41 @@ class OmChatQwen25VLConfig(Qwen2_5_VLConfig):
     rotary_type = "normal_rotary"
     multi_scale_im = None
     vision_tower_aux = None
+
+    def _normalize_for_transformers5(self) -> None:
+        """Repair attributes that transformers>=5 rewrites during from_pretrained.
+
+        - ``vision_config`` may be left as a plain dict (breaks attn_implementation assign)
+        - ``pad_token_id`` may be omitted when absent from config.json
+        - keep ``rope_scaling`` / ``rope_parameters`` in sync
+        """
+        vc = getattr(self, "vision_config", None)
+        if isinstance(vc, dict):
+            vc = {k: v for k, v in vc.items() if k not in ("transformers_version",)}
+            try:
+                self.vision_config = self.sub_configs["vision_config"](**vc)
+            except TypeError:
+                self.vision_config = Qwen2_5_VLVisionConfig(**vc)
+
+        if not hasattr(self, "pad_token_id"):
+            self.pad_token_id = None
+
+        rope_scaling = getattr(self, "rope_scaling", None)
+        rope_parameters = getattr(self, "rope_parameters", None)
+        if rope_scaling is None and rope_parameters is not None:
+            self.rope_scaling = rope_parameters
+        elif rope_parameters is None and rope_scaling is not None:
+            self.rope_parameters = rope_scaling
+
+    @classmethod
+    def from_dict(cls, config_dict, **kwargs):
+        config = super().from_dict(config_dict, **kwargs)
+        # transformers may return (config, unused_kwargs)
+        if isinstance(config, tuple):
+            config[0]._normalize_for_transformers5()
+            return config
+        config._normalize_for_transformers5()
+        return config
 
 # Core model definition: inherits from OmChat and Qwen multimodal base
 class OmChatQwen25VLModel(OmChatMetaModel, Qwen2_5_VLModel):
@@ -33,6 +75,8 @@ class OmChatQwen25VLForCausalLM(Qwen2_5_VLForConditionalGeneration, OmChatMetaFo
         # Ensure config has delay_load property
         if not hasattr(config, 'delay_load'):
             config.delay_load = delay_load
+        if hasattr(config, "_normalize_for_transformers5"):
+            config._normalize_for_transformers5()
         super(Qwen2_5_VLForConditionalGeneration, self).__init__(config)
         self.model = OmChatQwen25VLModel(config)
         self.vocab_size = config.vocab_size

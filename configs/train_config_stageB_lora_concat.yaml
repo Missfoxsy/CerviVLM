@@ -1,0 +1,81 @@
+# StageB: CoT 推理注入 — Concat + Linear 融合基线
+# （无跨层注意力、无门控：逐层 encode → concat → Linear）
+
+model:
+  base_model: "./outputs/stage1_fusion_concat"
+  load_stageA_lora: true
+  use_hierarchical_fusion: true
+  hierarchical_num_heads: 8
+  hierarchical_fusion_mode: "concat"   # legacy | task_adaptive | gated | mean | concat | weighted
+
+data:
+  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_train.json"
+  val_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json"
+  image_size: 896
+  max_regions: 100
+  path_feature_root: null
+  language: "zh"
+
+training:
+  phase: "cot_injection"
+  output_dir: "outputs/stage2_fusion_concat"
+
+  num_epochs: 1
+  batch_size: 1
+  gradient_accumulation_steps: 8
+  learning_rate: 0.00005
+  warmup_ratio: 0.1
+
+  save_steps: 1000
+  logging_steps: 10
+  save_total_limit: 5
+
+  # 训练期间不做验证；完整 epoch 结束后由 run_stage2_fusion_ablation.sh 调用 eval_stage2_cot.py
+  eval_strategy: "no"
+  load_best_model_at_end: false
+
+  weight_decay: 0.1
+  label_smoothing: 0.05
+
+  trainable_modules:
+    - "lora_layers"
+    - "model.object_vp_extractor.hierarchical_fusion"
+  gate_lr_ratio: 0.2
+
+lora:
+  enabled: true
+  r: 32
+  alpha: 64
+  dropout: 0.05
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+
+freeze:
+  vision_tower: true
+  vision_projector: true
+  region_projector: true
+  llm_mlp: true
+  llm_attention: false
+
+hardware:
+  device: "cuda"
+  mixed_precision: "bf16"
+  gradient_checkpointing: true
+  dataloader_num_workers: 4
+  dataloader_pin_memory: true
+
+misc:
+  seed: 42
+  max_grad_norm: 1.0
+  report_to: "wandb"
+  run_name: "stageB_cot_lora_concat"
+
+wandb:
+  project: "vlm-fo1-cervical"
+  entity: null
+  name: null
+  tags: ["stageB", "cot", "lora", "fusion_concat"]
+  notes: "Matched Stage1+Stage2 table baseline: Concat + Linear (no cross-level attention, no gating)"

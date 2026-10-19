@@ -20,13 +20,15 @@ from contextlib import contextmanager
 from collections import Counter
 from typing import Any, Dict, Optional
 
+# Project root must be on path before transformers (flash_attn ABI shield).
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import utils.flash_attn_compat  # noqa: F401  — hide broken flash_attn before transformers
+
 import torch
 import torch.utils.data
 from torch.optim import AdamW
 from transformers import TrainingArguments, Trainer, set_seed
 from transformers.trainer_utils import get_last_checkpoint
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dataset.cervical_dataset import CervicalDataset
 from vlm_fo1.model.builder import load_pretrained_model
@@ -270,7 +272,7 @@ def _enable_hierarchical_fusion_if_needed(model, model_config: dict):
     enabled = bool(model_config.get("use_hierarchical_fusion", False))
     heads = int(model_config.get("hierarchical_num_heads", 8))
     fusion_mode = str(model_config.get("hierarchical_fusion_mode", "legacy")).strip().lower()
-    if fusion_mode not in ("legacy", "task_adaptive", "gated"):
+    if fusion_mode not in ("legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"):
         fusion_mode = "legacy"
     if not enabled:
         return
@@ -435,6 +437,9 @@ def main():
     warmup_ratio = float(training_config.get("warmup_ratio", 0.1))
     save_steps = training_config.get("save_steps", 500)
     eval_steps = training_config.get("eval_steps", 500)
+    eval_strategy = str(training_config.get("eval_strategy", "steps" if val_json else "no")).strip().lower()
+    if eval_strategy not in ("no", "steps", "epoch"):
+        eval_strategy = "steps" if val_json else "no"
     logging_steps = training_config.get("logging_steps", 10)
     save_total_limit = training_config.get("save_total_limit", 3)
     weight_decay = float(training_config.get("weight_decay", 0.1))
@@ -596,6 +601,10 @@ def main():
     total_steps_est = (len(train_dataset) // (batch_size * grad_accum)) * num_epochs
     warmup_steps = max(1, int(total_steps_est * warmup_ratio))
 
+    load_best_model_at_end = bool(training_config.get("load_best_model_at_end", True))
+    if eval_strategy == "no":
+        load_best_model_at_end = False
+
     training_args = TrainingArguments(
         output_dir=output_dir,
         num_train_epochs=num_epochs,
@@ -608,7 +617,7 @@ def main():
         eval_steps=eval_steps,
         logging_steps=logging_steps,
         save_total_limit=save_total_limit,
-        load_best_model_at_end=training_config.get("load_best_model_at_end", True),
+        load_best_model_at_end=load_best_model_at_end,
         metric_for_best_model=training_config.get("metric_for_best_model", "eval_loss"),
         greater_is_better=training_config.get("greater_is_better", False),
         bf16=bf16,
@@ -620,7 +629,7 @@ def main():
         report_to=report_to,
         run_name=run_name,
         max_grad_norm=max_grad_norm,
-        eval_strategy="steps" if val_dataset else "no",
+        eval_strategy=eval_strategy if val_dataset else "no",
         save_strategy="steps",
         logging_dir=os.path.join(output_dir, "logs"),
         remove_unused_columns=False,
@@ -629,7 +638,7 @@ def main():
     )
 
     callbacks = []
-    if val_dataset is not None:
+    if val_dataset is not None and eval_strategy != "no":
         try:
             from transformers import EarlyStoppingCallback
             callbacks.append(EarlyStoppingCallback(early_stopping_patience=early_stopping_patience))

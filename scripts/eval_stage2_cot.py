@@ -6,7 +6,7 @@ VLM-FO1 阶段2 多任务评估脚本（任务 0,1,2,4,5）
 支持五种任务类型（与 cervical_dataset 约束一致）：
 - 类型0 (task_id=0)：基础定位 - IoU、Precision、Recall、F1、mAP
 - 类型1 (task_id=1)：带描述的特征定位 - IoU、Precision、Recall、F1、mAP
-- 类型2 (task_id=2)：区域描述 - BLEU、ROUGE
+- 类型2 (task_id=2)：区域描述 - BLEU、ROUGE、SBERT（英文对齐管线，默认开启）
 - 类型4 (task_id=4)：来源分类 - 准确率 + 每个类别的 Precision/Recall/F1/Support
 - 类型5 (task_id=5)：区域细胞类型+诊断依据（CoT） - 从【诊断结果】中提取类别，按分类任务计算准确率 + 每类别指标
 
@@ -18,13 +18,19 @@ import sys
 import json
 import argparse
 import inspect
+import re
+from pathlib import Path
+from typing import Optional
+
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import utils.flash_attn_compat  # noqa: F401  — hide broken flash_attn before transformers
+
 import torch
 import numpy as np
 import random
 from PIL import Image
 from tqdm import tqdm
 from collections import defaultdict
-import re
 
 try:
     from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
@@ -32,8 +38,6 @@ try:
     BLEU_ROUGE_AVAILABLE = True
 except ImportError:
     BLEU_ROUGE_AVAILABLE = False
-
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from dataset.cervical_dataset import CervicalDataset, TASK_CONSTRAINT_TEXTS
 from vlm_fo1.model.builder import load_pretrained_model
@@ -46,6 +50,91 @@ from vlm_fo1.model.multimodal_visual_prompt_encoder.hybrid_finegrained_region_en
 
 _PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_VLM_FO1_BASE = os.path.join(_PROJECT_ROOT, "resources", "VLM-FO1_Qwen2.5-VL-3B-v01")
+DEFAULT_TASK2_EN_GT_REF = os.path.join(
+    _PROJECT_ROOT, "eval_results", "en_gt_ref_stage2_cot_val.json"
+)
+DEFAULT_TASK2_SBERT_MODEL = (
+    "sentence-transformers/paraphrase-multilingual-mpnet-base-v2"
+)
+
+
+def _compute_and_attach_task2_sbert(
+    results: list,
+    metrics: dict,
+    *,
+    language: str,
+    enabled: bool,
+    en_gt_ref: Optional[str],
+    sbert_model: str,
+    sbert_device: str,
+    output_dir: str,
+) -> dict:
+    """Post-process type2 samples with English-pipeline SBERT; update metrics + results.json."""
+    if not enabled:
+        return metrics
+    has_type2 = any(
+        (r.get("task_type") == "type2" or r.get("task_id_effective") == 2) for r in results
+    )
+    if not has_type2:
+        return metrics
+
+    try:
+        from scripts.compute_task2_sbert_en import (
+            augment_results_with_sbert,
+            metrics_from_sbert_stats,
+        )
+    except Exception as e:
+        print(f"[Eval][Task2 SBERT] import failed, skip: {e}")
+        return metrics
+
+    ref = en_gt_ref or DEFAULT_TASK2_EN_GT_REF
+    if language == "zh" and (not ref or not os.path.exists(ref)):
+        print(
+            f"[Eval][Task2 SBERT] WARNING: EN GT ref missing ({ref}); "
+            "will fall back to rule-translated Chinese GT."
+        )
+
+    try:
+        # Free VLM GPU memory before loading SBERT when scoring on the same device.
+        if isinstance(sbert_device, str) and sbert_device.startswith("cuda"):
+            try:
+                import gc
+
+                gc.collect()
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
+            except Exception:
+                pass
+
+        stats = augment_results_with_sbert(
+            results,
+            en_gt_ref=Path(ref) if ref else None,
+            sbert_model=sbert_model or DEFAULT_TASK2_SBERT_MODEL,
+            device=sbert_device,
+            language=language,
+            require_aligned_gt=False,
+            log_prefix="Eval/Task2 SBERT",
+        )
+        if stats.get("skipped"):
+            return metrics
+        metrics.update(metrics_from_sbert_stats(stats))
+
+        results_file = os.path.join(output_dir, "results.json")
+        metrics_file = os.path.join(output_dir, "metrics.json")
+        with open(results_file, "w", encoding="utf-8") as f:
+            json.dump(results, f, ensure_ascii=False, indent=2)
+        with open(metrics_file, "w", encoding="utf-8") as f:
+            json.dump(metrics, f, ensure_ascii=False, indent=2)
+        print(
+            f"[Eval][Task2 SBERT] mean={metrics.get('type2_mean_sbert', 0):.4f} "
+            f"(n={metrics.get('type2_sbert_n', 0)}) → {metrics_file}"
+        )
+    except Exception as e:
+        print(f"[Eval][Task2 SBERT] failed, keep BLEU/ROUGE only: {e}")
+        import traceback
+
+        traceback.print_exc()
+    return metrics
 
 # ---------------- 语言相关：Type3/4/5 候选类别集合 ----------------
 # 说明：最终指标表的类别名要求“英文原样”，所以这里按 language 分开维护
@@ -640,7 +729,7 @@ def maybe_enable_hierarchical_fusion(model, enabled: bool = False, num_heads: in
     extractor.use_hierarchical_fusion = True
     extractor.hierarchical_num_heads = int(num_heads)
     fusion_mode = str(fusion_mode).strip().lower()
-    if fusion_mode not in ("legacy", "task_adaptive", "gated"):
+    if fusion_mode not in ("legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"):
         fusion_mode = "legacy"
     extractor.hierarchical_fusion_mode = fusion_mode
 
@@ -802,6 +891,10 @@ def evaluate_model(
     save_every_n_samples: int = 1000,
     run_title: str = None,
     max_samples: int = 0,
+    compute_task2_sbert: bool = True,
+    task2_en_gt_ref: Optional[str] = None,
+    task2_sbert_model: Optional[str] = None,
+    task2_sbert_device: Optional[str] = None,
 ):
     if run_title is None:
         run_title = "阶段2 多任务评估汇总（任务 0,1,2,3,4,5）"
@@ -1117,6 +1210,19 @@ def evaluate_model(
     # 汇总指标并最终落盘
     metrics = _save_progress(output_dir, results, task_metrics, task_counts, hier_gate_samples=hier_gate_samples)
 
+    # Type2 SBERT（英文对齐管线）：在 VLM 推理结束后补算并写回 metrics/results
+    sbert_dev = task2_sbert_device or device
+    metrics = _compute_and_attach_task2_sbert(
+        results,
+        metrics,
+        language=language,
+        enabled=bool(compute_task2_sbert),
+        en_gt_ref=task2_en_gt_ref,
+        sbert_model=task2_sbert_model or DEFAULT_TASK2_SBERT_MODEL,
+        sbert_device=sbert_dev,
+        output_dir=output_dir,
+    )
+
     # 打印
     print("\n" + "=" * 60)
     print(run_title)
@@ -1185,6 +1291,13 @@ def evaluate_model(
         print(f"  Mean ROUGE-L: {metrics.get('type2_mean_rouge_l', 0):.4f}")
         print(f"  Mean ROUGE-1: {metrics.get('type2_mean_rouge_1', 0):.4f}")
         print(f"  Mean ROUGE-2: {metrics.get('type2_mean_rouge_2', 0):.4f}")
+        if "type2_mean_sbert" in metrics:
+            print(
+                f"  Mean SBERT:   {metrics.get('type2_mean_sbert', 0):.4f} "
+                f"(rule_gt={metrics.get('type2_mean_sbert_rule_gt', 0):.4f}, "
+                f"n={metrics.get('type2_sbert_n', 0)}, "
+                f"model={metrics.get('type2_sbert_model', '')})"
+            )
 
     if task_metrics["type4"]:
         print("\nType4 (来源分类) 指标:")
@@ -1268,7 +1381,7 @@ def main():
     parser.add_argument("--language", type=str, default="zh", choices=["zh", "en"], help="约束文案语言，与训练时一致")
     parser.add_argument("--use_hierarchical_fusion", action="store_true", help="启用层级注意力融合（HFRE增强）")
     parser.add_argument("--hierarchical_num_heads", type=int, default=8, help="层级注意力头数")
-    parser.add_argument("--hierarchical_fusion_mode", type=str, default="legacy", choices=["legacy", "task_adaptive", "gated"], help="层级融合模式")
+    parser.add_argument("--hierarchical_fusion_mode", type=str, default="legacy", choices=["legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"], help="层级融合模式")
     parser.add_argument("--save_hierarchical_attn_dir", type=str, default=None, help="保存层级注意力热力图目录")
     parser.add_argument("--save_hierarchical_attn_every", type=int, default=0, help="每 N 个样本保存一次层级注意力图，0 关闭")
     parser.add_argument("--save_hierarchical_attn_per_task_max", type=int, default=10, help="每个 task_id 随机导出注意力图上限")
@@ -1281,6 +1394,30 @@ def main():
         type=int,
         default=0,
         help="最多评估的样本条数（按 dataset 下标顺序）；0 表示不限制，跑全量",
+    )
+    parser.add_argument(
+        "--compute_task2_sbert",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="评估结束后对 type2 计算英文管线 SBERT（默认开启；--no-compute_task2_sbert 关闭）",
+    )
+    parser.add_argument(
+        "--task2_en_gt_ref",
+        type=str,
+        default=DEFAULT_TASK2_EN_GT_REF,
+        help="对齐英文 GT（按 sample id），默认 eval_results/en_gt_ref_stage2_cot_val.json",
+    )
+    parser.add_argument(
+        "--task2_sbert_model",
+        type=str,
+        default=DEFAULT_TASK2_SBERT_MODEL,
+        help="SBERT 模型名或本地路径",
+    )
+    parser.add_argument(
+        "--task2_sbert_device",
+        type=str,
+        default=None,
+        help="SBERT 设备（默认与 --device 相同；VLM 占满显存时可设为 cpu）",
     )
     args = parser.parse_args()
     selected_task_ids = _parse_task_ids_csv(args.task_ids)
@@ -1361,6 +1498,10 @@ def main():
         save_every_n_samples=args.save_every_n_samples,
         run_title="阶段2 多任务评估汇总（任务 0,1,2,3,4,5）",
         max_samples=args.max_samples,
+        compute_task2_sbert=args.compute_task2_sbert,
+        task2_en_gt_ref=args.task2_en_gt_ref,
+        task2_sbert_model=args.task2_sbert_model,
+        task2_sbert_device=args.task2_sbert_device,
     )
     print(f"\n评估完成，结果保存在: {args.output_dir}")
 

@@ -695,7 +695,7 @@ def maybe_enable_hierarchical_fusion(model, enabled: bool = False, num_heads: in
     extractor.use_hierarchical_fusion = True
     extractor.hierarchical_num_heads = int(num_heads)
     fusion_mode = str(fusion_mode).strip().lower()
-    if fusion_mode not in ("legacy", "task_adaptive"):
+    if fusion_mode not in ("legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"):
         fusion_mode = "legacy"
     extractor.hierarchical_fusion_mode = fusion_mode
     if not hasattr(extractor, "hierarchical_fusion"):
@@ -1228,7 +1228,7 @@ def main():
     parser.add_argument("--language", type=str, default="zh", choices=["zh", "en"], help="约束文案语言，与训练时一致")
     parser.add_argument("--use_hierarchical_fusion", action="store_true", help="启用层级注意力融合（HFRE增强）")
     parser.add_argument("--hierarchical_num_heads", type=int, default=8, help="层级注意力头数")
-    parser.add_argument("--hierarchical_fusion_mode", type=str, default="legacy", choices=["legacy", "task_adaptive"], help="层级融合模式")
+    parser.add_argument("--hierarchical_fusion_mode", type=str, default="legacy", choices=["legacy", "task_adaptive", "softmax_gate", "gated", "mean", "concat", "weighted"], help="层级融合模式")
     parser.add_argument("--save_hierarchical_attn_dir", type=str, default=None, help="保存层级注意力热力图目录")
     parser.add_argument("--save_hierarchical_attn_every", type=int, default=0, help="每 N 个样本保存一次层级注意力图，0 关闭")
     parser.add_argument("--save_hierarchical_attn_per_task_max", type=int, default=10, help="每个 task_id 随机导出注意力图上限")
