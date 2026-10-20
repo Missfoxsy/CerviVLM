@@ -12,8 +12,8 @@ model:
   hierarchical_fusion_mode: "softmax_gate"   # Softmax Gate ablation (matched Stage1/Stage2)
 
 data:
-  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_train.json"
-  val_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_val.json"
+  train_json: "/path/to/dataset/stage1_align_train.json"
+  val_json: "/path/to/dataset/stage1_align_val.json"
   image_size: 896
   max_regions: 100
   language: "zh"   # "zh" 中文约束 | "en" 英文约束

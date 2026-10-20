@@ -70,7 +70,7 @@ def main():
     parser.add_argument(
         "--test_json",
         type=str,
-        default="/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_val.json",
+        default="/path/to/dataset/stage1_align_val.json",
         help="Stage1 验证集 JSON（与 train_config_stage1_lora.yaml 中 val_json 对齐）",
     )
     parser.add_argument(

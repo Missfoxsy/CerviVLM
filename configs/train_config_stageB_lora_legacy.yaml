@@ -8,8 +8,8 @@ model:
   hierarchical_fusion_mode: "legacy"   # legacy | task_adaptive | gated | mean | weighted
 
 data:
-  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_train.json"
-  val_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json"
+  train_json: "/path/to/dataset/stage2_cot_train.json"
+  val_json: "/path/to/dataset/stage2_cot_val.json"
   image_size: 896
   max_regions: 100
   path_feature_root: null

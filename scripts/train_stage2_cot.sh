@@ -1,12 +1,12 @@
 #!/bin/bash
 # StageB CoT 推理注入训练（小 LoRA 仅 Attention，冻结 vision/projector/MLP）
 # 用法: bash scripts/train_stage2_cot.sh
-# 指定 GPU: CUDA_VISIBLE_DEVICES=4,5 bash scripts/train_stage2_cot.sh
+# 指定 GPU: CUDA_VISIBLE_DEVICES=0 bash scripts/train_stage2_cot.sh
 
 set -euo pipefail
 
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-"6,7"}
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 if [[ -z "${OMP_NUM_THREADS:-}" || ! "${OMP_NUM_THREADS:-}" =~ ^[0-9]+$ ]]; then
   export OMP_NUM_THREADS=8
 fi

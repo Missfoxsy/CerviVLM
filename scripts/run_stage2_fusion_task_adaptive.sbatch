@@ -11,7 +11,7 @@
 #SBATCH --error=logs/stage2_fusion_ablation/task_adaptive_%j.err
 
 set -eo pipefail
-source /home/shiyu/project/miniconda3/bin/activate covt
+# conda activate cervivlm
 set -u
 
 ROOT_DIR="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"
@@ -19,6 +19,6 @@ cd "${ROOT_DIR}"
 export PYTHONPATH="${ROOT_DIR}:${PYTHONPATH:-}"
 mkdir -p logs/stage2_fusion_ablation
 
-export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-3}"
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
 export FUSION_MODE=task_adaptive
 bash "${ROOT_DIR}/scripts/run_stage2_fusion_ablation.sh"

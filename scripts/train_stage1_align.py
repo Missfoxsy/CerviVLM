@@ -4,8 +4,8 @@
 VLM-FO1 宫颈细胞 Stage-1 对齐训练脚本（不使用 path_feature）
 
 数据集：
-- 训练集: /home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_train.json
-- 验证集: /home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_val.json
+- 训练集: data/stage1/stage1_align_train.json
+- 验证集: data/stage1/stage1_align_val.json
 
 任务：
 - task_id = 0：定位阴性宫颈细胞（带 <ground>/<objects>/<regionX>）

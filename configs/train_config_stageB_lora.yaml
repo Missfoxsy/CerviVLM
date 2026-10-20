@@ -11,8 +11,8 @@ model:
   hierarchical_fusion_mode: "task_adaptive"   # legacy | task_adaptive | gated | mean | weighted
 
 data:
-  train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_train.json"
-  val_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json"
+  train_json: "/path/to/dataset/stage2_cot_train.json"
+  val_json: "/path/to/dataset/stage2_cot_val.json"
   image_size: 896
   max_regions: 100
   path_feature_root: null
@@ -21,7 +21,7 @@ data:
   # 混合 StageA 数据（缓解遗忘）
   # mix_stageA_data: true
   # stageA_data_ratio: 0.3
-  # stageA_train_json: "/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_train.json"
+  # stageA_train_json: "/path/to/dataset/stage1_align_train.json"
 
 training:
   phase: "cot_injection"

@@ -1373,7 +1373,7 @@ def main():
     parser = argparse.ArgumentParser(description="阶段2 多任务评估（任务 0,1,2,4,5）")
     parser.add_argument("--base_model", type=str, default="outputs/cervical_PAfull_A_fusion", help="基础模型路径")
     parser.add_argument("--checkpoint", type=str, default="outputs/cervical_PAfull_B_fusion", help="Stage2 checkpoint")
-    parser.add_argument("--test_json", type=str, default="/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/final/stage2_val.json", help="测试集 JSON")
+    parser.add_argument("--test_json", type=str, default="data/vlm_fo1_data/dataset/final/stage2_val.json", help="测试集 JSON")
     parser.add_argument("--output_dir", type=str, default="eval_result/stage2_01245", help="结果输出目录")
     parser.add_argument("--device", type=str, default="cuda")
     parser.add_argument("--path_feature_root", type=str, default=None, help="病理特征目录，None 表示不使用")

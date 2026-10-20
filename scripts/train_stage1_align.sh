@@ -7,7 +7,7 @@ set -euo pipefail
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
 
 # 默认使用 1–4 张 GPU，可根据需要调整
-export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-"7"}
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 
 # Distributed training configuration
 MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}

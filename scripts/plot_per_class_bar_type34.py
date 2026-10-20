@@ -183,7 +183,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--val_json",
-        default="/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json",
+        default="/path/to/dataset/stage2_cot_val.json",
         help="验证集 JSON（提供 GT 标签，与评估顺序对齐）",
     )
     parser.add_argument(

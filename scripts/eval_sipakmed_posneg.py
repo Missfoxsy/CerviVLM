@@ -51,7 +51,7 @@ SIPAKMED_SOURCE_ALIASES = [
 ]
 
 DEFAULT_DATA_JSON = (
-    "/home/nas3/biod/shiyu/data/data_vl_20260115/SIPakMed/sipakmed_source_dialog.json"
+    "/path/to/dataset/sipakmed_source_dialog.json"
 )
 
 

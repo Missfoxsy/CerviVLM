@@ -13,7 +13,7 @@
 set -eo pipefail
 
 # 1) env
-source /home/shiyu/project/miniconda3/bin/activate covt
+# conda activate cervivlm
 set -u
 
 # 2) repo root (MedPLIB)
@@ -23,17 +23,17 @@ export PYTHONPATH="${ROOT_DIR}:${PYTHONPATH:-}"
 mkdir -p "${ROOT_DIR}/logs"
 
 # 3) config (override via sbatch --export)
-VERSION="${VERSION:-/project/shiyu/VLMprojects/VLMprojects/LLaVA/checkpoints/llava-v1.5-7b}"
-VISION_TOWER="${VISION_TOWER:-/project/shiyu/VLMprojects/VLMprojects/LLaVA/checkpoints/clip-vit-large-patch14-336}"
-VISION_PRETRAINED="${VISION_PRETRAINED:-/project/shiyu/VLMprojects/VLMprojects/MedPLIB/checkpoints/sam-med2d_b.pth}"
+VERSION="${VERSION:-/path/to/"
+VISION_TOWER="${VISION_TOWER:-/path/to/"
+VISION_PRETRAINED="${VISION_PRETRAINED:-/path/to/"
 PRETRAIN_MM_MLP_ADAPTER="${PRETRAIN_MM_MLP_ADAPTER:-}"
 
-TRAIN_JSON="${TRAIN_JSON:-/project/shiyu/VLMprojects/VLMprojects/data/stage2_cot_train_en_llava_coords.json}"
-VAL_JSON="${VAL_JSON:-/project/shiyu/VLMprojects/VLMprojects/data/stage2_cot_val_en_llava_coords.json}"
-IMAGE_FOLDER="${IMAGE_FOLDER:-/project/shiyu/data/data_vl_20260115/img}"
+TRAIN_JSON="${TRAIN_JSON:-/path/to/"
+VAL_JSON="${VAL_JSON:-/path/to/"
+IMAGE_FOLDER="${IMAGE_FOLDER:-data/images}"
 
 EXP_NAME="${EXP_NAME:-medplib-stage2cot}"
-RUN_DIR="${RUN_DIR:-/project/shiyu/VLMprojects/VLMprojects/MedPLIB/runs/${EXP_NAME}}"
+RUN_DIR="${RUN_DIR:-/path/to/"
 EVAL_OUTPUT_DIR="${EVAL_OUTPUT_DIR:-${RUN_DIR}/eval_stage2_cot}"
 ANSWERS_FILE="${ANSWERS_FILE:-${EVAL_OUTPUT_DIR}/predictions.jsonl}"
 

@@ -11,8 +11,8 @@
 #   task_adaptive  — (e) 跨层注意力 + Sigmoid 门控（主模型）
 #
 # 用法：
-#   FUSION_MODE=concat CUDA_VISIBLE_DEVICES=3 bash scripts/run_matched_fusion_ablation.sh
-#   FUSION_MODE=softmax_gate CUDA_VISIBLE_DEVICES=4 bash scripts/run_matched_fusion_ablation.sh
+#   FUSION_MODE=concat CUDA_VISIBLE_DEVICES=0 bash scripts/run_matched_fusion_ablation.sh
+#   FUSION_MODE=softmax_gate CUDA_VISIBLE_DEVICES=0 bash scripts/run_matched_fusion_ablation.sh
 #   START_FROM=stage2 FUSION_MODE=mean bash scripts/run_matched_fusion_ablation.sh
 #   START_FROM=eval   FUSION_MODE=concat bash scripts/run_matched_fusion_ablation.sh
 #
@@ -25,7 +25,7 @@
 set -euo pipefail
 
 export PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-"expandable_segments:True"}
-export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-"0"}
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 if [[ -z "${OMP_NUM_THREADS:-}" || ! "${OMP_NUM_THREADS:-}" =~ ^[0-9]+$ ]]; then
   export OMP_NUM_THREADS=8
 fi
@@ -46,8 +46,8 @@ MASTER_PORT_STAGE2=${MASTER_PORT_STAGE2:-$(shuf -i 25000-29999 -n 1)}
 NPROC_STAGE1=${NPROC_STAGE1:-1}
 NPROC_STAGE2=${NPROC_STAGE2:-1}
 
-EVAL_JSON=${EVAL_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json"}
-ORIGIN_JSON=${ORIGIN_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/origin_data/data_vl_20260115_val.json"}
+EVAL_JSON=${EVAL_JSON:-"data/stage2/stage2_cot_val.json"}
+ORIGIN_JSON=${ORIGIN_JSON:-"/path/to/dataset/origin_val.json"}
 EVAL_DEVICE=${EVAL_DEVICE:-"cuda"}
 EVAL_LANGUAGE=${EVAL_LANGUAGE:-"zh"}
 

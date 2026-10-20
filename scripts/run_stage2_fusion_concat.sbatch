@@ -11,7 +11,7 @@
 #SBATCH --error=logs/stage2_fusion_ablation/matched_concat_%j.err
 
 set -eo pipefail
-source /home/shiyu/project/miniconda3/bin/activate covt
+source "$(conda info --base)/etc/profile.d/conda.sh" && conda activate <ENV_NAME>
 set -u
 
 ROOT_DIR="${SLURM_SUBMIT_DIR:-$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)}"

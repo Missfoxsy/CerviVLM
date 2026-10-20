@@ -21,7 +21,7 @@
 set -euo pipefail
 
 export PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-"expandable_segments:True"}
-export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-"4"}
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 if [[ -z "${OMP_NUM_THREADS:-}" || ! "${OMP_NUM_THREADS:-}" =~ ^[0-9]+$ ]]; then
   export OMP_NUM_THREADS=8
 fi
@@ -34,8 +34,8 @@ NPROC_STAGE1=${NPROC_STAGE1:-1}
 MASTER_ADDR=${MASTER_ADDR:-"127.0.0.1"}
 MASTER_PORT_STAGE1=${MASTER_PORT_STAGE1:-$(shuf -i 20000-24999 -n 1)}
 
-STAGE1_EVAL_TEST_JSON=${STAGE1_EVAL_TEST_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_val.json"}
-ORIGIN_JSON=${ORIGIN_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/origin_data/data_vl_20260115_val.json"}
+STAGE1_EVAL_TEST_JSON=${STAGE1_EVAL_TEST_JSON:-"/path/to/dataset/stage1_align_val.json"}
+ORIGIN_JSON=${ORIGIN_JSON:-"/path/to/dataset/origin_val.json"}
 EVAL_ROOT=${EVAL_ROOT:-"eval_result/stage1_fpn_ablation"}
 EVAL_DEVICE=${EVAL_DEVICE:-"cuda"}
 EVAL_LANGUAGE=${EVAL_LANGUAGE:-"zh"}

@@ -7,7 +7,7 @@ set -euo pipefail
 #   bash scripts/eval_stage1_align.sh <CKPT_DIR> <TEST_JSON> <OUTPUT_DIR> <TASK_IDS>
 
 export PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-"expandable_segments:True"}
-export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-"0"}
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 # 无 flash-attn 时默认走 PyTorch SDPA，避免 FlashAttention2 报错
 export VLM_FO1_ATTN_IMPLEMENTATION=${VLM_FO1_ATTN_IMPLEMENTATION:-"sdpa"}
 
@@ -21,7 +21,7 @@ ENTRY_FILE="scripts/eval_stage1_align.py"
 # 1) Stage1 checkpoint 目录（需含 adapter_config.json + adapter_model.safetensors）
 CKPT_DIR="${1:-outputs/stage1_layerGated_sigmoid/checkpoint-1000}"
 # 2) Stage1 验证集
-TEST_JSON="${2:-/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_val.json}"
+TEST_JSON="${2:-/path/to/dataset/stage1_align_val.json}"
 # 3) 输出目录
 OUTPUT_DIR="${3:-eval_result/stage1_layerGated_sigmoid_ckpt1000}"
 # 4) 评估任务（仅 0,1,2）

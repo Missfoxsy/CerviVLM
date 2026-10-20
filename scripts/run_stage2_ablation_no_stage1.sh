@@ -13,7 +13,7 @@
 #   bash scripts/run_stage2_ablation_no_stage1.sh
 #
 # 多卡 Stage2：
-#   CUDA_VISIBLE_DEVICES=0,1 NPROC_STAGE2=2 bash scripts/run_stage2_ablation_no_stage1.sh
+#   CUDA_VISIBLE_DEVICES=0 NPROC_STAGE2=2 bash scripts/run_stage2_ablation_no_stage1.sh
 #
 # 从头训练（不续训）：
 #   RESUME_TRAINING=0 bash scripts/run_stage2_ablation_no_stage1.sh
@@ -24,7 +24,7 @@
 set -euo pipefail
 
 export PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-"expandable_segments:True"}
-export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-"4,6"}
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 if [[ -z "${OMP_NUM_THREADS:-}" || ! "${OMP_NUM_THREADS:-}" =~ ^[0-9]+$ ]]; then
   export OMP_NUM_THREADS=8
 fi
@@ -45,8 +45,8 @@ STAGE2_OUTPUT_DIR=${STAGE2_OUTPUT_DIR:-"outputs/stage2_no_stage1_ablation"}
 
 EVAL_BASE_MODEL=${EVAL_BASE_MODEL:-"${VLM_FO1_BASE}"}
 EVAL_CHECKPOINT=${EVAL_CHECKPOINT:-"${STAGE2_OUTPUT_DIR}"}
-EVAL_JSON=${EVAL_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json"}
-ORIGIN_JSON=${ORIGIN_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/origin_data/data_vl_20260115_val.json"}
+EVAL_JSON=${EVAL_JSON:-"/path/to/dataset/stage2_cot_val.json"}
+ORIGIN_JSON=${ORIGIN_JSON:-"/path/to/dataset/origin_val.json"}
 EVAL_OUTPUT_DIR=${EVAL_OUTPUT_DIR:-"eval_result/stage2_no_stage1_ablation"}
 EVAL_DEVICE=${EVAL_DEVICE:-"cuda"}
 EVAL_LANGUAGE=${EVAL_LANGUAGE:-"zh"}

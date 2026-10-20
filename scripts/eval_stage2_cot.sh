@@ -5,19 +5,19 @@
 set -euo pipefail
 
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
-# 使用指定卡示例: CUDA_VISIBLE_DEVICES=5 bash scripts/eval_stage2_cot.sh
-export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-"6"}
+# 使用指定卡示例: CUDA_VISIBLE_DEVICES=0 bash scripts/eval_stage2_cot.sh
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 
 ENTRY_FILE="scripts/eval_stage2_cot.py"
 # 参数: $1 基座/合并模型路径  $2 Stage2 checkpoint  $3 测试 JSON  $4 输出目录
 BASE_MODEL="${1:-outputs/stage1_layerGated_taskAdaptive}"
 CHECKPOINT="${2:-outputs/stage2_layerGated_taskAdaptive}"
-TEST_JSON="${3:-/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json}"
-OUTPUT_DIR="${4:-eval_result/gate_01delete}"
+TEST_JSON="${3:-/path/to/dataset/stage2_cot_val.json}"
+OUTPUT_DIR="${4:-eval_result/stage2_layerGated_taskAdaptive}"
 # 可选第 5 个参数：约束语言 zh | en（与训练 CervicalDataset.language 一致）
 LANGUAGE="${5:-${LANGUAGE:-zh}}"
 # 原始数据集（用于 task0/1 的 GT bbox）；可用环境变量覆盖
-ORIGIN_JSON="${ORIGIN_JSON:-/home/nas3/biod/shiyu/data/data_vl_20260115/origin_data/data_vl_20260115_val.json}"
+ORIGIN_JSON="${ORIGIN_JSON:-/path/to/dataset/origin_val.json}"
 # 中间结果保存间隔
 SAVE_EVERY_N_SAMPLES="${SAVE_EVERY_N_SAMPLES:-1000}"
 # 仅跑前 N 条样本（0 或不设=全量）；与 TASK_IDS 叠加

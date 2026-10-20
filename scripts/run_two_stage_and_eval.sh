@@ -14,7 +14,7 @@
 # 从头训练请设：RESUME_TRAINING=0
 #
 # 多卡 Stage2：显式指定进程数与可见 GPU，例如 2 卡 DDP：
-#   CUDA_VISIBLE_DEVICES=0,1 NPROC_STAGE2=2 START_FROM=stage2 bash scripts/run_two_stage_and_eval.sh
+#   CUDA_VISIBLE_DEVICES=0 NPROC_STAGE2=2 START_FROM=stage2 bash scripts/run_two_stage_and_eval.sh
 #
 # 注意：NPROC_STAGE2 必须 <= CUDA_VISIBLE_DEVICES 中可见 GPU 数量；默认 NPROC_STAGE2=1
 #       避免 torchrun 多进程挤在同一张卡上导致 OOM。
@@ -22,7 +22,7 @@
 set -euo pipefail
 
 export PYTORCH_CUDA_ALLOC_CONF=${PYTORCH_CUDA_ALLOC_CONF:-"expandable_segments:True"}
-export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-"6"}
+export CUDA_VISIBLE_DEVICES=${CUDA_VISIBLE_DEVICES:-0}
 # OMP 在部分超算环境会被注入非法值（如空串/非数字），会触发 libgomp 报错
 if [[ -z "${OMP_NUM_THREADS:-}" || ! "${OMP_NUM_THREADS:-}" =~ ^[0-9]+$ ]]; then
   export OMP_NUM_THREADS=8
@@ -49,7 +49,7 @@ STAGE2_CONFIG=${STAGE2_CONFIG:-"configs/train_config_stageB_lora.yaml"}
 # Stage1 输出目录（需与 STAGE1_CONFIG 内 training.output_dir 一致，供 Stage1 评估与 Stage2 的 EVAL_BASE_MODEL 使用）
 STAGE1_OUTPUT_DIR=${STAGE1_OUTPUT_DIR:-"outputs/stage1_layerGated_taskAdaptive"}
 # Stage1 验证集与评估输出（默认与 configs/train_config_stage1_lora.yaml 中 val_json 对齐）
-STAGE1_EVAL_TEST_JSON=${STAGE1_EVAL_TEST_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/cot/stage1_align_val.json"}
+STAGE1_EVAL_TEST_JSON=${STAGE1_EVAL_TEST_JSON:-"/path/to/dataset/stage1_align_val.json"}
 STAGE1_EVAL_OUTPUT_DIR=${STAGE1_EVAL_OUTPUT_DIR:-"eval_result/stage1_layerGated_taskAdaptive"}
 # 可选：Stage1 评估时导出层级注意力图目录（空则关闭）
 STAGE1_SAVE_HIER_ATTN_DIR=${STAGE1_SAVE_HIER_ATTN_DIR:-"attentionMap/stage1_layerGated_taskAdaptive"}
@@ -57,8 +57,8 @@ STAGE1_SAVE_HIER_ATTN_DIR=${STAGE1_SAVE_HIER_ATTN_DIR:-"attentionMap/stage1_laye
 # Stage2 评估时的 base（Stage1 输出 LoRA）；默认与 STAGE1_OUTPUT_DIR 一致
 EVAL_BASE_MODEL=${EVAL_BASE_MODEL:-"${STAGE1_OUTPUT_DIR}"}
 EVAL_CHECKPOINT=${EVAL_CHECKPOINT:-"outputs/stage2_layerGated_taskAdaptive"}
-EVAL_JSON=${EVAL_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/vlm_fo1_data/dataset/balance/stage2_cot_val.json"}
-ORIGIN_JSON=${ORIGIN_JSON:-"/home/nas3/biod/shiyu/data/data_vl_20260115/origin_data/data_vl_20260115_val.json"}
+EVAL_JSON=${EVAL_JSON:-"/path/to/dataset/stage2_cot_val.json"}
+ORIGIN_JSON=${ORIGIN_JSON:-"/path/to/dataset/origin_val.json"}
 EVAL_OUTPUT_DIR=${EVAL_OUTPUT_DIR:-"eval_result/stage2_layerGated_taskAdaptive"}
 EVAL_DEVICE=${EVAL_DEVICE:-"cuda"}
 EVAL_LANGUAGE=${EVAL_LANGUAGE:-"zh"}

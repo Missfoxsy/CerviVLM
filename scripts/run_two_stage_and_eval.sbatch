@@ -12,7 +12,7 @@
 
 set -eo pipefail
 
-source /home/shiyu/project/miniconda3/bin/activate covt
+# conda activate cervivlm
 set -u
 
 
@@ -23,7 +23,7 @@ export PYTHONPATH="${ROOT_DIR}:${PYTHONPATH:-}"
 mkdir -p "${ROOT_DIR}/logs"
 
 # 3) 单机单卡时常用：Slurm 已分配 GPU 0；若多卡请改 #SBATCH --gres 并设置 CUDA_VISIBLE_DEVICES / NPROC_*
-export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-3}"
+export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0}"
 export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:True}"
 # 未安装 flash-attn 或平台不支持时：使用 PyTorch SDPA（默认），勿设 flash_attention_2
 # 本地有 FA2 且需最快推理时可：export VLM_FO1_ATTN_IMPLEMENTATION=flash_attention_2

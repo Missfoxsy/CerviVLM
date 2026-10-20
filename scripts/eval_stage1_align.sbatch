@@ -12,7 +12,7 @@
 
 set -eo pipefail
 
-source /home/shiyu/project/miniconda3/bin/activate covt
+# conda activate cervivlm
 set -u
 
 # 2) 项目根目录（sbatch 在仓库根提交时 SLURM_SUBMIT_DIR 即为根目录）
@@ -27,7 +27,7 @@ export PYTORCH_CUDA_ALLOC_CONF="${PYTORCH_CUDA_ALLOC_CONF:-expandable_segments:T
 export VLM_FO1_ATTN_IMPLEMENTATION="${VLM_FO1_ATTN_IMPLEMENTATION:-sdpa}"
 
 CKPT_DIR="${CKPT_DIR:-outputs/stage1_layerGated_sigmoid/checkpoint-1000}"
-TEST_JSON="${TEST_JSON:-/project/shiyu/data/data_vl_20260115/dataset/stage1_align_val.json}"
+TEST_JSON="${TEST_JSON:-data/stage1_align_val.json}"
 OUTPUT_DIR="${OUTPUT_DIR:-eval_result/stage1_layerGated_sigmoid_ckpt1000}"
 TASK_IDS="${TASK_IDS:-0,1,2}"
 
