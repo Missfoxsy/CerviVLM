@@ -7,46 +7,105 @@ Two-stage LoRA training:
 1. **Stage 1** — domain adaptation (region alignment)
 2. **Stage 2** — CoT multi-task fine-tuning
 
-## Setup
+## Environment
+
+Recommended: conda + Python 3.10, CUDA GPU.
 
 ```bash
+conda create -n cervivlm python=3.10 -y
+conda activate cervivlm
+
+# Install PyTorch matching your CUDA (example: CUDA 12.4)
+pip install torch==2.6.0 torchvision==0.21.0 --index-url https://download.pytorch.org/whl/cu124
+
+# Project dependencies (pin transformers==4.50.1)
 pip install -r requirements.txt
-# Place the VLM-FO1 base checkpoint under:
-#   resources/VLM-FO1_Qwen2.5-VL-3B-v01
+
+# Common extras used by training / LoRA
+pip install peft==0.10.0 deepspeed qwen-vl-utils sentencepiece protobuf pillow opencv-python
 ```
 
-Pin `transformers==4.50.1` (see `requirements.txt`).
+Optional: `flash-attn` can speed up attention; if the wheel fails to build, the code falls back via `utils/flash_attn_compat.py`.
 
-Edit data paths in `configs/*.yaml` (placeholders like `/path/to/dataset/...`).
+Place the VLM-FO1 base checkpoint at:
+
+```text
+resources/VLM-FO1_Qwen2.5-VL-3B-v01
+```
+
+Edit data paths in `configs/*.yaml` (use placeholders such as `/path/to/dataset/...`).
 
 ## Dataset format
 
-Each split is a JSON list. Every sample needs `image`, `regions`, and `conversations`:
+Each split is a **JSON list**. Every sample includes `task_id`, `id`, `image`, `regions`, and `conversations`.
+
+Roles must be `"user"` / `"assistant"`. Each region has `region_id`, `bbox` `[x1, y1, x2, y2]` (absolute pixels), and optional `confidence`.
+
+**Localization example (`task_id=0`):**
 
 ```json
-[
-  {
-    "image": "data/images/xxx.jpg",
-    "regions": [
-      {"bbox": [x1, y1, x2, y2]}
-    ],
-    "conversations": [
-      {"from": "human", "value": "<image>\n<region>\nYour question..."},
-      {"from": "gpt", "value": "Answer..."}
-    ]
-  }
-]
+{
+  "task_id": 0,
+  "id": "identity_4374",
+  "image": "/path/to/images/sample_a.jpg",
+  "regions": [
+    {
+      "region_id": "region0",
+      "bbox": [368.47, 776.83, 584.67, 1023.93],
+      "confidence": 0.61
+    }
+  ],
+  "conversations": [
+    {
+      "from": "user",
+      "value": "<image>\nPlease mark the locations of positive cervical cells in the image."
+    },
+    {
+      "from": "assistant",
+      "value": "<ground>positive cervical cells</ground><objects><region0></objects>"
+    }
+  ]
+}
 ```
 
-- `bbox`: absolute pixel coordinates `[x1, y1, x2, y2]` with `x1 < x2`, `y1 < y2`
-- Stage 1 JSON: localization / region-alignment dialogues
-- Stage 2 JSON: CoT multi-task dialogues (description, classification, diagnosis, etc.)
-- Evaluation may also need an origin JSON with GT boxes for localization metrics; set `ORIGIN_JSON` when running eval
+**Region description example (`task_id=2`):**
 
-Point configs to your files, for example:
+```json
+{
+  "task_id": 2,
+  "id": "identity_10623",
+  "image": "/path/to/images/sample_b.jpg",
+  "regions": [
+    {
+      "region_id": "region0",
+      "bbox": [867.72, 325.73, 1002.81, 453.94],
+      "confidence": 0.26
+    },
+    {
+      "region_id": "region1",
+      "bbox": [287.62, 465.11, 438.91, 657.80],
+      "confidence": 0.25
+    }
+  ],
+  "conversations": [
+    {
+      "from": "user",
+      "value": "<image>\nDescribe the cell in <region0>."
+    },
+    {
+      "from": "assistant",
+      "value": "Positive cervical cell. Type: HSIL. Origin: cervical squamous basal layer. The cell shows enlarged, irregular and dark-stained nuclei."
+    }
+  ]
+}
+```
 
-- `data.train_json` / `data.val_json` in Stage-1 / Stage-2 YAMLs
-- `EVAL_JSON`, `ORIGIN_JSON` env vars for evaluation scripts
+Notes:
+
+- User text should start with `<image>`; region references use `<region0>`, `<region1>`, …
+- Localization answers use `<ground>…</ground><objects><regionk></objects>`
+- Point `data.train_json` / `data.val_json` in the YAMLs to your splits
+- For localization metrics in eval, set `ORIGIN_JSON` (GT boxes) and `EVAL_JSON`
 
 ## Quick start (main pipeline)
 
